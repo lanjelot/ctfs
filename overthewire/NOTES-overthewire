@@ -1,0 +1,31 @@
+
+# krypton: crypto
+krypton2 ROTTEN
+krypton3 CAESARISEASY
+krypton4 BRUTE
+krypton5 CLEARTEXT
+krypton6 RANDOM (one time pad)
+
+# natas: web
+natas9 W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
+natas10 nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu
+
+# leviathan: RE
+leviathan2 ougahZi8Ta
+leviathan3 Ahdiemoo1j
+leviathan4 vuH0coox6m
+leviathan5 Tith4cokei
+leviathan6 UgaoFee4li
+leviathan7 ahy7MaeBo9
+over
+
+# vortex
+vortex1 Gq#qu3bF3
+vortex2 23anbT\rE
+
+# vortex1
+esp
+sizeof esp+4
+ptr esp+0x14
+x   esp+0x18
+buf esp+0x1c

