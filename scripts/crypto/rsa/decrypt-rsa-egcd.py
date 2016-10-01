@@ -1,4 +1,4 @@
-# internetwache-ctf-2016 "weak rsa keys"
+# internetwache-ctf-2016 weak rsa keys
 # RSA decryption by recovering d using egcd
 
 from Crypto.Util.number import bytes_to_long, long_to_bytes

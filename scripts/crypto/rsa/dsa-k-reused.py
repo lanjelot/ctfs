@@ -1,8 +1,8 @@
 # volga-ctf-quals-2016 lazy
 # DSA with k reuse (same r in both provided signatures)
 # we can therefore recover the private key
+
 import socket
-import struct
 import itertools
 import re
 from hashlib import sha1

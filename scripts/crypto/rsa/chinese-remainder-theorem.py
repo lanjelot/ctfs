@@ -1,5 +1,5 @@
-#!/usr/bin/python
 # hack-you-2014 cryptonet 
+
 from scapy.all import *  
 from struct import *  
 import zlib  

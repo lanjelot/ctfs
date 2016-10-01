@@ -59,11 +59,14 @@ if __name__ == '__main__':
     args = parser.parse_args(argv[1:])
     args.ports = map(int, args.ports.split(','))
 
+    npacket = 0
     if args.pcap:
         pcap = rdpcap(args.pcap)
         for p in pcap:
+            npacket += 1
             if filter_http(p):
                 print_http(p)
+        print 'Read %d packets' % npacket
     else:
         print 'Sniffing: %s\nFilter: %s\n' % (args.iface, args.capture_filter)
         sniff(iface=args.iface, filter=args.capture_filter, store=False, promisc=False, lfilter=filter_http, prn=print_http)

@@ -1,5 +1,6 @@
-# twin primes - tokyo western ctf 2016
-# jrm` solution:
+# tokyowestern-ctf-2016 twin primes
+# jrm` solution
+
 from sympy.solvers import solve
 from sympy import *
 

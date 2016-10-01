@@ -1,5 +1,5 @@
+# boston-key-party-2016 bob's hat (layer 3)
 # if q or p is small, then it's easy to factorize n
-# bkp-ctf-2016
 
 import gmpy2
 import sys

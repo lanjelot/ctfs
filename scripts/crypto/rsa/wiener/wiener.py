@@ -1,4 +1,5 @@
-#!/usr/bin/python
+# bctf-2015 warmup
+# https://github.com/pablocelayes/rsa-wiener-attack
 
 import ContinuedFractions, Arithmetic
 import time
@@ -30,6 +31,4 @@ d = wiener(e, n)
 print 'found d: %r' % d
 
 m = pow(c, d, n)
-
-print 'success'
 print 'm: %d %s' % (m, ('%x' % m).decode('hex'))
