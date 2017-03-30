@@ -112,6 +112,6 @@ if __name__ == '__main__':
   print 'found d: 0x%x' % d
 
   m = pow(c, d, N)
-  print 'msg: %d %s' % (m, ('%x' % m).decode('hex'))
+  print 'msg: %d %r' % (m, ('%x' % m).decode('hex'))
 
 # vim: ts=2 sw=2 sts=2 et fdm=marker bg=dark

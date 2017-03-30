@@ -34,6 +34,13 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def send_head(self):
 
         path = self.translate_path(self.path)
+
+        if path.endswith('wh'):
+            self.send_response(302)
+            self.send_header('Location', '/index.html')
+            self.end_headers()
+            return
+
         if os.path.isdir(path):
             path = 'index.html'
 

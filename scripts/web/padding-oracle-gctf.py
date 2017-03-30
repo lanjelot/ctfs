@@ -10,6 +10,18 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 import socket
 import time
 
+from cookielib import DefaultCookiePolicy
+class CustomCookiePolicy(DefaultCookiePolicy):
+  def __init__(self, accepted_cookies):
+    self.accepted_cookies = accepted_cookies
+    DefaultCookiePolicy.__init__(self)
+
+  def set_ok(self, cookie, request):
+    if cookie.name in self.accepted_cookies:
+      return DefaultCookiePolicy.set_ok(self, cookie, request)
+    else:
+      return False
+
 PROXIES = {}#'http': 'http://127.0.0.1:8082', 'https': 'http://127.0.0.1:8082'}
 
 class PadBuster(PaddingOracle):
@@ -18,16 +30,17 @@ class PadBuster(PaddingOracle):
         self.session = requests.Session()
         self.session.proxies = PROXIES
         self.session.verify = False
-        self.wait = kwargs.get('wait', 2.0)
+        self.session.cookies.set_policy(CustomCookiePolicy([]))
 
     def oracle(self, data, **kwargs):
         ct = str(data).encode('hex')
-        print 'Testing %s' % ct
+        logging.info('Testing %s' % ct)
+
         url = 'https://wolf-spider.ctfcompetition.com/qwerty'
         cookies = {'UID': 'b6fa37b734fe0fe603ea8f6c326bf4d92abda1c1.' + ct}
 
         r = self.session.get(url, cookies=cookies)
-        print '%s %d %d %s' % (ct.encode('hex'), r.status_code, len(str(r.headers)), len(r.text))
+        logging.info('%s %d %d %d %.3f' % (ct.encode('hex'), r.status_code, len(str(r.headers)), len(r.content), r.elapsed.total_seconds()))
         
         if r.status_code == 500:
             raise BadPaddingException
@@ -37,9 +50,8 @@ class PadBuster(PaddingOracle):
 if __name__ == '__main__':
   import logging
   import sys
-  import re
   
-  logging.basicConfig(level=logging.DEBUG)
+  logging.basicConfig(format='%(threadName)s %(levelname)7s - %(message)s', level=logging.DEBUG)
   logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.ERROR)
   
   padbuster = PadBuster()
