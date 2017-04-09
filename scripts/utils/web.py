@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from sys import argv
+import sys
 import BaseHTTPServer, SimpleHTTPServer
 import ssl
 import cgi
@@ -30,6 +30,16 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         logger.info(trace, extra={'source_ip': self.client_address[0]})
         return r
+
+    def log_message(self, format, *args):
+        sys.stderr.write("%s - - [%s] %s\n" %
+                         (self.client_address[0],
+                          self.log_date_time_string(),
+                          format%args))
+
+        #if '?' in self.path:
+        #    query = self.path.split('?', 1)[1]
+        #    sys.stderr.write("%s" % query.decode('base64'))
 
     def send_head(self):
 
@@ -86,22 +96,22 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         pass
 
 if __name__ == '__main__':
-  https = False
-  port = 1234
+    https = False
+    port = 1234
 
-  if len(argv) == 2:
-    if '43' in argv[1]:
-      https = True
-      port = int(argv[1])
+    if len(sys.argv) == 2:
+        if '43' in sys.argv[1]:
+            https = True
+            port = int(sys.argv[1])
+        else:
+            port = int(sys.argv[1])
+
+    if https:
+        print 'HTTPs on *:%d' % port
+        httpd = BaseHTTPServer.HTTPServer(('', port), MyHTTPHandler)
+        httpd.socket = ssl.wrap_socket (httpd.socket, certfile='/home/seb/code/ssl-certs/certkey.pem', server_side=True)
+        httpd.serve_forever()
+
     else:
-      port = int(argv[1])
-
-  if https:
-    print 'HTTPs on *:%d' % port
-    httpd = BaseHTTPServer.HTTPServer(('', port), MyHTTPHandler)
-    httpd.socket = ssl.wrap_socket (httpd.socket, certfile='/home/seb/code/ssl-certs/certkey.pem', server_side=True)
-    httpd.serve_forever()
-
-  else:
-    BaseHTTPServer.test(MyHTTPHandler, BaseHTTPServer.HTTPServer)
+        BaseHTTPServer.test(MyHTTPHandler, BaseHTTPServer.HTTPServer)
 

@@ -1,5 +1,5 @@
 # google-ctf-2016 wolf spider
-from paddingoracle import BadPaddingException, PaddingOracle
+from paddingoracle import PaddingException, PaddingOracle
 from base64 import b64encode, b64decode
 from urllib import quote, unquote
 
@@ -12,15 +12,15 @@ import time
 
 from cookielib import DefaultCookiePolicy
 class CustomCookiePolicy(DefaultCookiePolicy):
-  def __init__(self, accepted_cookies):
-    self.accepted_cookies = accepted_cookies
-    DefaultCookiePolicy.__init__(self)
+    def __init__(self, accepted_cookies):
+        self.accepted_cookies = accepted_cookies
+        DefaultCookiePolicy.__init__(self)
 
-  def set_ok(self, cookie, request):
-    if cookie.name in self.accepted_cookies:
-      return DefaultCookiePolicy.set_ok(self, cookie, request)
-    else:
-      return False
+    def set_ok(self, cookie, request):
+        if cookie.name in self.accepted_cookies:
+            return DefaultCookiePolicy.set_ok(self, cookie, request)
+        else:
+            return False
 
 PROXIES = {}#'http': 'http://127.0.0.1:8082', 'https': 'http://127.0.0.1:8082'}
 
@@ -48,28 +48,26 @@ class PadBuster(PaddingOracle):
             return
 
 if __name__ == '__main__':
-  import logging
-  import sys
-  
-  logging.basicConfig(format='%(threadName)s %(levelname)7s - %(message)s', level=logging.DEBUG)
-  logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.ERROR)
-  
-  padbuster = PadBuster()
+    import logging
+    import sys
 
-  if sys.argv[1] == 'encrypt':
+    logging.basicConfig(format='%(threadName)s %(levelname)7s - %(message)s', level=logging.DEBUG)
+    logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.ERROR)
 
-    payload = '757365726e616d653d70696d707380000000000000000000000000000000017026757365726e616d653d61646d696e'.decode('hex')
+    padbuster = PadBuster()
 
-    iv = '3a57f1a4662f38f0d64552571bdd6850'.decode('hex')
-    encrypted = padbuster.encrypt(payload, block_size=16)
-    print 'encrypted: %r' % encrypted
+    if sys.argv[1] == 'encrypt':
 
-  else:
-    #original_cipher = b64decode(b64decode(sys.argv[1]).split('=', 1)[1])
-    ct = '3a57f1a4662f38f0d64552571bdd68506dd90a8056a979b1278eae82a8ad42f1'
-    print('Original cipher: %r' % ct)
-  
-    pt = padbuster.decrypt(ct[32:].decode('hex'), block_size=16, iv=ct[:32].decode('hex'))
-    print('Decrypted cipher: %r' % pt)
+        payload = '757365726e616d653d70696d707380000000000000000000000000000000017026757365726e616d653d61646d696e'.decode('hex')
 
-# vim: ts=2 sw=2 sts=2 et fdm=marker
+        iv = '3a57f1a4662f38f0d64552571bdd6850'.decode('hex')
+        encrypted = padbuster.encrypt(payload, block_size=16)
+        print 'encrypted: %r' % encrypted
+
+    else:
+        #original_cipher = b64decode(b64decode(sys.argv[1]).split('=', 1)[1])
+        ct = '3a57f1a4662f38f0d64552571bdd68506dd90a8056a979b1278eae82a8ad42f1'
+        print('Original cipher: %r' % ct)
+
+        pt = padbuster.decrypt(ct[32:].decode('hex'), block_size=16, iv=ct[:32].decode('hex'))
+        print('Decrypted cipher: %r' % pt)
