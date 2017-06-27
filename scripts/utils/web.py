@@ -37,9 +37,11 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
                           self.log_date_time_string(),
                           format%args))
 
-        #if '?' in self.path:
-        #    query = self.path.split('?', 1)[1]
-        #    sys.stderr.write("%s" % query.decode('base64'))
+        if '?' in self.path:
+            import zlib
+            query = self.path.split('?', 1)[1]
+            sys.stderr.write("%s" % zlib.decompress(query.decode('base64'), -zlib.MAX_WBITS))
+            #sys.stderr.write("%s" % query.decode('base64'))
 
     def send_head(self):
 

@@ -12,15 +12,13 @@ https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-so
 https://backdoor.sdslabs.co/challenges
 
 # general notes
-for csaw challs & writeups of all past CTFs: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
-has all writeups for ndh and volgactf: http://sigint.ru/writeups/
+csaw challs & writeups of all past CTFs: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
+ndh and volgactf all writeups: http://sigint.ru/writeups/
 
 # gone over (skipped pwn & reverse tasks) {{{
 * pico-ctf-2013
 * boston-key-party-2014
 * codegate-preliminary-2014
-a lot of reverse tasks and pwnables only 1 forensic and 1 web
-minibomb to redo (rop pas compris)
 * confidence-ds-ctf-teaser-2014
 * d-ctf-2014
 * asis-ctf-quals-2014
@@ -46,8 +44,7 @@ minibomb to redo (rop pas compris)
 * 9447-ctf-2015 (ffmpeg 0day https://news.ycombinator.com/item?id=10893301 http://seclists.org/oss-sec/2016/q1/91)
 * asis-finals-ctf-2015
 * asis-quals-ctf-2015
-* backdoor-ctf-2015
-javascript and clojure sandbox escapes
+* backdoor-ctf-2015 javascript and clojure sandbox escapes
 * bctf-2015
 * boston-key-party-2015
 * breakin-ctf-2015
@@ -106,8 +103,40 @@ javascript and clojure sandbox escapes
 * csaw-ctf-2016-quals
 * ctfx-2016
 * cyber-security-challenge-belgium-2016-qualifiers
+* def-con-ctf-qualifiers-2016 skipped
+* defcamp-2016
+* ectf-2016
+* ekoparty-ctf-2016
+* google-ctf-2016
+* h4ckit-ctf-2016
+* hack-the-vote-ctf-2016
+* hack.lu-ctf-2016
+* hackover-ctf-2016
+* hitb-ctf-amsterdam-2016
+* hitcon-ctf-quals-2016
+* icectf-2016
+* insomnihack-ctf-2016
+* insomnihack-teaser-2016
+* mma-ctf-2nd-2016
+* nuitduhack-quals-2016
+* nullcon-hackim-2016
+* open-ctf-2016
+* pentest-cyprus-2
+* plaidctf-2016
+* pwn2win-ctf-2016
+* sctf-2016-q1
+* seccon-ctf-quals-2016
+* secuinside-ctf-quals-2016
+* securinets-ctf-quals-2016
+* security-fest-2016
+* sharif-ctf-2016
+* ssctf-2016
+* su-ctf-2016
+* teaser-confidence-ctf-2016
+* tjctf-2016
+* tu-ctf-2016
+* tum-ctf-2016
 
-* ndh-quals-2016
 
 # }}}
 
@@ -128,10 +157,11 @@ BalalaikaCr3w https://ctfcrew.org/
 Fourchette Bombe https://github.com/JulesDT http://0xecute.com/
 khack40 http://khack40.info/
 Raccoons https://github.com/raccoons-team/ctf/
-https://kt.pe/blog/ kt (ex SpamAndHex! captain)
+Eat Sleep Pwn Repeat https://kitctf.de/
+kt (ex SpamAndHex! captain) https://kt.pe/blog/
 
 * crypto
-https://grocid.net
+https://grocid.net https://github.com/grocid/CTF
 https://grocid.net/2016/08/11/solving-problems-with-lattice-reduction/ explains lcg, crt, lattice reduction
 https://github.com/SideChannelMarvels/Deadpool (crypto)
 
@@ -213,7 +243,7 @@ integer overlow
 http://poning.me/2016/03/04/equationsolver/ they used z3 to solve this one
 https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/exploit/equationsolver-60
 
-* secure file reader - ndh-quals-2016
+* secure file reader - nuitduhack-quals-2016
 rop and race condition
 http://maroueneboubakri.blogspot.com.au/2016/04/nuit-du-hack-quals-secure-file-reader.html
 
@@ -222,6 +252,10 @@ service accepts C code and runs it
 # }}}
 
 # crypto {{{
+* polictf-2012
+ECC / ECDLP on anomalous curve
+http://mslc.ctf.su/wp/polictf-2012-crypto-500/
+
 * rsa - pico-ctf-2013
 p, q, e and c provided
 use gmpy2 to decrypt ciphertext
@@ -747,7 +781,7 @@ https://github.com/p4-team/ctf/tree/master/2016-02-05-sharif/crypto_300_zeus
 elliptic curves
 http://hxp.io/blog/25/
 
-* TAPIR - internetwache-ctf-2016
+* crypto pirat - internetwache-ctf-2016
 each symbol maps to a planet number -> German Stasi TAPIR decoding -> morse code
 https://losfuzzys.github.io/writeup/2016/02/21/iwctf2016-crypto-pirat/
 
@@ -828,7 +862,7 @@ chunks too small to be decrypted with openssl rsautl, so wrote decrypt-rsa.py
 breaking Goldreich-Goldwasser-Halevi lattice encryption
 http://hxp.io/blog/26/
 
-* rabit - plaid-ctf-2016
+* rabit - plaidctf-2016
 parity oracle - exploit least significant bit oracle using binary-search
 in malleable cryptosystems (like RSA or Rabin), the property exists:
 c = m^e % N
@@ -838,13 +872,32 @@ so we can arbitrarily multiply the plaintext, with Rabin if we multiply cipherte
 we send 4*CT (sqrt_mod(4*CT, N) = sqrt_mod(4, N)*sqrt_mod(CT, N) = 2*PT mod N), if lsb == 0 then 2*PT < N otherwise 2*PT > N
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/PCTF/crypto/rabit
 
-* sexec - plaid-ctf-2016
+* sexec - plaidctf-2016
 attacking a small instance of Ring-LWE based cryptosystem with Babai’s Nearest Vector algorithm
 http://mslc.ctf.su/wp/plaidctf-2016-sexec-crypto-300/
+
+* radioactive - plaidctf-2016
+fault attack on RSA signature (not RSA-CRT)
+http://mslc.ctf.su/wp/plaidctf-2016-radioactive-crypto-275/
+
+* tonnerre - plaidctf-2016
+break SRP via session secret fixation (g^2)
+https://github.com/ctfs/write-ups-2016/tree/master/plaidctf-2016/crypto/tonnerre-300
 
 * spotted wobbegong - google-ctf-2016
 rsa pkcs1.5 padding oracle
 http://mslc.ctf.su/wp/google-ctf-spotted-wobbegong-crypto-100/
+
+* woodman - google-ctf-2016
+PRNG consisting of two LCG combined with xor.
+http://mslc.ctf.su/wp/google-ctf-woodman-crypto-100/
+
+* rsacalc - google-ctf-2016
+service supports basic arithmetic calculations modulo N
+recover N via 1/2 * 2 - 1 => N
+discover padding used is pkcs1.5 and exponent is 65537
+service supports sqrt, recover a prime factor via gcd(A-a', N) where A=a^2 % N with a=rand(2, N-1) and a'=sqrt(A) % N
+https://neg9.org/news/2016/5/4/google-ctf-2016-rsacalc-crypto-300-writeup
 
 * little crypto gambler - ctfx-2016
 pseudorandom numbers generated using a Linear Congruential Generator
@@ -914,10 +967,79 @@ after finding 300 least significant bits of p, we can use Coppersmith method for
 http://mslc.ctf.su/wp/csaw-quals-2016-broken-box-crypto-300-400/
 https://github.com/p4-team/ctf/tree/master/2016-09-16-csaw/still_broken_box
 
-* h4ckit-ctf-2016
+* handmade - h4ckit-ctf-2016
 custom Rijndael with 3 elements of the SBox where swapped around
 we have ciphertext + key, use c++ prog to bruteforce SBox and SInvBox to recover flag (5M possibilities)
 https://github.com/JulesDT/ctfWriteUps/tree/master/Hackit%20Quals%202016/Handmade%20encryption%20standard%20-%20Crypto%20-%20250%20pts
+
+* cornelius - hack.lu-ctf-2016
+zlib compression before encryption allows to leak flag
+https://ctf.rip/hack-lu-ctf-2016-cornelius1-crypto-challenge/
+
+* redacted - hack.lu-ctf-2016
+recover private RSA key from redacted ASN.1
+https://github.com/ctfs/write-ups-2016/tree/master/hack.lu-ctf-2016/crypto/redacted-200
+
+* cryptolocker - hack.lu-ctf-2016
+4-rounds of encryption but pads plaintext so we can recover the password 2 bytes at a time by attempting to decrypt the ciphertext once and checking if the padding is valid
+http://van.prooyen.com/cryptography/2016/10/20/cryptolocker-Writeup.html
+
+* ish - hackover-ctf-2016
+challenge-response where client and server share common key k
+client sends a random nonce r1 to the server so the server can send back enc(r1, k)
+server then sends a random nonce r2 to the client so the client can send enc(r2, k)
+we dont have k but we can auth by having 2 clients running in parallel and make the server do all the work
+https://github.com/grocid/CTF/tree/master/Hackover/2016#ish_12-insecure-shell
+
+* guessr - hackover-ctf-2016
+truncated linear congruential generator
+given a starting seed x, next value is computed as x = ax + b (mod m) then the outputted value is y = (x (mod 100)) + 1
+sample a few values (the RNG will not re-seed if we are wrong then generate the whole sequence and check for matches
+https://github.com/grocid/CTF/tree/master/Hackover/2016#guessr
+
+* lets decrypt - hitcon-ctf-quals-2016
+server decrypts user input using AES CBC with key=IV ans the flag is the key
+http://ctfsolutions.blogspot.com.au/2016/10/hitcon-ctf-2016-lets-decrypt.html and rizzoma
+
+* twin primes - mmactf-2016
+two rsa keys with: n1 = pq and n2=(p+2)(q+2) => pq + 2p + 2q + 4
+n2 - n1 = 2p + 2q + 4 => let s = (n2 - n1 - 4)/2 = p + q
+q = (s - p)
+n1 = p(s-p) = ps - p^2
+p^2 - sp + n1 = 0 => p = (s + gmpy2.isqrt(-s*-s-4*1*n1))/2
+or use from sympy: from sympy import *; from sympy.solvers import solve; p, q = solve([Eq(p*q, n1), Eq((p+2) * (q+2), n2)], [p, q])[0]
+https://github.com/TeamContagion/CTF-Write-Ups/tree/master/TokyoWesterns-2016/Twin%20Primes
+
+* esper - mmactf-2016
+server can encrypt or decrypt user input
+recover N with pgcd(c1 - 2^65537, c2 - 3^65537) = N
+recover q with pgcd(N, (h1-h2)*q) = q
+https://0x90r00t.com/fr/2016/09/08/mma-ctf-2016-crypto-180-esper-write-up/
+
+* lsb oracle - sharif-ctf-2016
+oracle gives the least significant bit of the decryption of a ciphertext
+multiply the ciphertext by 2^e, essentially doubling the plaintext.
+With the bit from the LSB oracle, we can now decide if the plaintext would have been reduced modulo N, when multiplied with 2. If it was not reduced, the LSB is 0, since it is an even number.
+If it is 1, then the even number got reduced modulo N, giving an odd number.
+Therfore we can now say if P is less or greater than N/2. We can now repeat this process for 2P,4P,8P.. further constricting P, until we got the correct value for P
+https://losfuzzys.github.io/writeup/2016/12/18/sharifctf-lsb-oracle/
+https://losfuzzys.github.io/writeup/2016/12/18/sharifctf-lsb-oracle-lobotomized/
+
+* financial transaction - tjctf-2016
+brute force Enigma encryption
+https://github.com/ctfs/write-ups-2016/tree/master/tjctf-2016/crypto/financial-transaction-60
+
+* secure transmission - tu-ctf-2016
+break diffie hellman key exchange because a small group was used
+https://github.com/ctfs/write-ups-2016/tree/master/tu-ctf-2016/crypto/secure-transmission-150
+
+* hashnbake - tu-ctf-2016
+keyed hash function (hmac) using 64-bit crc function
+https://github.com/ctfs/write-ups-2016/tree/master/tu-ctf-2016/crypto/hash-n-bake-200
+
+* hiecss - tum-ctf-2016
+forge ecc signature
+https://github.com/ctfs/write-ups-2016/tree/master/tum-ctf-2016/crypto/hiecss-150
 
 # }}}
 
@@ -1074,16 +1196,16 @@ https://gist.github.com/elliptic-shiho/67896be92f3dd8fd485b
 big csv file, each row contains 4 numbers, first pair always smaller than second pai -> rectangles
 https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/xorpainter
 
-* stegano sound - ndh-quals-2016
+* stegano sound - nuitduhack-quals-2016
 spectrogram analysis (can notice background noise)
 braille alphabet
 https://www.asafety.fr/cryptologie/ctf-ndh-2016-quals-write-up-steganalysis-stegano-sound/
 
-* pcapbleeding - ndh-quals-2016
+* pcapbleeding - insomnihack-ctf-2016
 parse pcap to find private key by trying every prime number that factored the modulus
 https://duksctf.github.io/blog/2016/03/21/Inso2016-pcapbleeding
 
-* moleman - ndh-quals-2016
+* moleman - nuitduhack-quals-2016
 recover blurred flag
 https://github.com/sysdream/WriteUps/blob/master/ndhquals2016/Moleman.md
 
@@ -1223,7 +1345,7 @@ http://lockboxx.blogspot.com.au/2016/05/asis-ctf-2016-quals-writeup-odrrere.html
 * memdump - su-ctf-2016
 packed PE use DiE to find packer, then OllyDbg to unpack (or use https://retdec.com/)
 
-* dtmf - internetwache-ctf-2016
+* procrastination - internetwache-ctf-2016
 dtmf tones in webm file
 mediainfo to see what contains the webm file
 avconf to extract second track
@@ -1231,13 +1353,22 @@ multimon-ng to parse DTMF tones ./multimon-ng -t wav -a DTMF msg.wav
 https://www.xil.se/post/internetwache-2016-crypto-80-arturo182/
 https://0x90r00t.com/2016/02/22/internetwache-ctf-2016-crypto-80-procrastination-write-up/
 
-* invest - ndh-quals-2016
+* invest - nuitduhack-quals-2016
 reconstruct key using a picture of a logical schema (xor gates)
 https://github.com/p4-team/ctf/tree/master/2016-04-01-nuitduhack-quals/invest
 
 * one bad son - asis-ctf-2016
 convert BSON into JSON to rebuild a png file
 https://github.com/p4-team/ctf/tree/master/2016-09-09-asis-final/one_bad_son
+
+* good food sources - hitb-ctf-amsterdam-2016
+use pynids to easily reassemble fragmented tcp streams from given pcap
+https://ced.pwned.systems/hitb-2016-ctf-net100-good-food-sources.html
+
+* corruption - tjctf-2016
+png with every chunk length and crc corrupted
+https://bobacadodl.gitbooks.io/tjctf-2016-writeups/content/corruption_130_pts.html
+
 # }}}
 
 # web {{{
@@ -1627,18 +1758,19 @@ sqli in sqlite, implement MD5 in pure SQL
 https://github.com/epicleet/write-ups-2016/tree/pwn2win-ctf-2016/pwn2win-ctf-2016/web/bathing-and-grooming-400
 
 * facebug - pwn2win-ctf-2016
-server-side template injection in User-Agent
+server-side template injection in User-Agent (Mako Templates for Python)
 http://security.szurek.pl/pwn2win-ctf-2016-facebug-writeup.html
 
-* toil33t - ndh-ctf-quals-2016
+* toil33t - nuitduhack-quals-2016
 aes ecb shuffle blocks to get admin=true
 https://www.asafety.fr/cryptologie/ctf-ndh-2016-quals-write-up-cryptography-toil33t/
 
-* spacesec2 - ndh-ctf-quals-2016
+* spacesec - nuitduhack-quals-2016
 mysql sqli in limit (can't do a union after order by)
 replace spaces with %0a to bypass waf
+https://www.dailysecurity.fr/write-up-ndh-quals-2016-spacesec/
 
-* facesec2 - ndh-ctf-quals-2016
+* facesec2 - nuitduhack-quals-2016
 upload a tar archive with x.py file, short window to GET /upload/x.py and exec our code
 https://github.com/hexpresso/WU-2016/tree/master/nuit-du-hack-ctf-quals-2016/webapp/facesec2
 
@@ -1656,7 +1788,7 @@ http://duksctf.github.io/TUCTF-Secure-Auth/
 
 * flag storage server - google-ctf-2016
 GQL injection using like
-data={'username': "manager' AND password >= 'CTF{" + password + chr(c) + "' AMD password < 'z"} // for c in range(33, 126)
+data={'username': "manager' AND password >= 'CTF{" + password + chr(c) + "' AND password < 'z"} // for c in range(33, 126)
 http://buer.haus/2016/05/01/google-ctf-web-11-flag-storage-service/
 
 * zippy - confidence-dragonsector-finals-ctf-2016
@@ -1674,11 +1806,43 @@ command injection in php assert(): assert("strpos('$file', '..') === false") or 
 exploit with ?file=') || var_dump(file_get_contents('flag.php'));//
 
 * angry seam - hitcon-ctf-quals-2016
-local file disclosure via http://52.198.197.227:8080/angryseam/css.seam?location=../../../WEB-INF/web.xml
+there were 3 solutions
+java deserialization in Richfaces 3.3.3Final (CVE-2013-2165)
+actionMethod + double EL injection (bypass 0day)
+session puzzling (register admin username fails but upgrades to admin session)
+
+* baby trick - hitcon-ctf-quals-2016
+bypass __wakeup() and use mysql utf-8 collation to bypass php check "if ($username === 'orange')" with 'orÄnge'
+http://0xecute.com/index.php/2016/10/10/baby-trick/
+
+* secureposts - hitcon-ctf-quals-2016
+ssti via {{config}} and then yaml rce in flask session cookie
+rizzoma
 
 * cyber-security-challenge-belgium-2016-qualifiers
 enter websocket code in browser console to submit fake score
 https://github.com/ctfs/write-ups-2016/tree/master/cyber-security-challenge-belgium-2016-qualifiers/Web%20Security/Tap-dat-ass-part1
+
+* tsurai - mmactf-2016
+upload __init__.py with
+x = __import__('subprocess'); x.check_output(...)
+https://blog.0daylabs.com/2016/09/05/code-execution-python-import-mmactf-300/
+
+* sbbs - secuinside-ctf-quals-2016
+xss + flask ssti via error page only accessible from localhost
+https://github.com/p4-team/ctf/blob/master/2016-07-09-secuinside-ctf/SBBS/README.md
+
+* cbpm - sharif-ctf-2016
+send xss to admin to exfil flag from localStorage by updating profile (no outbound)
+https://github.com/p4-team/ctf/tree/master/2016-12-16-sharifctf7/web_300_cbpm
+
+* lucky charms - tu-ctf-2016
+simple java deserialization
+https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/TUCTF/web/LuckyCharms
+
+* ultimate design tool - whitehat-contest-11
+css injection
+https://github.com/ctfs/write-ups-2016/tree/master/whitehat-contest-11/web/ultimate-design-tool-100
 
 # }}}
 
@@ -1714,7 +1878,7 @@ https://github.com/ctfs/write-ups-2016/tree/master/internetwache-ctf-2016/revers
 attack on aes with 4 rounds instead of 10
 https://github.com/p4-team/ctf/tree/master/2016-03-12-0ctf/peoples_square
 
-* matriochka - ndh-quals-2016
+* matriochka - nuitduhack-quals-2016
 boot vm on gparted iso to copy mbr to disk, then remote gdb of vmware vm
 https://securite.intrinsec.com/2016/04/03/write-up-nuit-du-hack-2016-ctf-quals-matriochka-step-4/
 
@@ -1814,4 +1978,13 @@ https://github.com/p4-team/ctf/tree/master/2016-09-16-csaw/regexpire
 * yaar haar fiddle dee dee - csaw-ctf-2016
 opencv haar cascade
 https://github.com/krx/CTF-Writeups/tree/master/CSAW%2016%20Quals/for150%20-%20Yaar%20Haar%20Fiddle%20Dee%20Dee
+
+* smartips - insomnihack-ctf-2016
+server continues communication even after sending us RST ACK so drop them with
+iptables -A INPUT -p TCP --tcp-flags ALL RST,ACK -s 10.13.39.30 -j DROP
+https://github.com/hexpresso/WU-2016/tree/master/insomnihack-ctf-2016/network/Smartips
+
+* jareCaptcha - sharif-ctf-2016
+sudoku solver and captcha bypass (reuse same captcha cookie id)
+https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCaptcha/README.md
 # }}}
