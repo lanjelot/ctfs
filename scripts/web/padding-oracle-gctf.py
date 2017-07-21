@@ -1,14 +1,23 @@
 # google-ctf-2016 wolf spider
-from paddingoracle import PaddingException, PaddingOracle
+from cryptopal import PaddingException, PaddingOracle # https://github.com/lanjelot/cryptopal
 from base64 import b64encode, b64decode
 from urllib import quote, unquote
-
+from hashlib import md5
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-import socket
-import time
+def flipit():
+    base = ''
+    def submit(ct):
+        return requests.get('http://blah/view/deadbeefcafedeadbeefcafe04030201%s' % ct.encode('hex'))
+
+    r = submit(base)
+    h = md5(r.content).hexdigest()
+    print 'xxx %d %d %s' % (r.status_code, len(r.content), h)
+
+    for i, r in byteflip(base, submit):
+        print '%03d %d %d %s' % (i, r.status_code, len(r.content), h)
 
 from cookielib import DefaultCookiePolicy
 class CustomCookiePolicy(DefaultCookiePolicy):
@@ -26,7 +35,7 @@ PROXIES = {}#'http': 'http://127.0.0.1:8082', 'https': 'http://127.0.0.1:8082'}
 
 class PadBuster(PaddingOracle):
     def __init__(self, **kwargs):
-        super(PadBuster, self).__init__(**kwargs)
+        PaddingOracle.__init__(self, **kwargs)
         self.session = requests.Session()
         self.session.proxies = PROXIES
         self.session.verify = False
@@ -43,7 +52,7 @@ class PadBuster(PaddingOracle):
         logging.info('%s %d %d %d %.3f' % (ct.encode('hex'), r.status_code, len(str(r.headers)), len(r.content), r.elapsed.total_seconds()))
         
         if r.status_code == 500:
-            raise BadPaddingException
+            raise PaddingException
         else:
             return
 

