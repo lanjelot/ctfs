@@ -10,6 +10,7 @@ modulus = '\x00' + hex(n)[2:-1].decode('hex')
 #e = 65537
 
 header2048 = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA'.decode('base64')
+header2048 = '3082 0122 300d 0609 2a86 4886 f70d 0101 0105 0003 8201 0f00 3082 010a 0282010100'.replace(' ', '').decode('hex')
 header1024 = '3081 9f30 0d06 092a 8648 86f7 0d01 0101 0500 0381 8d00 3081 8902 8181'.replace(' ', '').decode('hex')
 
 with open('/tmp/pubkey.pem', 'wb') as f:

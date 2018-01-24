@@ -1,3 +1,6 @@
+# csaw-ctf-2016-quals broken box
+# fault attack on textbook RSA signing (not RSA-CRT)
+
 import ast
 from sock import Sock
 from libnum import *

