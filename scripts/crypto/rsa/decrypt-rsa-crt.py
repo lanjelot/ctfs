@@ -7,7 +7,7 @@ e = 65537
 
 import gmpy2
 dp = gmpy2.invert(e, (p-1)) # 0x19a817e2931b8e746ad43a151489acdabf38860831
-dq = gmpy2.invert(e, (q-1) # 0x7d889c1cba4219254920691532187f5aa2b6deb05
+dq = gmpy2.invert(e, (q-1)) # 0x7d889c1cba4219254920691532187f5aa2b6deb05
 qinv = gmpy2.invert(q, p) # 0xaaa636b836bd372367cdf086c55ad88cd7c61e751
 
 def decrypt(c):
