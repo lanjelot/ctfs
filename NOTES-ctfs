@@ -236,6 +236,7 @@ vigenere cracked using hill climbing
 
 * rsa - plaid-ctf-2014
 partially masked RSA private key (paper/tools can recover it as long as 27% of bits are known)
+https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/rsa
 
 * graphs - plaid-ctf-2014
 rien compris
@@ -990,6 +991,20 @@ https://teamrocketist.github.io/2017/10/22/Crypto-Pwn2Win-2017-Differential-Priv
 * escape from arkham - 3dsctf-2017
 sharmir's secret sharing
 https://ctftime.org/writeup/8424
+
+* ssh - angstromctf-2018
+partially masked private key, we only have the high bits of q
+use coppersmith's attack to find an RSA prime with the high bits known
+https://www.id0.one/blog/content/3.bp.html
+
+* ofb - angstromctf-2018
+we can easily crack the LCG algorithm via standard PNG header
+https://www.pwndiary.com/write-ups/angstrom-ctf-2018-ofb-write-up-crypto120/
+
+* man in the mirror - nuitduhack-quals-2018
+write ssh server to accept any authentication, record typed commands and capture client's public key
+determine private exponent d using Boneh Durfee attack on RSA
+https://ctftime.org/writeup/9412
 
 # }}}
 
@@ -2016,6 +2031,10 @@ https://github.com/eboda/34c3ctf/tree/master/extract0r
 RPO and css seletor to bf admin token and retrieve flag
 https://l4w.io/2017/12/34c3-ctf-2017-urlstorage-writeup/
 
+* linked out - nuitduhack-quals-2018
+upload cv in yaml format, rce via LaTex injection -> skype: BBBBBBBBBBBBBB}\skype{\input|"ls *"}%
+https://tipi-hack.github.io/2018/04/01/quals-NDH-18-linked-out.html
+
 # }}}
 
 # reverse {{{
@@ -2158,6 +2177,10 @@ https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCap
 * old schoold - kaspersky-ctf-2017
 NES game, use FCEUX emulator to debug and patch
 http://www.codehead.co.uk/klctf2017-oldschool/
+
+* weird message - angstromctf-2018
+encoded in punycode (xn--), write loop to decode and replace unicode characters
+https://www.id0.one/blog/content/3.bp.html
 
 # }}}
 
