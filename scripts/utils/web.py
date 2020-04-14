@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
-import BaseHTTPServer, SimpleHTTPServer
+from http.server import SimpleHTTPRequestHandler, HTTPServer
 import ssl
-import cgi
 import os
+from time import sleep
 
 import logging
 fmt = logging.Formatter('-- %(source_ip)s [%(asctime)s]\n%(message)s')
@@ -16,12 +16,13 @@ logger = logging.getLogger('webpy')
 logger.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
-class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class MyHTTPHandler(SimpleHTTPRequestHandler):
+
     def parse_request(self):
 
-        r = SimpleHTTPServer.SimpleHTTPRequestHandler.parse_request(self)
+        r = SimpleHTTPRequestHandler.parse_request(self)
 
-        trace = '%s\n%s' % (self.raw_requestline.rstrip('\r\n'), self.headers)
+        trace = '%s\n%s' % (self.raw_requestline.decode('utf-8').rstrip('\r\n'), self.headers)
 
         if self.command == 'POST':
             clen = int(self.headers['Content-Length'])
@@ -46,6 +47,18 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def send_head(self):
 
         path = self.translate_path(self.path)
+
+        # rdp gateway
+        #self.protocol_version = 'HTTP/1.1'
+        #self.server_version = 'Microsoft-HTTPAPI/2.0'
+        #if self.headers['Authorization'] == 'Basic ZGVtbzpkZW1vbw==':
+        #    self.send_response(200)
+        #    self.end_headers()
+        #    sleep(10)
+        #else:
+        #    self.send_response(401)
+        #    self.end_headers()
+        #return
 
         if path.endswith('wh'):
             self.send_response(302)
@@ -88,6 +101,9 @@ class MyHTTPHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             f.close()
             raise
 
+    def do_RDG_OUT_DATA(self):
+        return self.do_GET()
+
     def do_POST(self):
         return self.do_GET()
 
@@ -102,18 +118,14 @@ if __name__ == '__main__':
     port = 1234
 
     if len(sys.argv) == 2:
+        port = int(sys.argv[1])
         if '43' in sys.argv[1]:
             https = True
-            port = int(sys.argv[1])
-        else:
-            port = int(sys.argv[1])
+
+    httpd = HTTPServer(('', port), MyHTTPHandler)
 
     if https:
-        print 'HTTPs on *:%d' % port
-        httpd = BaseHTTPServer.HTTPServer(('', port), MyHTTPHandler)
-        httpd.socket = ssl.wrap_socket (httpd.socket, certfile='/home/seb/code/ssl-certs/certkey.pem', server_side=True)
-        httpd.serve_forever()
+        httpd.socket = ssl.wrap_socket(httpd.socket, certfile='/home/seb/code/certs/localhost.pem', server_side=True)
 
-    else:
-        BaseHTTPServer.test(MyHTTPHandler, BaseHTTPServer.HTTPServer)
-
+    print('HTTP%s on *:%d' % ('s' if https else '', port))
+    httpd.serve_forever()

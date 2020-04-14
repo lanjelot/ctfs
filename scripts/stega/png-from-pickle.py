@@ -4,8 +4,8 @@
 def with_pil(maxx, maxy, blacks):
   from PIL import Image
   pixels = ''
-  for x in xrange(maxx + 1):
-    for y in xrange(maxy + 1):
+  for x in range(maxx + 1):
+    for y in range(maxy + 1):
       if (x, y) in blacks:
         pixels += chr(0) + chr(0) + chr(0)
       else:
@@ -27,12 +27,12 @@ def with_scipy(maxx, maxy, blacks):
 
 import pickle
 blacks = pickle.load(open('pixels.jpg.pkl'))[1:]
-print 'number of black pixels: %d' % len(blacks)
+print('number of black pixels: %d' % len(blacks))
 
 maxx = max(x for x, y in blacks)
 maxy = max(y for x, y in blacks)
 
-print 'maxx: %d, maxy: %d' % (maxx, maxy)
+print('maxx: %d, maxy: %d' % (maxx, maxy))
 
 #maxx, maxy = 640, 800
 with_scipy(maxx + 1, maxy + 1, blacks)

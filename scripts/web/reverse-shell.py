@@ -28,4 +28,4 @@ url = 'http://127.0.0.1:8080/debug.php'
 body = {'x': payload}
 
 r = requests.post(url, data=body, proxies=PROXIES, verify=False)
-print '%r' % r.content
+print('%r' % r.content)

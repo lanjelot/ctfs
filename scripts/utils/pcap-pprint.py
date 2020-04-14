@@ -3,7 +3,7 @@ from time import localtime, strftime
 import argparse
 
 import logging
-logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+logging.getLogger('scapy.runtime').setLevel(logging.ERROR)
 
 def esc(m):
     return r'\x%02x' % ord(m.group(1))
@@ -24,26 +24,14 @@ def filter_http(p):
         return True
 
 def print_http(p):
-    strtime = strftime('%Y-%m-%d %H:%M:%S', localtime())
-    pp = re.sub(r'([^\x0d\x0a\x20-\x7F])', esc, str(p[Raw]))
 
     strtime = strftime('%Y-%m-%d %H:%M:%S', localtime(p.time))
-    pp = ''
-    binary = False
-    for c in str(p[Raw]):
-        if binary:
-            pp += r'\x%02x' % ord(c)
-        else:
-            if re.match(r'[\x0d\x0a\x20-\x7F]', c):
-                pp += c
-            else:
-                binary = True
-                pp += r'\x%02x' % ord(c)
+    #pp = raw(p[Raw])
+    pp = re.sub(r'([^\x0d\x0a\x20-\x7F])', esc, raw(p[Raw]).decode('latin1'))
 
-    print '-- %s - %s:%d -> %s:%d' % (strtime, p[IP].src, p[IP].sport, p[IP].dst, p[IP].dport)
-    print '%s' % pp
-    #print '%s - - [%s]\n%s' % (p[IP].src, strtime, pp)
-    #print '-- %s - %s:%d -> %s:%d' % (strtime, p[IP].src, p[IP].sport, p[IP].dst, p[IP].dport)
+    print('-- %s - %s:%d -> %s:%d' % (strtime, p[IP].src, p[IP].sport, p[IP].dst, p[IP].dport))
+    print('%s' % pp)
+    #print('%s - [%s]\n%s' % (p[IP].src, strtime, pp))
 
 if __name__ == '__main__':
     ONLY_PORTS = '80,8080,8082,8181,8008,1234'
@@ -57,7 +45,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--ports', dest='ports', default=ONLY_PORTS, help='ignore packets with dport or sport not in this whitelist')
   
     args = parser.parse_args(argv[1:])
-    args.ports = map(int, args.ports.split(','))
+    args.ports = [int(p) for p in args.ports.split(',')]
 
     npacket = 0
     if args.pcap:
@@ -66,7 +54,7 @@ if __name__ == '__main__':
             npacket += 1
             if filter_http(p):
                 print_http(p)
-        print 'Read %d packets' % npacket
+        print('Read %d packets' % npacket)
     else:
-        print 'Sniffing: %s\nFilter: %s\n' % (args.iface, args.capture_filter)
+        print('Sniffing: %s\nFilter: %s\n' % (args.iface, args.capture_filter))
         sniff(iface=args.iface, filter=args.capture_filter, store=False, promisc=False, lfilter=filter_http, prn=print_http)

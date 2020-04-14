@@ -1,5 +1,5 @@
 from albatar import *
-from urllib import quote
+from urllib.parse import quote
 
 PROXIES = {}#'http': 'http://127.0.0.1:8082', 'https': 'http://127.0.0.1:8082'}
 HEADERS = ['User-Agent: Mozilla/5.0', 'Cookie: JSESSIONID=F61864741FD42E2699978FE227EB5456']
@@ -59,6 +59,6 @@ def oracle_boolean():
 sqli = Oracle_Blind(oracle_boolean())
 
 for r in sqli.exploit():
-  print r
+  print(r)
 
 # vim: ts=2 sw=2 sts=2 et fdm=marker

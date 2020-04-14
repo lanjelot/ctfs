@@ -1006,6 +1006,10 @@ write ssh server to accept any authentication, record typed commands and capture
 determine private exponent d using Boneh Durfee attack on RSA
 https://ctftime.org/writeup/9412
 
+* drinks - insomnihack-teaser-2019
+plaintext compressed before being encrypted -> CRIME/BREACH type attack
+https://ctftime.org/writeup/12913
+
 # }}}
 
 # stegano {{{
@@ -2034,6 +2038,36 @@ https://l4w.io/2017/12/34c3-ctf-2017-urlstorage-writeup/
 * linked out - nuitduhack-quals-2018
 upload cv in yaml format, rce via LaTex injection -> skype: BBBBBBBBBBBBBB}\skype{\input|"ls *"}%
 https://tipi-hack.github.io/2018/04/01/quals-NDH-18-linked-out.html
+
+* l33t hoster - insomnihack-teaser-2019
+upload .htaccess/.wbmp polyglot, \x00 same as a comment line in .htaccess files
+then bypass disable_functions via putenv() LD_PRELOAD and mail() and code a solver to solve captcha
+https://chmodxxx.github.io/2019/01/21/Insomni'Hack-l33thoster-Writeup.html
+http://corb3nik.github.io/blog/insomnihack-teaser-2019/l33t-hoster
+
+upload .htaccess/.xbm polyglot
+https://github.com/mdsnins/ctf-writeups/blob/master/2019/Insomnihack%202019/l33t-hoster/l33t-hoster.md
+
+* phuck2 - insomnihack-teaser-2019
+php lfi because file_get_contents('data:,blah/payload') -> 'blah/payload' and include('data:,blah/payload'); -> include('blah/payload')
+https://ctftime.org/writeup/12921
+
+* rich project - codegate-preliminary-2019
+zip password encrypted with weak ZipCrypto algorithm rather than AES, crack using pkcrack or bkcrack
+https://github.com/hyperreality/ctf-writeups/blob/master/2019-codegate/README.md
+
+* proton - codegate-preliminary-2019
+bruteforce Mongo objectid ID to find other posts
+prototype pollution with non-ascii 'a' in 'admin' to bypass check
+https://aadityapurani.com/2019/02/03/hackim-nullcon-ctf-2019-proton/
+
+* blog - nullcon-hackim-ctf-2019
+runs nodeesi lib (Edge Side Include) get flag with <esi:include src= >
+https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#blog20solves
+
+* mime checkr - nullcon-hackim-ctf-2019
+phar/jpeg polyglot with ssrf
+https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#mimecheckr4solves
 
 # }}}
 

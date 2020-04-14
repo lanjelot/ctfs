@@ -41,7 +41,7 @@ with open('odrrere.png', 'rb') as f:
         if chunk is None:
             break
         typ, data, raw = chunk
-        print 'got %s' % typ
+        print('got %s' % typ)
         if typ == 'IDAT':
             idat.append(raw)
         elif typ == 'IEND':

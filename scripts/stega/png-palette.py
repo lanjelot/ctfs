@@ -9,7 +9,7 @@ rd.preamble()
 pal=rd.palette()
  
 histo=collections.Counter(pal)
-print( ("Distinct colours ",len(histo.keys())," of ",len(pal)," total") )
+print("Distinct colours ",len(list(histo.keys()))," of ",len(pal)," total")
  
 img=rd.read_flat() # (w,h, not_resolved_pixel_array, metadata)
 newpal=list()

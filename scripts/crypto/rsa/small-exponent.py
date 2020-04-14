@@ -36,6 +36,7 @@ print 'size of n', math.log(n, 2)
 assert(ciphertext < n)
 
 # https://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
+# or see gmpy2.iroot()
 def iroot(k, n):
     hi = 1
     while pow(hi, k) < n:

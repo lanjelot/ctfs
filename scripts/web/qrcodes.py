@@ -12,7 +12,7 @@ while True:
 
   p = subprocess.Popen(['zbarimg', tmp_filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   out, err = p.communicate()
-  print out
+  print(out)
   filename = out.split("\n")[0].rstrip().split('/')[-1]
   if "lasactf{" in out:
     break

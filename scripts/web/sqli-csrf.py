@@ -2,7 +2,7 @@
 
 from albatar import *
 import re
-from urllib import quote
+from urllib.parse import quote
 
 PROXIES = {} #'http': 'http://127.0.0.1:8082', 'https': 'http://127.0.0.1:8082'}
 HEADERS = ['User-Agent: Mozilla/5.0']
@@ -39,4 +39,4 @@ def mysql_union():
 sqli = MySQL_Inband(mysql_union())
 
 for r in sqli.exploit():
-  print r
+  print(r)

@@ -24,10 +24,10 @@ for h in range(height):
 	pixels = im.getpixel((w, h))
 	if bands == 'RGBA':
 	    r, g, b, a = pixels
-	    print r, g, b, a
+	    print(r, g, b, a)
 	elif bands == 'RGB':
 	    r, g, b = pixels
-	    print r, g, b
+	    print(r, g, b)
 	else:
-	    print pixels
-    print
+	    print(pixels)
+    print()

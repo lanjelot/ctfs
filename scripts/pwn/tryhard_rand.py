@@ -25,17 +25,17 @@ def solve():
 
         while True:
             seed = now + pid
-            print '%d %d %d' % (seed, now, pid)
+            print('%d %d %d' % (seed, now, pid))
             secret = rand_secret(seed)
 
             try:
                 resp = target.recvuntil('Enter the passcode to get the flag: ')
-                print '%r' % resp
+                print('%r' % resp)
             except EOFError:
-                print 'flag: %r' % target.clean()
+                print('flag: %r' % target.clean())
                 return
             
-            print 'sending %r' % secret
+            print('sending %r' % secret)
             target.sendline(secret)
 
             pid += 1

@@ -4,6 +4,7 @@ from scapy.all import *
 from struct import *  
 import zlib  
 from operator import mod
+from functools import reduce
 
 def eea(a,b):  
     """Extended Euclidean Algorithm for GCD"""
