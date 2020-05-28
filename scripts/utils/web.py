@@ -7,14 +7,6 @@ import os
 from time import sleep
 
 import logging
-fmt = logging.Formatter('-- %(source_ip)s [%(asctime)s]\n%(message)s')
-fh = logging.FileHandler('/tmp/webpy.log')
-fh.setFormatter(fmt)
-fh.setLevel(logging.DEBUG)
-
-logger = logging.getLogger('webpy')
-logger.setLevel(logging.DEBUG)
-logger.addHandler(fh)
 
 class MyHTTPHandler(SimpleHTTPRequestHandler):
 
@@ -125,7 +117,18 @@ if __name__ == '__main__':
     httpd = HTTPServer(('', port), MyHTTPHandler)
 
     if https:
-        httpd.socket = ssl.wrap_socket(httpd.socket, certfile='/home/seb/code/certs/localhost.pem', server_side=True)
+        # cert expires Aug 16 22:37:41 2020 GMT
+        # to renew run: certbot certonly --manual --config-dir ~/code/certs/letsencrypt/etc --work-dir ~/code/certs/letsencrypt/lib --logs-dir ~/code/certs/letsencrypt/log -d b.e.uk.to
+        httpd.socket = ssl.wrap_socket(httpd.socket, certfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/fullchain.pem', keyfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/privkey.pem', server_side=True)
+
+    fmt = logging.Formatter('-- %(source_ip)s [%(asctime)s]\n%(message)s')
+    fh = logging.FileHandler('/tmp/webpy-%d.log' % port)
+    fh.setFormatter(fmt)
+    fh.setLevel(logging.DEBUG)
+
+    logger = logging.getLogger('webpy')
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(fh)
 
     print('HTTP%s on *:%d' % ('s' if https else '', port))
     httpd.serve_forever()
