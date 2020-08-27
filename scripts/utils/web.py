@@ -19,7 +19,7 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
         if self.command == 'POST':
             clen = int(self.headers['Content-Length'])
             body = self.rfile.read(clen)
-            trace += '\n' + body
+            trace += '\n' + body.decode('utf-8')
 
         logger.info(trace, extra={'source_ip': self.client_address[0]})
         return r
@@ -33,7 +33,7 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
         if '?' in self.path:
             import zlib
             query = self.path.split('?', 1)[1]
-            sys.stderr.write("%s" % zlib.decompress(query.decode('base64'), -zlib.MAX_WBITS))
+            #sys.stderr.write("%s" % zlib.decompress(query.decode('base64'), -zlib.MAX_WBITS))
             #sys.stderr.write("%s" % query.decode('base64'))
 
     def send_head(self):
@@ -117,9 +117,13 @@ if __name__ == '__main__':
     httpd = HTTPServer(('', port), MyHTTPHandler)
 
     if https:
-        # cert expires Aug 16 22:37:41 2020 GMT
-        # to renew run: certbot certonly --manual --config-dir ~/code/certs/letsencrypt/etc --work-dir ~/code/certs/letsencrypt/lib --logs-dir ~/code/certs/letsencrypt/log -d b.e.uk.to
-        httpd.socket = ssl.wrap_socket(httpd.socket, certfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/fullchain.pem', keyfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/privkey.pem', server_side=True)
+        # cert expires 2020-11-21
+        # renew with: certbot certonly --manual --config-dir ~/code/certs/letsencrypt/etc --work-dir ~/code/certs/letsencrypt/lib --logs-dir ~/code/certs/letsencrypt/log -d b.e.uk.to
+        # install certbot with: pip install -U certbot --user
+        httpd.socket = ssl.wrap_socket(httpd.socket,
+         certfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/fullchain.pem',
+          keyfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/privkey.pem',
+           server_side=True)
 
     fmt = logging.Formatter('-- %(source_ip)s [%(asctime)s]\n%(message)s')
     fh = logging.FileHandler('/tmp/webpy-%d.log' % port)

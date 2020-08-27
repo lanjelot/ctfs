@@ -1373,6 +1373,15 @@ https://pequalsnp-team.github.io/writeups/reading_between_the_lines
 given memory dump, recover a KeePass database whose Master Key includes a Windows User Account
 http://blog.ghaaf.me/2017/10/14/kaspersky-ctf-help-forensic-500/
 
+* docker manager - bsidestlv-2020
+use ssh tunnel to query docker daemon socket and the docker API
+ssh -N -L 127.0.0.1:9999:/var/run/docker.sock and curl -s http://127.0.0.1:9999/version
+https://jctf.team/BSidesTLV-2020/Docker-Manager/
+
+* can you bypass the sop - bsidestlv-2018
+dns rebinding
+https://jctf.team/BSidesTLV-2018/Can-you-bypass-the-SOP/
+
 # }}}
 
 # web {{{
@@ -2081,7 +2090,7 @@ sh -c $@|sh . echo echo 0 > /tmp/x; for m in $(grep -r INS /* 2>/dev/null); do e
 https://ctftime.org/writeup/17998
 
 * inso file manager - insomnihack-teaser-2020
-forge a jwt/rsa256 token since we can upload our own pubkey as a jwk file
+forge a jwt/rsa256 token since we can upload our own pubkey as a jwk file and link it in the jwt header (jku field)
 https://sharkzwithlazers.pizza/posts/2020_02_filemanager_1/
 
 * bobby - tghack-2020
