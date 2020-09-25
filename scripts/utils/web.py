@@ -13,7 +13,6 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
     def parse_request(self):
 
         r = SimpleHTTPRequestHandler.parse_request(self)
-
         trace = '%s\n%s' % (self.raw_requestline.decode('utf-8').rstrip('\r\n'), self.headers)
 
         if self.command == 'POST':
