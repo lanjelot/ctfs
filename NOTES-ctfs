@@ -1099,6 +1099,7 @@ php code with lots of non-ascii trash commented out
 hint was short_open_tags in php is: <?#
 php allows names to be non-ascii so used Xdebug instead of de-obfuscating code
 used z3 to solve operations
+https://blog.dragonsector.pl/2014/02/olympic-ctf-2014-welcome-to-forensics.html
 
 * illegal radio - olympic-ctf-2014
 gnu radio / fm radio transmission
@@ -2115,6 +2116,11 @@ https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#blog20solves
 * mime checkr - nullcon-hackim-ctf-2019
 phar/jpeg polyglot with ssrf
 https://eugenekolo.com/blog/nullcon-hackim-ctf-2019/#mimecheckr4solves
+
+* meet your doctor - hack-in-paris-2019
+graphql 101
+https://swisskyrepo.github.io/HIP19-MeetYourDoctor/
+https://jaimelightfoot.com/blog/hack-in-paris-2019-ctf-meet-your-doctor-graphql-challenge/
 
 * hotel booking system - 0ctf-2019
 apache tapestry 5 allows access to .class files, rce via deserialization

