@@ -6,7 +6,6 @@ import logging
 
 #sys.path.append(os.path.expanduser('~/tools/crypto/Caesar-Cipher'))
 sys.path.append(os.path.expanduser('~/tools/crypto/vigenere'))
-sys.path.append(os.path.expanduser('~/tools/exploit/pwntools'))
 
 #from caesarcipher import CaesarCipher
 from pygenere import *

