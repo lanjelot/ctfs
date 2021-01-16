@@ -532,7 +532,7 @@
 
 ### lonelyboy - meepwn-ctf-2017
     xss via svg with XMLHttpRequest() because PhantomJS needs async
-    apache server uses php-fpm so upload .user.ini with auto_append_file xx
+    apache server uses PHP-FPM so upload .user.ini with auto_append_file xx
     upload 2.jpg with php webshell and upload xx with `<?=copy("2.jpg",2);` and rce with `GET /index.php`
     then reupload xx with auto_append_file 2 and rce with `/index.php?c=cat+...`
     https://nightst0rm.net/2017/07/writeup-lonelyboy-meepwnctf/
@@ -737,7 +737,8 @@
     php rce through race and lfi
     fix our session filename via PHP_SESSION_UPLOAD_PROGRESS and PHPSESSID
     chain php filters to remove `upload_progress_` prefixing our payload
-    http://blog.orange.tw/2018/10/hitcon-ctf-2018-one-line-php-challenge.html https://ctftime.org/task/6896
+    http://blog.orange.tw/2018/10/hitcon-ctf-2018-one-line-php-challenge.html
+    https://ctftime.org/task/6896
 
 ### return of one line php - realworld-ctf-2018
     same but `session.upload_progress.enabled = Off`
@@ -1125,6 +1126,17 @@
     php file upload race to find tmp filename, bypass open_basedir with `glob('///')`
     bypass disable_functions by sending raw FastCGI packet to PHP-FPM tcp socket
     https://ctftime.org/task/14265
+
+### resonator - hxp-ctf-2020
+    php rce via SSRF with file_put_contents('ftp://...') to send FastCGI packet to PHP-FPM tcp socket
+    https://ctftime.org/writeup/25660
+    or maybe rce via phar deserialization with php filter chain but must clear log file with `\x10` first
+    `write=convert.quoted-printable-decode|convert.iconv.utf-16le.utf-8|convert.base64-decode`
+    https://www.ambionics.io/blog/laravel-debug-rce
+
+### security scanner - hxp-ctf-2020
+    memcached CRLF command injection within session ID via TLS Poison
+    https://ctftime.org/task/14375
 
 <!-- }}} -->
 <!-- 2021 {{{ -->
