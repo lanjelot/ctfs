@@ -1,4 +1,6 @@
-# My notes on past CTF writeups
+# CTF Notes
+
+These are my notes on past CTF write-ups, with a focus on `web`, `crypto` and realistic challenges.
 
 - [Web](#web-)
 - [Mobile](#mobile-)
@@ -8,6 +10,12 @@
 - [Exploit](#exploit-)
 - [Reverse](#reverse-)
 - [Misc](#misc-)
+
+I quickly stopped looking at `steg`, `for`, `RE` and `pwn` due to lack of interest, motivation or time to practice. See [todo](#todo-) for full CTF tracking info.
+
+Write-up repos used over time:
+- 2013-2017 https://github.com/ctfs/
+- 2018-2021 https://ctftime.org/
 
 ## web <!-- {{{ -->
 <!-- 2014 {{{ -->
@@ -488,8 +496,8 @@
     https://0day.work/bsidessf-ctf-2017-web-writeups/#zumbo3
 
 ### flasking unicorns - ictf-2017
-      ssti to write python code to /tmp and run it via `config.from_pyfile()`
-      https://0day.work/ictf-2017-flasking-unicorns-writeup-or-how-we-might-have-rooted-your-ictf-vm/
+    ssti to write python code to /tmp and run it via `config.from_pyfile()`
+    https://0day.work/ictf-2017-flasking-unicorns-writeup-or-how-we-might-have-rooted-your-ictf-vm/
 
 ### complicated xss - 0ctf-2017
     stripped XMLHttpRequest from window but can restore it from frames[0], chain 2 xss via cookie
@@ -1141,6 +1149,7 @@
 <!-- }}} -->
 <!-- 2021 {{{ -->
 </p></details><details><summary>2021</summary><p>
+
 ### dbaasadge - realworld-ctf-2021
     postgres-10 with extensions dblink and mysql_fdw
     arbitray SQL as a NOSUPERUSER user yet granted all privileges on database `postgres`
@@ -2959,6 +2968,7 @@
 * Raccoons https://github.com/raccoons-team/ctf/
 * Eat Sleep Pwn Repeat https://kitctf.de/
 * kt (ex SpamAndHex! captain) https://kt.pe/blog/
+* The Flat Network Society https://github.com/TFNS/writeups/
 
 <!-- }}} -->
 
