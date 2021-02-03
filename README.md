@@ -11,7 +11,8 @@ These are my notes on past CTF write-ups, with a focus on `web`, `crypto` and re
 - [Reverse](#reverse-)
 - [Misc](#misc-)
 
-I quickly stopped looking at `steg`, `for`, `RE` and `pwn` due to lack of interest, motivation or time to practice. See [todo](#todo-) for full CTF tracking info.
+I quickly stopped looking at `steg`, `for`, `RE` and `pwn` due to lack of interest, motivation or time to practice.
+See [todo](#todo-) for full CTF tracking info.
 
 Write-up repos used over time:
 - 2013-2017 https://github.com/ctfs/
@@ -762,7 +763,7 @@ Write-up repos used over time:
     https://ctftime.org/writeup/12656
 
 ### printmd - realworld-ctf-2018
-    ssrf in Nuxt.js by passing arbitrary Object to `axios()` via http param pollution
+    ssrf in Nuxt.js by passing arbitrary Object to `axios()` via http parameter pollution
     axios does not support file:// but supports UNIX socket so exfil flag via `/var/run/docker.sock`
     https://blog.cal1.cn/post/RealWorldCTF%20PrintMD%20writeup
 
@@ -1164,6 +1165,20 @@ Write-up repos used over time:
     java deserialization rce in Java 1.4
     https://github.com/voidfyoo/rwctf-2021-old-system/tree/main/writeup
 
+### computeration - justctf-2021
+    xss and REdos to leak flag from admin page by measuring execution time of the cross-origin frame
+    include an img that never loads with https://deelay.me/10000/ to prevent bot from immediately closing
+    https://ctftime.org/writeup/25869
+
+### babycsp - justctf-2021
+    xss and csp bypass by forcing php to flush its 4096-byte buffer before `header('Content-Security-Policy: ...');`
+    https://ctftime.org/writeup/25867
+
+### go-fs - jutsctf-2021
+    go net/http FileServer bug when parsing Range header to bypass filter and read flag
+    or unintended solution by using the CONNECT method
+    https://ctftime.org/writeup/25852
+
 </p></details>
 <!-- }}} -->
 <!-- }}} -->
@@ -1240,7 +1255,7 @@ Write-up repos used over time:
     a message with our key and download the ciphertext
     encrypt a plaintext "abcdabcdabcdabcdabcdabcdabcdabcd" with a key "abcdabcdabcdabcd" via the webapp
     returned ciphertext: mq8jyy5npsr3t1DR/33B4ZlY304+NOCGLXGp7stWcKk=
-    decrypt it with key "abcd" and a zero IV gives us the plaintext: Y Q"S30PYR4]XZ- abcdabcdabcd 
+    decrypt it with key "abcd" and a zero IV gives us the plaintext: Y Q"S30PYR4]XZ- abcdabcdabcd
     XOR the first 16 bytes with "abcdabcdabcdabcd" gives the IV: 8k2F2QS480W998Nm
     http://blog.dragonsector.pl/2013/09/csaw-ctf-quals-2013-cryptomatv2-web-4002.html
 
@@ -1723,13 +1738,13 @@ Write-up repos used over time:
     rsa public exponent very small (3)
     see small-exponent.py
 
-### trivia300 - nullcon-hackim-2016 
+### trivia300 - nullcon-hackim-2016
     Bill's Cipher (funky substituion cipher for kids) "Gravity Falls"
 
-### crypto1 - nullcon-hackim-2016 
+### crypto1 - nullcon-hackim-2016
     given ciphertext and cleartext, XOR both to get key and decrypt another ciphertext
 
-### crypto5 - nullcon-hackim-2016 
+### crypto5 - nullcon-hackim-2016
     given several public RSA keys and a ciphertext, python script
     interestingly, the ciphertext was encrypted using the private key
     in RSA, either key in a keypair can be used as the private or public component
@@ -2303,7 +2318,7 @@ Write-up repos used over time:
     list the trees with btrfs restore -l disk.img and extract with btrfs restore -r 278 disk.img blah2
     https://www.xil.se/post/bctf-2016-upload-forensics-kbeckmann/
 
-### catch me if you can - nullcon-hackim-2016 
+### catch me if you can - nullcon-hackim-2016
     matryoshka compression doll
     https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/forensics/catchmeifyoucan-100
 
@@ -2373,6 +2388,33 @@ Write-up repos used over time:
 ### can you bypass the sop - bsidestlv-2018
     dns rebinding
     https://jctf.team/BSidesTLV-2018/Can-you-bypass-the-SOP/
+
+<!-- }}} -->
+<!-- 2021 {{{ -->
+</p></details><details><summary>2021</summary><p>
+
+### dactyl's tule box - crowdstrike-ctf-2021
+    mount qcow2 and lvm volume, run `sudo mapviewer --gtk-module /tmp/libexec.so` to get root
+    cant overwrite root authorized_keys via `http_proxy` and `XDG_CACHE_HOME` due to sudo's env_reset
+    https://github.com/Sin42/writeups/tree/master/2021/CSCTF/Protective_Penguin/02_Dactyl
+
+### egghunt - crowdstrike-ctf-2021
+    reversing a bpf implant/backdoor with bpftool
+    https://github.com/Sin42/writeups/tree/master/2021/CSCTF/Protective_Penguin/03_EggHunt
+    https://keramas.github.io/2021/01/29/crowdstrike-adversaryquest.html
+
+### exfiltrator - crowdstrike-ctf-2021
+    aes-gcm side-channel attack to recover keystrokes because each ansi-colored/ascii-art char sequence
+    produces a unique packet length
+    dump ssl master key with LD_PRELOAD to decrypt traffic in wireshark
+    https://github.com/Sin42/writeups/tree/master/2021/CSCTF/Protective_Penguin/04_Exfiltrat0r
+    https://keramas.github.io/2021/01/29/crowdstrike-adversaryquest.html#exfiltrator
+
+### injector - crowdstrike-ctf-2021
+    find backdoor with rkhunter and chkrootkit after mounting raw partition with `losetup -P`
+    shellcode injected to the end of the .text section of libc via `/proc/maps`
+    disass shellcode with pwntools and decompile to C with ghidra
+    https://ammond.org/writeups/AdversaryQuest/SpaceJackal/injector/
 
 </p></details>
 <!-- }}} -->
@@ -2969,6 +3011,9 @@ Write-up repos used over time:
 * Eat Sleep Pwn Repeat https://kitctf.de/
 * kt (ex SpamAndHex! captain) https://kt.pe/blog/
 * The Flat Network Society https://github.com/TFNS/writeups/
+* Bug Bounty Writeups https://pentester.land/list-of-bug-bounty-writeups.html
+* DerbyCon CTF https://labs.nettitude.com/blog/derbycon-2018-ctf-write-up/)
+* justCatTheFish/terjanq https://github.com/terjanq/Flag-Capture
 
 <!-- }}} -->
 

