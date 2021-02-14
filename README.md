@@ -1179,6 +1179,25 @@ Write-up repos used over time:
     or unintended solution by using the CONNECT method
     https://ctftime.org/writeup/25852
 
+### build a better panel - dicectf-2021
+    prototype pollution to overwrite iframe's srcdoc to csrf admin bot
+    bypass csp with `<script src=/admin` or `<link rel=stylesheet href=/admin/`
+    https://ctftime.org/task/14701
+
+### web ide - dicectf-2021
+    bypass javascript Proxy in iframe `sandbox.html` with `[].map.constructor`
+    use `window.open` to retrieve cookie set to a subpath, chrome would block without user interaction but not headless
+    or service workers (intended solution)
+    https://ctftime.org/task/14699
+
+### watermark as a service - dicectf-2021
+    send bot to deprecated v1beta1 api which does not require the `Metadata-Flavor: Google` header, bypass IP check with alt encoding or
+    use a 302 or meta refresh redirect to `http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token`
+    https://github.com/tlyrs7314/ctf-writeups/tree/main/DiceCTF2021/Watermark-as-a-Service
+    https://ahmed-belkahla.me/post/dice_ctf_web_writeups/
+    or scan for the devtools randomized port and read the Dockerfile with the devtools protocol
+    view-source:https://cf43dffe.y7z.xyz/ec0ca6 https://discord.com/channels/805956008665022475/805962699246534677/808204024993284106
+
 </p></details>
 <!-- }}} -->
 <!-- }}} -->
