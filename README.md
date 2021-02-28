@@ -451,7 +451,7 @@ Write-up repos used over time:
 
 ### baby trick - hitcon-ctf-quals-2016
     bypass __wakeup() and use mysql utf-8 collation to bypass php check `"if ($username === 'orange')"` with 'orÄnge'
-    http://0xecute.com/index.php/2016/10/10/baby-trick/
+    https://github.com/orangetw/My-CTF-Web-Challenges/blob/master/README.md#babytrick
 
 ### secureposts - hitcon-ctf-quals-2016
     ssti via `{{config}}` and then yaml rce in flask session cookie
@@ -1180,7 +1180,7 @@ Write-up repos used over time:
     https://ctftime.org/writeup/25852
 
 ### build a better panel - dicectf-2021
-    prototype pollution to overwrite iframe's srcdoc to csrf admin bot
+    prototype pollution without `__proto__` to overwrite iframe's srcdoc to csrf admin bot
     bypass csp with `<script src=/admin` or `<link rel=stylesheet href=/admin/`
     https://ctftime.org/task/14701
 
@@ -1191,12 +1191,21 @@ Write-up repos used over time:
     https://ctftime.org/task/14699
 
 ### watermark as a service - dicectf-2021
-    send bot to deprecated v1beta1 api which does not require the `Metadata-Flavor: Google` header, bypass IP check with alt encoding or
-    use a 302 or meta refresh redirect to `http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token`
+    make bot visit deprecated v1beta1 api which does not require the `Metadata-Flavor: Google` header, bypass IP check with alt encoding or
+    a 302 or meta refresh redirect to `http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token`
     https://github.com/tlyrs7314/ctf-writeups/tree/main/DiceCTF2021/Watermark-as-a-Service
     https://ahmed-belkahla.me/post/dice_ctf_web_writeups/
     or scan for the devtools randomized port and read the Dockerfile with the devtools protocol
     view-source:https://cf43dffe.y7z.xyz/ec0ca6 https://discord.com/channels/805956008665022475/805962699246534677/808204024993284106
+
+### localization is hard - aeroctf-2021
+    rce via Thymeleaf SpringEL, use `/bin/sh -c` because `/bin/bash` doesnt exist
+
+### not received prize - aeroctf-2021
+    xss and bypass html sanitizer with `<scr<script>ipt>`
+    bypass csp with JSONP `https://accounts.google.com/o/oauth2/revoke?callback=var b=0;alert(0)`
+    solve maths operation and exfil big png using a canvas and `.toDataURL()`
+    https://ctftime.org/task/14803
 
 </p></details>
 <!-- }}} -->
@@ -2108,9 +2117,9 @@ Write-up repos used over time:
     https://jbzteam.github.io/crypto/SecurityFest2017-Ranshomware
 
 ### rsa ctf challenge - google-ctf-2017
-    Bleichenbacher's signature forgery on e=3 and PKCS#1. v1.5
+    Bleichenbacher's signature forgery on e=3 and PKCS#1 v1.5
     solve with Filippo Valsorda CVE-2016-1494 technique
-    http://karabut.com/google-ctf-2017-quals-rsa-ctf-challenge-writeup.html
+    http://ratmirkarabut.com/articles/ctf-writeup-google-ctf-quals-2017-rsa-ctf-challenge/
 
 ### lucky consecutive guessing - poli-ctf-2017
     fixed lcg with partial output
@@ -2551,7 +2560,7 @@ Write-up repos used over time:
 
 ### poem - volga-ctf-quals-2015
     varying spaces between each line
-    decompress PDF streams using qpdf --qdf --object-streams=disable poem.pdf out.pdf
+    decompress PDF streams using `qpdf --qdf --object-streams=disable poem.pdf out.pdf`
     we focus on the text-positioning operators that move a text line
     a Td text line operator has two operands, the flag was encoded in second operand of each Td (14 is 0 and 17 is 1)
     https://github.com/ctfs/write-ups-2015/tree/master/volgactf-quals-2015/stego/poem
