@@ -1147,6 +1147,14 @@ Write-up repos used over time:
     memcached CRLF command injection within session ID via TLS Poison
     https://ctftime.org/task/14375
 
+### notepad - zer0pts-ctf-2020
+    flask ssti and pickle unserialize rce
+    https://ctftime.org/task/10626
+
+### can you guess it - zer0pts-ctf-2020
+    php basename bypass when filename contains char > 0x7f `basename('/index.php/config.php/'.chr(128))` -> `config.php`
+    https://hackmd.io/@st98/rkFnKLZrI https://st98.github.io/diary/posts/2020-03-09-zer0pts-ctf-2020.html#web-338-can-you-guess-it
+
 <!-- }}} -->
 <!-- 2021 {{{ -->
 </p></details><details><summary>2021</summary><p>
@@ -1206,6 +1214,31 @@ Write-up repos used over time:
     bypass csp with JSONP `https://accounts.google.com/o/oauth2/revoke?callback=var b=0;alert(0)`
     solve maths operation and exfil big png using a canvas and `.toDataURL()`
     https://ctftime.org/task/14803
+
+### simple blog - zer0pts-ctf-2021
+    csp + trusted types preventing simple xss via JSONP callback parameter
+    firefox does not yet support Trusted Types natively so polyfill is used
+    disable Trusted Types in polyfill by making `window.trustedTypes` and `trustedTypes.defaultPolicy` truthy
+    via DOM clobbering with `<form id="trustedTypes"><input id="defaultPolicy"></form>`
+    use DOM clobbering again to define `window.callback` and bypass `strlen(callback) < 21` check by calling jsonp again
+    with `<a href="abc:jsonp(x);//" id="callback"></a><a href="data:text/plain;base64,<exfil cookie>" id="x"></a>`
+    https://hackmd.io/@st98/S1z9qV1X_
+    https://github.com/aszx87410/ctf-writeups/issues/21
+
+### pdf generator - zer0pts-ctf-2021
+    custom javascript function vuln to prototype pollution without `__proto__`
+    find a script gadget in Vue.js to get XSS
+    read flag in the PDF from the DOM via Chrome's pdf_viewer using `postMessage` to select all text and then read the selected text
+    https://blog.s1r1us.ninja/CTF/zer0ptsctf2021-challenges
+    https://github.com/aszx87410/ctf-writeups/issues/23
+    unintended 1: use fetch to read flag PDF with `<embed src=1 onload="fetch(`/text`).then(..exfil)`
+    unintended 2: use fetch with `'cache': 'force-cache'` to bypass local IP check
+
+### kantan calc - zer0pts-ctf-2021
+    javascript code golf use `[...arguments[0]+0]` to bypass flag prefix match
+    [...'abc']+'' converts String to Array and then to String again but comma separated: "a,b,c"
+    or exfil char by char with `String(this)[char_index]}).bind(()=>{`
+    https://hackmd.io/@st98/Sy7D5NymO
 
 </p></details>
 <!-- }}} -->
