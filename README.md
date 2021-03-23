@@ -733,6 +733,10 @@ Write-up repos used over time:
     use Range: header to skip over headers
     https://ctftime.org/task/6243
 
+### cat chat - google-ctf-quals-2018
+    xss via css injection and exfil via css selector rules
+    https://github.com/terjanq/google-ctf-writeups
+
 ### hacker movie club - csaw-ctf-2018
     web cache poisoning
     https://ctftime.org/task/6658
@@ -803,6 +807,16 @@ Write-up repos used over time:
 <!-- }}} -->
 <!-- 2019 {{{ -->
 </p></details><details><summary>2019</summary><p>
+
+### dom validator - angstrom-ctf-2019
+    abusing xss auditor in filter mode to crash the DOMValidator.js script
+    https://infosecwriteups.com/xss-auditor-the-protector-of-unprotected-f900a5e15b7b
+    or run js without <script> or clobber `document.documentElement.remove()` with `<form><input id=remove>`
+    https://ctftime.org/writeup/14915
+
+### gianturl - angstrom-ctf-2019
+    csrf using `<a` with `ping` to issue POST request -> `<a href="a" ping="/admin/changepass?password=<new pw>">clickme</a>`
+    https://github.com/justcatthefish/ctf-writeups/tree/master/2019-04-25-Angstrom2019/web#gianturl
 
 ### bypasses everywhere - inshack-ctf-2019
     bypass xss auditor by splitting payload into 2 query params
@@ -1173,32 +1187,32 @@ Write-up repos used over time:
     java deserialization rce in Java 1.4
     https://github.com/voidfyoo/rwctf-2021-old-system/tree/main/writeup
 
-### computeration - justctf-2021
+### computeration - just-ctf-2021
     xss and REdos to leak flag from admin page by measuring execution time of the cross-origin frame
     include an img that never loads with https://deelay.me/10000/ to prevent bot from immediately closing
     https://ctftime.org/writeup/25869
 
-### babycsp - justctf-2021
+### babycsp - just-ctf-2021
     xss and csp bypass by forcing php to flush its 4096-byte buffer before `header('Content-Security-Policy: ...');`
     https://ctftime.org/writeup/25867
 
-### go-fs - jutsctf-2021
+### go-fs - just-ctf-2021
     go net/http FileServer bug when parsing Range header to bypass filter and read flag
     or unintended solution by using the CONNECT method
     https://ctftime.org/writeup/25852
 
-### build a better panel - dicectf-2021
+### build a better panel - dice-ctf-2021
     prototype pollution without `__proto__` to overwrite iframe's srcdoc to csrf admin bot
     bypass csp with `<script src=/admin` or `<link rel=stylesheet href=/admin/`
     https://ctftime.org/task/14701
 
-### web ide - dicectf-2021
+### web ide - dice-ctf-2021
     bypass javascript Proxy in iframe `sandbox.html` with `[].map.constructor`
     use `window.open` to retrieve cookie set to a subpath, chrome would block without user interaction but not headless
     or service workers (intended solution)
     https://ctftime.org/task/14699
 
-### watermark as a service - dicectf-2021
+### watermark as a service - dice-ctf-2021
     make bot visit deprecated v1beta1 api which does not require the `Metadata-Flavor: Google` header, bypass IP check with alt encoding or
     a 302 or meta refresh redirect to `http://metadata.google.internal/computeMetadata/v1beta1/instance/service-accounts/default/token`
     https://github.com/tlyrs7314/ctf-writeups/tree/main/DiceCTF2021/Watermark-as-a-Service
@@ -1206,10 +1220,10 @@ Write-up repos used over time:
     or scan for the devtools randomized port and read the Dockerfile with the devtools protocol
     view-source:https://cf43dffe.y7z.xyz/ec0ca6 https://discord.com/channels/805956008665022475/805962699246534677/808204024993284106
 
-### localization is hard - aeroctf-2021
+### localization is hard - aero-ctf-2021
     rce via Thymeleaf SpringEL, use `/bin/sh -c` because `/bin/bash` doesnt exist
 
-### not received prize - aeroctf-2021
+### not received prize - aero-ctf-2021
     xss and bypass html sanitizer with `<scr<script>ipt>`
     bypass csp with JSONP `https://accounts.google.com/o/oauth2/revoke?callback=var b=0;alert(0)`
     solve maths operation and exfil big png using a canvas and `.toDataURL()`
@@ -1239,6 +1253,39 @@ Write-up repos used over time:
     [...'abc']+'' converts String to Array and then to String again but comma separated: "a,b,c"
     or exfil char by char with `String(this)[char_index]}).bind(()=>{`
     https://hackmd.io/@st98/Sy7D5NymO
+
+### workerbee - nahamcon-ctf-2021
+    turn ssrf into lfi with `file:///etc/passwd#https://
+    werkzeug in debug mode, read local files needed to recover console pin
+    https://westar.medium.com/nahamcon-2021-ctf-workerbee-33fa6662bb24
+    https://github.com/stephanos199/ctf-writeups/tree/main/NahamCon2021/Workerbee
+
+### borg - nahamcon-ctf-2021
+    drupal version 8.5.0 disclosed at `/core/install`
+    vuln to CVE-2018-7600 "Drupalgeddon2" rce
+    grab API token with `TOKEN=$(< /var/run/secrets/kubernetes.io/serviceaccount/token)` and fetch all the secrets from the API
+    with `curl -k https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/api/v1/namespaces/kube-system/secrets/ --header "Authorization: Bearer $TOKEN"`
+    or privesc to root shell with `kubctl get pods; kubectl cluster-info; kubectl exec -it <pod name> /bin/sh`
+    then find base64-encoded flag in `kubectl --token=$TOKEN get secrets --all-namespaces -o yaml`
+    https://www.youtube.com/watch?v=rGsKqjqGqKg
+
+### your note - union-ctf-2021
+    xs search using `window.open` because puppeteer uses `--disable-popup-blocking`
+    https://github.com/x-vespiary/writeup/blob/master/2021/03-line/web-your-note.md
+    https://hackmd.io/@stypr233/linectf#Your-Note
+    or ssrf the report bot to leak flag because server sends `ng` if the search query is a match
+    headless chrome cannot handle download with `Content-disposition: attachment` and throws err
+    https://gist.github.com/msrkp/0c18ba2d79a88b64982e51fe36464013
+
+### double check - union-ctf-2021
+    bypass nodejs `decodeURIComponent()` with `-d 'p=1&p=%ff/ＮＮ/ＮＮ/ＮＮ/flag' -H 'Content-Type: text/plain'`
+    because by default `querystring.unescape` tries to use built-in `decodeURIComponent` and
+    if it fails falls back to `unescapeBuffer` https://github.com/nodejs/node/blob/v15.8.0/lib/querystring.js#L126
+    which uses Int8Array so it can be overflowed by using 'Ｎ' for example https://github.com/nodejs/node/blob/v15.8.0/lib/querystring.js#L115
+
+### 3233 - union-ctf-2021
+    websocket chat based on e2ee, sniff chatting room using socket.io client then perform padding oracle attack to recover flag
+    https://hackmd.io/@stypr233/linectf
 
 </p></details>
 <!-- }}} -->
@@ -2242,7 +2289,7 @@ Write-up repos used over time:
     http://www.rogdham.net/2017/02/27/boston-key-party-2017-write-ups.en
 
 <!-- }}} -->
-<!-- 2018-2020 {{{ -->
+<!-- 2018-2021 {{{ -->
 </p></details><details><summary>2018-2020</summary><p>
 
 ### ssh - angstromctf-2018
@@ -2282,6 +2329,10 @@ Write-up repos used over time:
     sha1 collision, submit 2 PDFs with the same sha1 hash to get flag
     https://ctftime.org/writeup/10166
     https://balsn.tw/ctf_writeup/20180512-defconctfqual/#easy-pisy---crypto,-web
+
+### babycrypto3 - line-ctf-2021
+    small rsa modulus, load given pub.pem into pycryptodome and factorize n with msieve
+    https://github.com/x-vespiary/writeup/blob/master/2021/03-line/crypto-babycrypto3.md
 
 </p></details>
 <!-- }}} -->
@@ -2791,8 +2842,8 @@ Write-up repos used over time:
 <!-- }}} -->
 
 ## misc <!-- {{{ -->
-<!-- 2014-2016 {{{ -->
-<details><summary>2014-2016</summary><p>
+<!-- 2014-2021 {{{ -->
+<details><summary>2014-2021</summary><p>
 
 ### gunslinger - hacklu-ctf-2014
     restricted bash shell (no alpha chars allowed)
@@ -2884,6 +2935,10 @@ Write-up repos used over time:
 ### bashell - alles-ctf-2020
     bash commands with only `[]$<\_`
     https://github.com/benjaminjkraft/junk/blob/master/bashell.py
+
+### committee - union-ctf-2021
+    recover flag from git commit hash
+    https://mystiz.hk/posts/2021-02-27-union-ctf-committee/
 
 </p></details>
 <!-- }}} -->
@@ -3057,6 +3112,8 @@ Write-up repos used over time:
 
 ## moar <!-- {{{ -->
 
+### write ups
+
 * orangetw https://github.com/orangetw/My-CTF-Web-Challenges
 * ppp https://github.com/pwning/public-writeup
 * smokeleet https://github.com/smokeleeteveryday/CTF_WRITEUPS
@@ -3072,9 +3129,15 @@ Write-up repos used over time:
 * Eat Sleep Pwn Repeat https://kitctf.de/
 * kt (ex SpamAndHex! captain) https://kt.pe/blog/
 * The Flat Network Society https://github.com/TFNS/writeups/
-* Bug Bounty Writeups https://pentester.land/list-of-bug-bounty-writeups.html
+* Bug Bounty Writeups https://pentester.land/list-of-bug-bounty-writeups.html https://www.bugbountyhunting.com/ https://github.com/bminossi/AllVideoPocsFromHackerOne
 * DerbyCon CTF https://labs.nettitude.com/blog/derbycon-2018-ctf-write-up/)
 * justCatTheFish/terjanq https://github.com/terjanq/Flag-Capture
+* jorge_ctf https://github.com/jorgectf/Created-CTF-Challenges
+
+### ctf archive
+
+* https://github.com/sajjadium/CTFium/
+* https://github.com/utisss/UTCTF-21/
 
 <!-- }}} -->
 

@@ -5,7 +5,8 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 import ssl
 import os
 from time import sleep
-
+from base64 import b64decode
+from pathlib import Path
 import logging
 
 class MyHTTPHandler(SimpleHTTPRequestHandler):
@@ -18,20 +19,23 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
         if self.command == 'POST':
             clen = int(self.headers['Content-Length'])
             body = self.rfile.read(clen)
+            #trace += '\n' + b64decode(body).decode('utf-8')
             trace += '\n' + body.decode('utf-8')
+
+        if self.path == '/favicon.ico':
+            return r
 
         logger.info(trace, extra={'source_ip': self.client_address[0]})
         return r
 
-    def log_message(self, format, *args):
-        sys.stderr.write("%s - - [%s] %s\n" %
-                         (self.client_address[0],
-                          self.log_date_time_string(),
-                          format%args))
+    def log_message(self, fmtstr, *args):
 
-        if '?' in self.path:
-            import zlib
-            query = self.path.split('?', 1)[1]
+        sys.stderr.write("%s - - [%s] %s\n" % (self.client_address[0],
+          self.log_date_time_string(), fmtstr % args))
+
+        # if '?' in self.path:
+        #     import zlib
+        #     query = self.path.split('?', 1)[1]
             #sys.stderr.write("%s" % zlib.decompress(query.decode('base64'), -zlib.MAX_WBITS))
             #sys.stderr.write("%s" % query.decode('base64'))
 
@@ -53,7 +57,10 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
 
         if path.endswith('wh'):
             self.send_response(302)
-            self.send_header('Location', '/index.html')
+            with open('/tmp/urls.txt') as f:
+                target = f.readline().strip()
+                logger.info(f'Location: {target}', extra={'source_ip': self.client_address[0]})
+                self.send_header('Location', target)
             self.end_headers()
             return
 
@@ -81,9 +88,9 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
             fs = os.fstat(f.fileno())
             self.send_header("Content-Length", str(fs[6]))
             #self.send_header("Last-Modified", self.date_time_string(fs.st_mtime))
-            self.send_header('Access-Control-Allow-Origin', '*')
             #self.send_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, X-Secret')
-            #self.send_header('Access-Control-Allow-Headers', 'Content-Type, *')
+            self.send_header('Access-Control-Allow-Origin', 'http://ix.ix.tc')
+            self.send_header('Access-Control-Allow-Headers', '*')
             self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT')
             self.send_header('Access-Control-Allow-Credentials', 'true')
             self.end_headers()
@@ -116,12 +123,15 @@ if __name__ == '__main__':
     httpd = HTTPServer(('', port), MyHTTPHandler)
 
     if https:
-        # cert expires 2020-11-21
+        # b.e.uk.to expires 2021-03-24
+        # *.d2t.b.e.uk.to expires 2021-05-08
         # renew with: certbot certonly --manual --config-dir ~/code/certs/letsencrypt/etc --work-dir ~/code/certs/letsencrypt/lib --logs-dir ~/code/certs/letsencrypt/log -d b.e.uk.to
         # install certbot with: pip install -U certbot --user
         httpd.socket = ssl.wrap_socket(httpd.socket,
-         certfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/fullchain.pem',
-          keyfile='/home/seb/code/certs/letsencrypt/etc/live/b.e.uk.to/privkey.pem',
+         certfile='/home/vagrant/code/certs/letsencrypt/etc/live/b.e.uk.to-0001/fullchain.pem',
+          keyfile='/home/vagrant/code/certs/letsencrypt/etc/live/b.e.uk.to-0001/privkey.pem',
+         #certfile='/home/vagrant/code/certs/letsencrypt/etc/live/d2t.b.e.uk.to/fullchain.pem',
+         # keyfile='/home/vagrant/code/certs/letsencrypt/etc/live/d2t.b.e.uk.to/privkey.pem',
            server_side=True)
 
     fmt = logging.Formatter('-- %(source_ip)s [%(asctime)s]\n%(message)s')
