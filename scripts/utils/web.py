@@ -8,6 +8,7 @@ from time import sleep
 from base64 import b64decode
 from pathlib import Path
 import logging
+from urllib.parse import parse_qs
 
 class MyHTTPHandler(SimpleHTTPRequestHandler):
 
@@ -40,9 +41,6 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
             #sys.stderr.write("%s" % query.decode('base64'))
 
     def send_head(self):
-
-        path = self.translate_path(self.path)
-
         # rdp gateway
         #self.protocol_version = 'HTTP/1.1'
         #self.server_version = 'Microsoft-HTTPAPI/2.0'
@@ -55,14 +53,16 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
         #    self.end_headers()
         #return
 
-        if path.endswith('wh'):
+        if self.path.endswith('/re'):
             self.send_response(302)
             with open('/tmp/urls.txt') as f:
                 target = f.readline().strip()
-                logger.info(f'Location: {target}', extra={'source_ip': self.client_address[0]})
-                self.send_header('Location', target)
+            logger.info(f'Location: {target}', extra={'source_ip': self.client_address[0]})
+            self.send_header('Location', target)
             self.end_headers()
             return
+
+        path = self.translate_path(self.path)
 
         if os.path.isdir(path):
             path = 'index.html'

