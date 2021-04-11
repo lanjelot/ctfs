@@ -330,10 +330,6 @@ Write-up repos used over time:
     hql injection
     https://github.com/ctfs/write-ups-2016/tree/master/nullcon-hackim-2016/web/unickle-200
 
-### oldpersian - su-ctf-2016
-    break captcha
-    http://gnoobz.com/sharif-ctf-2016-web-250-oldpersian.html solving via image compare 100% success and super simple
-
 ### bugbounty - boston-key-party-2016
     bypass csp with
     ```html
@@ -772,7 +768,7 @@ Write-up repos used over time:
     https://blog.cal1.cn/post/RealWorldCTF%20PrintMD%20writeup
 
 ### ublog - hxp-ctf-2018
-    css selector timing attack
+    css selector timing attack via `jQuery(location.hash)`
     https://ctftime.org/writeup/12540
 
 ### filemanager - 35c3-ctf-2018
@@ -1304,9 +1300,32 @@ Write-up repos used over time:
     use jQuery gadget and automatically show tooltip via onfocus by loading site in an iframe and updating src to `#depositButton`
     https://ctftime.org/task/15186
 
-### pikcha2 - umass-ctf-2021
-    use opencv to solve 4 pokemon image captchas by splitting the image into 4 parts
-    https://ctftime.org/writeup/26806
+### nomnomnom - angstrom-ctf-2021
+    xss csp bypass on firefox via dangling markup to hijack valid nonce -> `<script src="data:, .." x=<script nonce="5e..">`
+    https://ctftime.org/writeup/27125
+
+### jason - angstrom-ctf-2021
+    jsonp bypass via csrf to `Set-Cookie:` endpoint to append `; secure; samesite=none` to the bot's cookie
+    unintended: append `; domain=.actf.co` and redirect bot to an xss stored on another challenge of the same domain
+
+### reaction.py - angstrom-ctf-2021
+    xss over 2 payloads, start with `<script>/*` then finish xss with `*/ .. //`
+    or use `<SCRIPT src=/\zedD.info>` or `<SCRIPT src=/&#47;bit.ly\2Q5ZXW1>'` and `'</SCRIPT>` to comment everything out
+    https://ctftime.org/task/15346
+
+### jar - angstrom-ctf-2021
+    python pickle deserialisation
+    https://github.com/knightsoftheroutingtable/ctf-writeups/tree/main/2021/angstrom/jar
+
+### watered down watermark as a service - angstrom-ctf-2021
+    bson/bmp polyglot
+    https://hackmd.io/@lamchcl/BJpOo2Or_#Watered-Down-Watermark-as-a-Service
+    or unintended via devtools https://github.com/qxxxb/ctf/tree/master/2021/angstrom_ctf/watered_down_watermark
+
+### lorem_ipsum - b01lers-ctf-2021
+    werkzeug in debug mode, read local files needed to recover console pin
+    or read pin from the logs via LFI of stderr `/proc/self/fd/2`
+    https://ctftime.org/task/15266
 
 </p></details>
 <!-- }}} -->
@@ -2945,6 +2964,10 @@ Write-up repos used over time:
     sudoku solver and captcha bypass (reuse same captcha cookie id)
     https://github.com/p4-team/ctf/blob/master/2016-12-16-sharifctf7/web_200_jareCaptcha/README.md
 
+### oldpersian - su-ctf-2016
+    break captcha
+    http://gnoobz.com/sharif-ctf-2016-web-250-oldpersian.html solving via image compare 100% success and super simple
+
 ### old schoold - kaspersky-ctf-2017
     NES game, use FCEUX emulator to debug and patch
     http://www.codehead.co.uk/klctf2017-oldschool/
@@ -2960,6 +2983,10 @@ Write-up repos used over time:
 ### committee - union-ctf-2021
     recover flag from git commit hash
     https://mystiz.hk/posts/2021-02-27-union-ctf-committee/
+
+### pikcha2 - umass-ctf-2021
+    use opencv to solve 4 pokemon image captchas by splitting the image into 4 parts
+    https://ctftime.org/writeup/26806
 
 </p></details>
 <!-- }}} -->
@@ -3159,6 +3186,8 @@ Write-up repos used over time:
 
 * https://github.com/sajjadium/CTFium/
 * https://github.com/utisss/UTCTF-21/
+* https://gitlab.com/cybears/fall-of-cybeartron bsidescbr
+* https://github.com/zoeyg/challenges/ shakti superfund
 
 <!-- }}} -->
 

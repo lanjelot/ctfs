@@ -62,6 +62,18 @@ class MyHTTPHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             return
 
+        if '?' in self.path:
+            qs = parse_qs(self.path.split('?', 1)[1])
+
+            if 'r' in qs:
+                target = qs['r'][0]
+                logger.info(f'Location: {target}', extra={'source_ip': self.client_address[0]})
+
+                self.send_response(302)
+                self.send_header('Location', target)
+                self.end_headers()
+                return
+
         path = self.translate_path(self.path)
 
         if os.path.isdir(path):
