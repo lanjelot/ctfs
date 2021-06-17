@@ -1313,9 +1313,10 @@ Write-up repos used over time:
     or use `<SCRIPT src=/\zedD.info>` or `<SCRIPT src=/&#47;bit.ly\2Q5ZXW1>'` and `'</SCRIPT>` to comment everything out
     https://ctftime.org/task/15346
 
-### jar - angstrom-ctf-2021
+### jar & ekans - angstrom-ctf-2021
     python pickle deserialisation
     https://github.com/knightsoftheroutingtable/ctf-writeups/tree/main/2021/angstrom/jar
+    https://gist.github.com/kmh11/414313f2d4d741417e28f3877fb08edb
 
 ### watered down watermark as a service - angstrom-ctf-2021
     bson/bmp polyglot
@@ -3188,6 +3189,18 @@ Write-up repos used over time:
 * https://github.com/utisss/UTCTF-21/
 * https://gitlab.com/cybears/fall-of-cybeartron bsidescbr
 * https://github.com/zoeyg/challenges/ shakti superfund
+
+### hacker1-ctf
+
+* https://github.com/testerting/hacker101-ctf
+* https://ctf.hacker101.com/ctf
+
+### similar projects
+
+* https://github.com/apsdehal/awesome-ctf
+* https://github.com/zardus/ctf-tools
+* https://github.com/abpolym/route2ctf/
+
 
 <!-- }}} -->
 
